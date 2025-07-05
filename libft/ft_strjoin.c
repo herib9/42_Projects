@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:54:46 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 19:59:03 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:02:39 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*sirve para concatenar múltiples cadenas en una sola, separándolas con un
-delimitador, de forma personalizada*/
+/*concatena múltiples strings en uno solo, separándolos con un delimitador, de
+forma personalizada*/
 
 #include "libft.h"
 

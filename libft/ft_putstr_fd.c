@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:26:33 by hmolina           #+#    #+#             */
-/*   Updated: 2025/02/23 18:30:46 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:57:06 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*escribe una cadena (string) en el descriptor de archivo especificado*/
+//escribe una cadena (string) en el file descriptor especificado
 
 #include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
+    
 	write(fd, s, ft_strlen(s));
 }
 

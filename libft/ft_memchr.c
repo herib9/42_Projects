@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:29:07 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 17:55:57 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:50:08 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*se utiliza para buscar la primera aparición de un byte específico en un bloque
-de memoria. Toma una cadena, un caracter a buscar y un tamaño y devuelve un 
-puntero a la primera instancia del caracter en cadena o NULL si no se encuentra
-el caracter*/
+/*busca la primera aparición de un byte específico en un bloque de memoria.
+Toma una cadena, un caracter a buscar y un tamaño y devuelve un puntero a la
+primera coincidencia del caracter en cadena o NULL si no se encuentra el
+caracter*/
 
 #include "libft.h"
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 18:05:09 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 23:54:26 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:10:52 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*se utiliza para eliminar los caracteres de espacio en blanco (o cualquier
-conjunto de caracteres definidos) del principio y del final de una cadena de
-caracteres. Es útil cuando se necesita limpiar una cadena, eliminando los
-espacios innecesarios de los extremos*/
+/*elimina los caracteres de espacio en blanco (o cualquier conjunto de
+caracteres definidos) del principio y del final de un string. Es útil cuando se
+necesita limpiar una cadena, eliminando los espacios innecesarios de los 
+extremos*/
 
 #include "libft.h"
 

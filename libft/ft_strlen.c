@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:38:52 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/17 17:38:03 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:06:47 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*se utiliza para calcular la longitud de una cadena de caracteres (número de 
-caracteres que contiene), excluyendo el carácter nulo ('\0) que marca el final
-de la cadena*/
+/*calcula la longitud de una cadena de caracteres, excluyendo el carácter 
+nulo ('\0) que marca el final del string*/
 
 #include "libft.h"
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:44:51 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 18:00:25 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:51:39 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*compara los primeros n bytes de las areas de memoria s1 y s2. Devuelve
-un entero menor, igual a o mayor que cero si s1 es, respectivamente, menor, 
-igual o mayor que s2*/
+/*compara los primeros n bytes de las areas de memoria s1 y s2. Devuelve un
+entero menor, igual a o mayor que cero si s1 es, respectivamente, menor, igual
+o mayor que s2*/
 
 #include "libft.h"
 

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:24:59 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 23:28:33 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:02:00 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*aplica una función dada a cada carácter de una cadena, pasando como
-parámetros el índice del carácter y un puntero a ese carácter. Es útil para
-realizar transformaciones o modificaciones sobre cada carácter de una cadena de
-manera iterativa*/
+/*aplica una función dada a cada carácter de un string, pasando como parámetros
+el índice del carácter y un puntero a ese carácter.
+Se usa para modificar cada carácter de un string de manera iterativa*/
 
 #include "libft.h"
 

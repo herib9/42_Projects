@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:05:48 by hmolina           #+#    #+#             */
-/*   Updated: 2025/05/01 19:34:56 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:52:39 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*copia un bloque de memoria desde una ubicación a otra.*/
+//mueve un bloque de memoria desde una ubicación a otra.
 
 #include "libft.h"
 
@@ -38,7 +38,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char	*src = "Hello World!";
 	char	empty_dest[13];
@@ -47,4 +47,4 @@ int	main(void)
 	ft_memmove(empty_dest, src + 2, 6);
 	printf("dest: %s\n", empty_dest);
 	return (0);
-}
+} */

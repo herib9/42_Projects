@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:49:54 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 18:56:31 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:11:47 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*se usa para extraer una subcadena de una cadena de caracteres, su propósito
-general es tomar una porción de una cadena existente, comenzando desde una
-posición específica y con una longitud determinada*/
+/*extrae una subcadena de un string, su propósito es tomar una porción de un
+string existente, comenzando desde una posición específica y con una longitud
+determinada*/
 
 #include "libft.h"
 

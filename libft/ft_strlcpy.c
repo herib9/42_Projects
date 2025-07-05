@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 02:11:56 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 17:35:57 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:04:53 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*copia una cadena de caracteres de una fuente (source) a un destino 
+/*copia un string de caracteres de una fuente (source) a un destino
 (destination), asegurándose de no escribir más allá del límite del búfer del 
 destino. También garantiza que el búfer de destino esté siempre terminado con 
 un carácter nulo*/

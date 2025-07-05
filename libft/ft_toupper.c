@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:56:49 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 12:17:31 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:13:57 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*se utiliza para convertir un carácter en su equivalente en mayúscula, si es
-una letra minúscula. Si el carácter ya es una letra mayúscula o no es una letra
-del alfabeto, se devuelve sin cambios*/
+//convierte un char de minuscula a mayuscula
 
 #include "libft.h"
 

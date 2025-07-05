@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:43:56 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 12:45:04 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:04:28 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*concatena o une dos cadenas, src al final de dst, pero con un control 
-explícito de la longitud total del resultado*/
+/*concatena o une dos cadenas, src al final de dst, pero con un control de la
+longitud total del resultado*/
 
 #include "libft.h"
 

@@ -3,40 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:19:56 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/17 17:22:48 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:14:52 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*convierte una cadena de caracteres (string) que representa un número entero
-en su equivalente en tipo de dato numérico entero (int)*/
+/*convierte un string de char numericos a su equivalente en dato numérico
+entero (int)*/
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *s)
 {
-	int					sign;
-	unsigned long int	result;
-	int					i;
+	int     sign;
+	int     result;
+	int		i;
 
 	sign = 1;
 	result = 0;
 	i = 0;
-	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+	while (s[i] <= 32)
 		i++;
-	if (nptr[i] == '-')
+	if (s[i] == '-' || s[i] == '+')
 	{
-		sign = -1;
-		i++;
+        if (s[i] == '-')
+		    sign = -1;
+		    i++;
 	}
-	else if (nptr[i] == '+')
-		i++;
-	while (isdigit(nptr[i]))
+	while (ft_isdigit(s[i]))
 	{
-		result *= 10;
-		result += nptr[i] - '0';
+		result = result * 10 + (s[i] - '0');
 		i++;
 	}
 	return (result * sign);

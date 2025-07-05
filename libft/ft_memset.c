@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:17:55 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/17 17:32:13 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:53:20 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*La función memset() rellena los primeros n bytes del área de memoria apuntada 
-por s con el byte constante c*/
+/*rellena los primeros n bytes del bloque de memoria apuntada por s con el
+byte constante c*/
 
 #include "libft.h"
 

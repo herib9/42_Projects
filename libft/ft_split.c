@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:22:29 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 23:55:25 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:57:28 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*divide cadenas en subcadenas utilizando un delimitador*/
+//divide cadenas en subcadenas utilizando un delimitador
 
 #include "libft.h"
 

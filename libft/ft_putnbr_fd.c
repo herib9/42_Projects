@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:28:53 by hmolina           #+#    #+#             */
-/*   Updated: 2025/02/23 18:30:31 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:56:09 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*convierte un número entero a su representación en forma de cadena de
-caracteres y lo escribe en el descriptor de archivo especificado*/
+caracteres y lo escribe en el file descriptor especificado*/
 
 #include "libft.h"
 
@@ -19,6 +19,8 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	nbr;
 
+    if (fd < 0)
+        return;
 	if (n < 0)
 	{
 		write(fd, "-", 1);

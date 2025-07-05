@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:24:09 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 23:28:33 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:07:47 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*crear una nueva cadena aplicando una función a cada carácter de una cadena
-existente, teniendo en cuenta el índice del carácter*/
+/*crear una nueva cadena aplicando una función a cada carácter del string
+existente, teniendo en cuenta la posicion del carácter*/
 
 #include "libft.h"
 

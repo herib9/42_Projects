@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:27:19 by hmolina           #+#    #+#             */
-/*   Updated: 2025/02/23 18:30:15 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:55:36 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*escribe una cadena de caracteres seguida de un salto de línea (\n) en un
-descriptor de archivo específico. Es útil para escribir líneas completas en
-archivos o flujos de salida, agregando automáticamente el salto de línea al
-final*/
+file descriptor específico. Es útil para escribir líneas completas en archivos o
+flujos de salida, agregando automáticamente el salto de línea al final*/
 
 #include "libft.h"
 

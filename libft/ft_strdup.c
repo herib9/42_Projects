@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:48:51 by hmolina           #+#    #+#             */
-/*   Updated: 2024/12/20 20:03:57 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 04:00:14 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*se utiliza para duplicar una cadena de caracteres. Toma una cadena como
-entrada, asigna dinámicamente memoria suficiente para copiarla, y devuelve un
-puntero a la nueva cadena duplicada. Es una función muy útil cuando necesitas 
-trabajar con una copia de una cadena sin modificar la original.*/
+/*duplica una cadena de caracteres. Toma un string como entrada, asigna
+dinámicamente memoria suficiente para copiarla, y devuelve un puntero al nuevo
+string duplicado. 
+Se usa para trabajar con una copia de un string sin modificar el original.*/
 
 #include "libft.h"
 

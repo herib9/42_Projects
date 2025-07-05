@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:25:33 by hmolina           #+#    #+#             */
-/*   Updated: 2025/02/22 20:45:35 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/04 03:54:43 by heri             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*escribe un carácter en un descriptor de archivo específico. Sus usos son:
-1. Enviar mensajes de depuración o errores a stderr. 2. Escribir en archivos
-abiertos mediante descriptores de archivo personalizados. 3. Modularizar el
-código en proyectos más grandes como los realizados en escuelas que utilizan
-Libft.*/
+/*escribe un carácter en un archivo de txt. Sus usos son:
+1. Enviar mensajes de depuración o errores a stderr
+2. Escribir en archivos abiertos mediante file descriptor personalizados
+3. Modularizar el código en proyectos más grandes como los realizados en
+escuelas que utilizan Libft.*/
 
 #include "libft.h"
 
