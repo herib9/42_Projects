@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*crear una nueva cadena aplicando una función a cada carácter del string
+/*crea una nueva cadena aplicando una función a cada carácter del string
 existente, teniendo en cuenta la posicion del carácter*/
 
 #include "libft.h"
