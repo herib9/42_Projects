@@ -6,24 +6,24 @@
 /*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:37:32 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/16 00:12:53 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/19 23:55:14 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_putchar_fd (char s, int fd)
+void	ft_putchar_fd(char s, int fd)
 {
 	write(fd, &s, 1);
 }
 
-void	ft_putstr_fd (char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
 	i = 0;
 	if (!s)
-		return;
+		return ;
 	while (s[i])
 	{
 		ft_putchar_fd(s[i], fd);
@@ -50,4 +50,31 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	else
 		ft_putchar_fd(n + '0', fd);
+}
+
+int	ft_atoi(char *s)
+{
+	int	i;
+	int	num;
+	int	signo;
+
+	i = 0;
+	num = 0;
+	signo = 1;
+	while (s[i] <= 32)
+		i++;
+	if (s[i] == '-' || s[i] == '+')
+	{
+		if (s[i] == '-')
+		{
+			signo = -1;
+		}
+		i++;
+	}
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		num = num * 10 + (s[i] - '0');
+		i++;
+	}
+	return (num * signo);
 }

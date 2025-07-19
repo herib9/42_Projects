@@ -6,7 +6,7 @@
 /*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:37:37 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/17 23:57:54 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/19 23:54:56 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,21 @@ void	process_char(char add_char, char *buffer, int *buffer_position)
 	{
 		if (*buffer_position > 0)
 		{
-
+			buffer[*buffer_position] = '\0';
 			write(1, buffer, *buffer_position);
 			write(1, "\n", 1);
 			*buffer_position = 0;
 		}
 	}
-	else
-	{
+	else if (*buffer_position < 4095)
 		buffer[(*buffer_position)++] = add_char;
-		if (*buffer_position >= 1023) // || add_char == '\n')
-		{
-			write(1, buffer, *buffer_position);
-			*buffer_position = 0;
-		}
-	}
 }
 
 void	handle_signal(int signum)
 {
 	static char	add_char = 0;
 	static int	add_bit_count = 0;
-	static char	buffer[10000] = {0};
+	static char	buffer[4096] = {0};
 	static int	buffer_position = 0;
 
 	if (signum == SIGUSR1)
@@ -58,12 +51,13 @@ void	handle_signal(int signum)
 int	main(void)
 {
 	int	pid;
-	
+
 	pid = getpid();
-	printf("%s\n", "WELCOME 2 The MINITALK HERIB9\n");
+	write(1, "WELCOME 2 The MINITALK HERIB9\n", 30);
+	write(1, "\n", 1);
 	write(1, "Your PID is: ", 13);
 	ft_putnbr_fd(pid, 1);
-	write(1, ".\n", 2);
+	write(1, "\n", 1);
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while (1)

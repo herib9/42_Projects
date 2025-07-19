@@ -6,38 +6,11 @@
 /*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:37:20 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/17 23:37:06 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/19 23:53:22 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-int	ft_atoi (char *s)
-{
-	int	i;
-	int	num;
-	int	signo;
-
-	i = 0;
-	num = 0;
-	signo = 1;
-	while (s[i] <= 32)
-		i++;
-	if (s[i] == '-' || s[i] == '+')
-	{
-		if (s[i] == '-')
-		{
-			signo = -1;
-		}
-		i++;
-	}
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		num = num * 10 + (s[i] - '0');
-		i++;
-	}
-	return (num * signo);
-}
 
 void	send_signal(int pid, int sig)
 {
@@ -70,7 +43,7 @@ int	main(int ac, char **av)
 {
 	int	pid;
 	int	i;
-	
+
 	if (ac != 3)
 	{
 		ft_putstr_fd("Uso: ./client [PID del servidor] [mensaje]\n", 2);
