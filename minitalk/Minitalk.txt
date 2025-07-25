@@ -1,6 +1,8 @@
 ¿QUÉ SON LAS SEÑALES UNIX?
 
-Las señales UNIX son un mecanismo de comunicación entre procesos en sistemas operativos basados en UNIX (como Linux, macOS, BSD, etc.). Permiten que el sistema operativo o un proceso notifiquen a otro proceso sobre un evento importante, como una solicitud de terminación, una interrupción o un error.
+Las señales UNIX son un mecanismo de comunicación entre procesos en sistemas operativos basados en UNIX (como 
+Linux, macOS, BSD, etc.). Permiten que el sistema operativo o un proceso notifiquen a otro proceso sobre un
+evento importante, como una solicitud de terminación, una interrupción o un error.
 
 Características principales
 - Asíncronas: Llegan en cualquier momento, sin que el proceso receptor las espere.
@@ -66,7 +68,8 @@ void handle_signal(int sig)
 signal(SIGUSR1, handle_signal);
 signal(SIGUSR2, handle_signal);
 
-Analogía: Es como decirle a tu amigo: "Si me tocas el hombro izquierdo, entenderé que es 0. Si me tocas el derecho, entenderé que es 1"
+Analogía: Es como decirle a tu amigo: "Si me tocas el hombro izquierdo, entenderé que es 0. Si me tocas el
+derecho, entenderé que es 1"
 
 
 2. KILL() - "ENVIAR LA SEÑAL"
