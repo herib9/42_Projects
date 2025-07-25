@@ -1,36 +1,34 @@
 ¿QUÉ SON LAS SEÑALES UNIX?
-
 Las señales UNIX son un mecanismo de comunicación entre procesos en sistemas operativos basados en UNIX (como 
 Linux, macOS, BSD, etc.). Permiten que el sistema operativo o un proceso notifiquen a otro proceso sobre un
 evento importante, como una solicitud de terminación, una interrupción o un error.
 
-Características principales
+
+CARACTERISTICAS PRINCIPALES
 - Asíncronas: Llegan en cualquier momento, sin que el proceso receptor las espere.
 - Predefinidas: Hay señales estándar (ej: SIGKILL, SIGTERM) con comportamientos definidos.
 - Pueden ser manejadas: Un proceso puede decidir cómo responder (ignorar, ejecutar una función, terminar).
 
-Señales UNIX más comunes
 
-Señal	Número	Descripción
-SIGINT	2	Interrupción desde teclado (Ctrl+C). Termina el proceso de forma controlada.
-SIGTERM	15	Terminación "amigable" (por defecto, el proceso puede manejarla).
-SIGKILL	9	Terminación forzosa (no se puede ignorar ni manejar).
-SIGSEGV	11	Violación de segmento (acceso inválido a memoria).
-SIGUSR1	10	Señal definida por el usuario (uso personalizado).
-SIGUSR2	12	Otra señal para uso personalizado.
-SIGSTOP	19	Pausa el proceso (no se puede manejar).
-SIGCONT	18	Reanuda un proceso detenido.
+SEÑALES UNIX MAS COMUNES
+Señal		Número	Descripción
+SIGINT		2	Interrupción desde teclado (Ctrl+C). Termina el proceso de forma controlada.
+SIGTERM		15	Terminación "amigable" (por defecto, el proceso puede manejarla).
+SIGKILL		9	Terminación forzosa (no se puede ignorar ni manejar).
+SIGSEGV		11	Violación de segmento (acceso inválido a memoria).
+SIGUSR1		10	Señal definida por el usuario (uso personalizado).
+SIGUSR2		12	Otra señal para uso personalizado.
+SIGSTOP		19	Pausa el proceso (no se puede manejar).
+SIGCONT		18	Reanuda un proceso detenido.
 
 
 PID = PROCESS ID (IDENTIFICADOR DE PROCESO)
-
 Cada programa que se ejecuta en tu computadora tiene un número único llamado PID
 Es como el DNI de un programa
 Ejemplo: si ejecutas el programa "servidor", podría tener PID = 12345
 
 
-
-¿Qué son las señales SIGUSR1 y SIGUSR2?
+¿QUE SON LAS SEÑALES SIGUSR1 Y SIGUSR2?
 Las señales son como "toques en el hombro" que un programa puede enviar a otro.
 
 🚨 Analogía simple:
@@ -50,9 +48,7 @@ SIGUSR2 = "¡Hey, esto representa un 1!"
 // SIGUSR2 (1)
 
 
-
 FUNCIONES CLAVE EXPLICADAS
-
 1. SIGNAL() O SIGACTION() - "CONFIGURAR EL RECEPTOR"
 ¿Qué hace? Le dice al programa: "Cuando alguien me envíe una señal, ejecuta esta función"
 
@@ -146,5 +142,3 @@ int main(int argc, char **argv)
         usleep(100);                 // Esperar un poquito    
         kill(server_pid, SIGUSR2);  // Enviar un 1
 }
-
-
