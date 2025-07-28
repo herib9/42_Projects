@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:53:17 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/21 18:16:26 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/28 01:59:12 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ char	*gnl_strjoin(char *s1, char *s2);
 
 // === FT_PRINTF ===
 
-int     ft_printf(const char *str, ...);
-int     ft_put_hex(unsigned int n, char format);
-int     ft_put_char(int c);
-int     ft_put_nbr(long c);
-int     ft_put_str(char *str);
-int     ft_put_ptr(unsigned long ptr, int flag);
-int     ft_unsigned(unsigned int n);
+int		ft_printf(const char *str, ...);
+int		ft_put_hex(unsigned int n, char format);
+int		ft_put_char(int c);
+int		ft_put_nbr(long c);
+int		ft_put_str(char *str);
+int		ft_put_ptr(unsigned long ptr, int flag);
+int		ft_unsigned(unsigned int n);
 
 #endif

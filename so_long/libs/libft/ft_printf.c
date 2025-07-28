@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:50:05 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/21 18:16:09 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/28 01:59:58 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ int	ft_printf(const char *str, ...)
 	print("x = %d, y = %d", x, y);
 	return (0);
 }*/
-	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:00:19 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/23 21:34:23 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/28 01:59:36 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	main(int argc, char **argv)
 		printf("Error to open file %s\n", argv[1]);
 		return (1);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while ((line == get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);

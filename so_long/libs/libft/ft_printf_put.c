@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_put.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:48:39 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/21 18:15:50 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/28 02:04:12 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,6 @@ int	ft_unsigned(unsigned int n)
 		count += ft_unsigned(n / 10);
 	digit = (n % 10) + '0';
 	count += write(1, &digit, 1);
-	return (count);
-}
-
-int	ft_put_hex(unsigned int n, char format)
-{
-	const char		*hex_low = "0123456789abcdef";
-	const char		*hex_up = "0123456789ABCDEF";
-	int				count;
-
-	count = 0;
-	if (n >= 16)
-		count += ft_put_hex(n / 16, format);
-	if (format == 'x')
-		count += write(1, &hex_low[n % 16], 1);
-	else
-		count += write(1, &hex_up[n % 16], 1);
 	return (count);
 }
 
