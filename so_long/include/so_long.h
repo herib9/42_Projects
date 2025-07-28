@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
@@ -6,14 +6,14 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:18:54 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/24 19:36:14 by hmolina          ###   ########.fr       */
+/*   Updated: 2025/07/28 02:04:50 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// librerias
+// == LIBRERIES ==
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -22,24 +22,51 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
-// constantes del juego
+// == GAME CONSTANTS ==
 # define TILE_SIZE 64
 
-// estructura del juego
+// == GAME STRUCTURES ==
 typedef struct s_game
 {
-	int	total_collectibles;
+	// == GRAPHICS CONNECTION ==
+	void	*mlx;
+	void	*win;
+
+	// == SPRITES ==
+	void	*img_wall;
+	void	*img_floor;
+	void	*img_player;
+	void	*img_collectible;
+	void	*img_exit;
+
+	// == MAP ==
+	char	**map;
+	int		map_width;
+	int		map_height;
+
+	// == PLAYER POSITION ==
+	int		player_x;
+	int		player_y;
+
+	// == EXIT POSITION ==
+	int		exit_x;
+	int		exit_y;
+
+	// == STATS ==
+	int		moves;
+	int		collected;
+	int		total_collectibles;
+
 }	t_game;
 
-
-// elementos del mapa
+// == MAP ELEMENTS ==
 # define EMPTY '0'
 # define WALL '1'
 # define COLLECTIBLE 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
 
-// codigos de teclas
+// == KEY CODES ==
 # define KEY_W		119
 # define KEY_S		115
 # define KEY_A		97
@@ -50,14 +77,4 @@ typedef struct s_game
 # define KEY_RIGHT	65363
 # define KEY_ESC	65307
 
-
-
-
-
-
-
-
-
-
-
-
+#endif
