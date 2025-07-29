@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:18:54 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/28 02:04:50 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/07/29 22:53:11 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef struct s_game
 	int		collected;
 	int		total_collectibles;
 
+	// == ELEMENTS ==
+	int		player;
+	int		exit;
+	int		collectible;
+	
+
 }	t_game;
 
 // == MAP ELEMENTS ==
@@ -76,5 +82,32 @@ typedef struct s_game
 # define KEY_LEFT	65361
 # define KEY_RIGHT	65363
 # define KEY_ESC	65307
+
+int		main(int ac, char **av);
+
+// == INPUT FUNCTIONS ==
+int		keymap(int keycode, t_game *game);
+int		close_game(t_game *game);
+void	handle_collectible(t_game *game);
+void	check_win(t_game *game);
+
+// == PLAYER FUNCTIONS ==
+void	find_player_position(t_game *game);
+void	find_exit_position(t_game *game);
+void	count_collectibles(t_game *game);
+char	**asignement_n_read_lines(int fd);
+
+// == MAP FUNCTIONS ==
+char	**read_map(char *filename);
+int		map_loading_error(char **map, char *filename);
+void	free_map(char **map);
+void	calculate_map_size(t_game *game);
+
+// == VALIDATE FUNCTIONS ==
+int		count_map_height(char **map);
+int		is_rectangular(char **map, int height, int width);
+int		check_walls(char **map, int height, int width);
+int 	check_elements(char **map, int height, int width);
+int		validate_map(char **map);
 
 #endif
