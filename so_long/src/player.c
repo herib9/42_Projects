@@ -6,27 +6,13 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:57:00 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/28 02:17:08 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/07/29 21:48:56 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	keymap(int keycode, t_game *game)
-{
-	if (keycode == KEY_ESCAPE)
-		close_handler(game);
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		move_down(game, 0, -1);
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-		move_right(game, 1, 0);
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
-		move_left(game, -1, 0);
-	else if (keycode == KEY_W || keycode == KEY_UP)
-		move_up(game, 0, -1);
-}
-
-void	fing_player_position(t_game *game)
+void	find_player_position(t_game *game)
 {
 	int	x;
 	int	y;
@@ -51,8 +37,8 @@ void	fing_player_position(t_game *game)
 
 void	find_exit_position(t_game *game)
 {
-	int	x;
 	int	y;
+	int	x;
 	
 	y = 0;
 	while (y < game->map_height)
@@ -90,4 +76,9 @@ void	count_collectibles(t_game *game)
 		}
 		y++;
 	}
+}
+
+void	move_player(t_game *game, int dx, int dy)
+{
+	
 }

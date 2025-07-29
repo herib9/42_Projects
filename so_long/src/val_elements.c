@@ -1,34 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   val_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 01:37:45 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/30 01:40:28 by hmolina          ###   ########lyon.fr   */
+/*   Created: 2025/07/29 21:59:51 by hmolina           #+#    #+#             */
+/*   Updated: 2025/07/29 22:13:26 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 
-int	main(int ac, char **av)
-{
-	t_game	*game;
-
-	if (ac != 2)
-	{
-		ft_printf("Error\nUse: ./so_long/maps <map.ber>\n");
-		return (1);
-	}
-	game->map(av[1]);
-	if (!game)
-	{
-		ft_printf("&s\n", Error to load map);
-		return (1);
-	}
-	start_game(&game);
-	return (0);
-}
-
-//mxl_key_hook(game.win, keymap, &game);

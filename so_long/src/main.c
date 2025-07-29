@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 01:37:45 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/30 01:40:28 by hmolina          ###   ########lyon.fr   */
+/*   Created: 2025/07/29 19:51:00 by hmolina           #+#    #+#             */
+/*   Updated: 2025/07/29 19:55:08 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	t_game	*game;
+	t_game *game;
+	char *map[0] = "11111";
+	char *map[1] = "1ECP1";
+	char *map[2] = "11111";
 
-	if (ac != 2)
-	{
-		ft_printf("Error\nUse: ./so_long/maps <map.ber>\n");
-		return (1);
-	}
-	game->map(av[1]);
-	if (!game)
-	{
-		ft_printf("&s\n", Error to load map);
-		return (1);
-	}
-	start_game(&game);
-	return (0);
+	
+	
 }
-
-//mxl_key_hook(game.win, keymap, &game);

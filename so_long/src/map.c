@@ -6,13 +6,13 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 19:41:19 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/28 02:19:19 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/07/28 19:44:54 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static char	**asignement_n_read_lines(int fd)
+char	**asignement_n_read_lines(int fd)
 {
 	char	**map;
 	char	*line;
@@ -22,7 +22,7 @@ static char	**asignement_n_read_lines(int fd)
 	if (!map)
 		return (NULL);
 	i = 0;
-	while ((line == get_next_line(fd)) != NULL)
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		if (line && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
@@ -90,7 +90,7 @@ void	calculate_map_size(t_game *game)
 		height++;
 	game->map_height = height;
 	if (height > 0)
-		game->map_width = ft_strelen(game->map[0]);
+		game->map_width = ft_strlen(game->map[0]);
 	else
 		game->map_width = 0;
 }
