@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 19:41:19 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/28 19:44:54 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/07/31 20:42:32 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	**asignement_n_read_lines(int fd)
 	if (!map)
 		return (NULL);
 	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (line && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
@@ -30,6 +31,7 @@ char	**asignement_n_read_lines(int fd)
 		i++;
 		if (i >= 99)
 			break ;
+		line = get_next_line(fd);
 	}
 	map[i] = NULL;
 	return (map);
@@ -81,16 +83,16 @@ void	free_map(char **map)
 	free(map);
 }
 
-void	calculate_map_size(t_game *game)
+void	calculate_map_size(t_game *g)
 {
 	int	height;
 
 	height = 0;
-	while (game->map[height])
+	while (g->map[height])
 		height++;
-	game->map_height = height;
+	g->map_height = height;
 	if (height > 0)
-		game->map_width = ft_strlen(game->map[0]);
+		g->map_width = ft_strlen(g->map[0]);
 	else
-		game->map_width = 0;
+		g->map_width = 0;
 }

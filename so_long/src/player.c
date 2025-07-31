@@ -6,27 +6,27 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:57:00 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/29 21:48:56 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/07/31 19:35:46 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	find_player_position(t_game *game)
+void	find_player_position(t_game *g)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < game->map_height)
+	while (y < g->map_height)
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (x < g->map_width)
 		{
-			if (game->map[y][x] == PLAYER)
+			if (g->map[y][x] == PLAYER)
 			{
-				game->player_x = x;
-				game->player_y = y;
+				g->p_x = x;
+				g->p_y = y;
 				return ;
 			}
 			x++;
@@ -35,21 +35,21 @@ void	find_player_position(t_game *game)
 	}
 }
 
-void	find_exit_position(t_game *game)
+void	find_exit_position(t_game *g)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
-	while (y < game->map_height)
+	while (y < g->map_height)
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (x < g->map_width)
 		{
-			if (game->map[y][x] == EXIT)
+			if (g->map[y][x] == EXIT)
 			{
-				game->exit_x = x;
-				game->exit_y = y;
+				g->exit_x = x;
+				g->exit_y = y;
 				return ;
 			}
 			x++;
@@ -58,27 +58,22 @@ void	find_exit_position(t_game *game)
 	}
 }
 
-void	count_collectibles(t_game *game)
+void	count_coin(t_game *g)
 {
 	int	x;
 	int	y;
 
-	game->total_totallectibles = 0;
+	g->t_coin = 0;
 	y = 0;
-	while (y < game->map_height)
+	while (y < g->map_height)
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (x < g->map_width)
 		{
-			if (game->map[y][x] == COLLECTIBLE)
-				game->total_collectibles++;
+			if (g->map[y][x] == COIN)
+				g->t_coin++;
 			x++;
 		}
 		y++;
 	}
-}
-
-void	move_player(t_game *game, int dx, int dy)
-{
-	
 }
