@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:18:54 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/29 22:53:11 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/07/31 23:49:15 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,10 @@
 // == GAME CONSTANTS ==
 # define TILE_SIZE 64
 
-// == GAME STRUCTURES ==
-typedef struct s_game
-{
-	// == GRAPHICS CONNECTION ==
-	void	*mlx;
-	void	*win;
-
-	// == SPRITES ==
-	void	*img_wall;
-	void	*img_floor;
-	void	*img_player;
-	void	*img_collectible;
-	void	*img_exit;
-
-	// == MAP ==
-	char	**map;
-	int		map_width;
-	int		map_height;
-
-	// == PLAYER POSITION ==
-	int		player_x;
-	int		player_y;
-
-	// == EXIT POSITION ==
-	int		exit_x;
-	int		exit_y;
-
-	// == STATS ==
-	int		moves;
-	int		collected;
-	int		total_collectibles;
-
-	// == ELEMENTS ==
-	int		player;
-	int		exit;
-	int		collectible;
-	
-
-}	t_game;
-
 // == MAP ELEMENTS ==
 # define EMPTY '0'
 # define WALL '1'
-# define COLLECTIBLE 'C'
+# define COIN 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
 
@@ -83,31 +43,81 @@ typedef struct s_game
 # define KEY_RIGHT	65363
 # define KEY_ESC	65307
 
+// == GAME STRUCTURES ==
+typedef struct s_game
+{
+	// == GRAPHICS CONNECTION ==
+	void	*mlx;
+	void	*win;
+
+	// == SPRITES ==
+	void	*_1;
+	void	*_0;
+	void	*_p;
+	void	*_c;
+	void	*_e;
+
+	// == MAP ==
+	char	**map;
+	int		map_width;
+	int		map_height;
+
+	// == PLAYER POSITION ==
+	int		p_x;
+	int		p_y;
+
+	// == EXIT POSITION ==
+	int		exit_x;
+	int		exit_y;
+
+	// == STATS ==
+	int		moves;
+	int		coined;
+	int		t_coin;
+
+	// == ELEMENTS ==
+	int		player;
+	int		exit;
+	int		coin;
+
+}	t_game;
+
 int		main(int ac, char **av);
 
-// == INPUT FUNCTIONS ==
-int		keymap(int keycode, t_game *game);
-int		close_game(t_game *game);
-void	handle_collectible(t_game *game);
-void	check_win(t_game *game);
+// == GRAPHICS FUNCTIONS ==
+int		load_sprites(t_game *g);
+int		init_graphics(t_game *g);
+void	render_map(t_game *g);
+void	render_coin(t_game *g, int x, int y);
+void	render_exit(t_game *g, int x, int y);
 
-// == PLAYER FUNCTIONS ==
-void	find_player_position(t_game *game);
-void	find_exit_position(t_game *game);
-void	count_collectibles(t_game *game);
-char	**asignement_n_read_lines(int fd);
+// == INPUT FUNCTIONS ==
+int		close_game(t_game *g);
+int		close_handler(t_game *g);
+void	handle_coin(t_game *g);
+//void	check_win(t_game *g);
 
 // == MAP FUNCTIONS ==
+char	**asignement_n_read_lines(int fd);
 char	**read_map(char *filename);
 int		map_loading_error(char **map, char *filename);
 void	free_map(char **map);
-void	calculate_map_size(t_game *game);
+void	calculate_map_size(t_game *g);
+
+// == MOVEMENT FUNCIONTS ==
+int		keymap(int keycode, t_game *g);
+void	move_player(t_game *g, int dx, int dy);
+
+// == PLAYER FUNCTIONS ==
+void	find_player_position(t_game *g);
+void	find_exit_position(t_game *g);
+void	count_coin(t_game *g);
 
 // == VALIDATE FUNCTIONS ==
 int		count_map_height(char **map);
 int		is_rectangular(char **map, int height, int width);
-int		check_walls(char **map, int height, int width);
-int 	check_elements(char **map, int height, int width);
 int		validate_map(char **map);
+int		check_walls(t_game *g);
+void	check_elements(t_game *game);
 
 #endif
