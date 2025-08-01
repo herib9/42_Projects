@@ -70,7 +70,7 @@ void	ft_putnbr_fd(int n, int fd);
 // BONUS
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
+int	ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
@@ -90,12 +90,12 @@ char	*gnl_strjoin(char *s1, char *s2);
 
 // === FT_PRINTF ===
 
-int		ft_printf(const char *str, ...);
-int		ft_put_hex(unsigned int n, char format);
-int		ft_put_char(int c);
-int		ft_put_nbr(long c);
-int		ft_put_str(char *str);
-int		ft_put_ptr(unsigned long ptr, int flag);
-int		ft_unsigned(unsigned int n);
+int	ft_printf(const char *str, ...);
+int	ft_put_hex(unsigned int n, char format);
+int	ft_put_char(int c);
+int	ft_put_nbr(long c);
+int	ft_put_str(char *str);
+int	ft_put_ptr(unsigned long ptr, int flag);
+int	ft_unsigned(unsigned int n);
 
 #endif

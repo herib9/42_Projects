@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:00:19 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/28 01:59:36 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/01 21:56:23 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*get_next_line(int fd)
 	}
 }*/
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	int		fd;
 	char	*line;
@@ -141,4 +141,4 @@ int	main(int argc, char **argv)
 	}
 	close(fd);
 	return (0);
-}
+}*/
