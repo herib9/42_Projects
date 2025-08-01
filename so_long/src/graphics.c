@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:59:51 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/31 23:38:46 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/01 22:07:40 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ void	render_map(t_game *g)
 				mlx_put_image_to_window(g->mlx, g->win, g->_1, x * 64, y * 64);
 			else if (g->map[y][x] == EMPTY)
 				mlx_put_image_to_window(g->mlx, g->win, g->_0, x * 64, y * 64);
+			else if (g->map[y][x] == COIN)
+				render_coin(g, x, y);
 			else if (g->map[y][x] == EXIT)
-			{
-				mlx_put_image_to_window(g->mlx, g->win, g->_0, x * 64, y * 64);
-				mlx_put_image_to_window(g->mlx, g->win, g->_e, x * 64, y * 64);
-			}
+				render_exit(g, x, y);
 			x++;
 		}
 		y++;
@@ -70,7 +69,7 @@ void	render_map(t_game *g)
 
 void	render_coin(t_game *g, int x, int y)
 {
-	mlx_put_image_to_window(g->mlx, g->win, g->_1, x * 64, y * 64);
+	mlx_put_image_to_window(g->mlx, g->win, g->_0, x * 64, y * 64);
 	mlx_put_image_to_window(g->mlx, g->win, g->_c, x * 64, y * 64);
 }
 

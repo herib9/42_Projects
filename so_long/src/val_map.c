@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:23:39 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/31 23:50:15 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/01 22:01:40 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_walls(t_game *g)
 	y = 0;
 	while (y < g->map_height)
 	{
-		if (g->map[y][0] != '1' || g->map[g->map_width - 1] != '1')
+		if (g->map[y][0] != '1' || g->map[y][g->map_width - 1] != '1')
 			return (ft_printf("Error, Walls opened at width%i\n", y), 1);
 		y++;
 	}
@@ -78,7 +78,7 @@ int	check_walls(t_game *g)
 	return (0);
 }
 
-void	check_elements(t_game *g)
+void	check_elements(t_game *game)
 {
 	int	y;
 	int	x;
