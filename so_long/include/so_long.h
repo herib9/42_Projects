@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:18:54 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/31 23:49:15 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/07 19:14:18 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // == LIBRERIES ==
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <fcntl.h>
 # include "libft.h"
 # include "../libs/minilibx/mlx.h"
@@ -82,7 +83,18 @@ typedef struct s_game
 
 }	t_game;
 
-int		main(int ac, char **av);
+// == CHECK FUNCTIONS ==
+int		check_walls(t_game *g);
+void	check_elements(t_game *game);
+int		check_valid_chars(t_game *g);
+int		check_coins_accesibility(t_game *g);
+int		check_exit_accesibility(t_game *g);
+
+// == FLOOD_FILL ==
+char	**copy_map(char **map, int height);
+void	flood_fill(char **map, int x, int y, t_game *g);
+void	exit_flood_fill(char **map, int x, int y, t_game *g);
+int		check_player_can_move(t_game *g);
 
 // == GRAPHICS FUNCTIONS ==
 int		load_sprites(t_game *g);
@@ -95,7 +107,7 @@ void	render_exit(t_game *g, int x, int y);
 int		close_game(t_game *g);
 int		close_handler(t_game *g);
 void	handle_coin(t_game *g);
-//void	check_win(t_game *g);
+void	update_stats_display(t_game *g);
 
 // == MAP FUNCTIONS ==
 char	**asignement_n_read_lines(int fd);
@@ -107,11 +119,18 @@ void	calculate_map_size(t_game *g);
 // == MOVEMENT FUNCIONTS ==
 int		keymap(int keycode, t_game *g);
 void	move_player(t_game *g, int dx, int dy);
+void	update_stats_display(t_game *g);
 
 // == PLAYER FUNCTIONS ==
 void	find_player_position(t_game *g);
 void	find_exit_position(t_game *g);
 void	count_coin(t_game *g);
+
+// == SO_LONG ==
+int		st_val_map(t_game *g, char *filename);
+int		nd_val_map(t_game *g);
+int		init_game(t_game *g);
+int		main(int ac, char **av);
 
 // == VALIDATE FUNCTIONS ==
 int		count_map_height(char **map);

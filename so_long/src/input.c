@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:23:26 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/31 23:17:33 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/06 23:32:42 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	close_handler(t_game *g)
 int	close_game(t_game *g)
 {
 	if (g->_0)
-		mlx_destroy_image (g->mlx, g->_0);
+		mlx_destroy_image(g->mlx, g->_0);
 	if (g->_1)
 		mlx_destroy_image(g->mlx, g->_1);
 	if (g->_p)
@@ -41,10 +41,5 @@ int	close_game(t_game *g)
 
 void	handle_coin(t_game *g)
 {
-	ft_printf("Coins collected: %i/%i\n", g->coined, g->t_coin);
+	ft_printf(" Coins collected: %i/%i\n", g->coined, g->t_coin);
 }
-
-/*void	check_win(t_game *game)
-{
-	
-}*/

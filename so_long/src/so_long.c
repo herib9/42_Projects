@@ -6,11 +6,56 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 01:37:45 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/01 00:05:06 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/07 01:17:39 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	st_val_map(t_game *g, char *filename)
+{
+	g->map = read_map(filename);
+	if (!g->map)
+		return (0);
+	if (!validate_map(g->map))
+		return (free_map(g->map), 0);
+	calculate_map_size(g);
+	if (check_walls(g))
+		return (free_map(g->map), 0);
+	check_elements(g);
+	if (g->player != 1 || g->exit != 1 || g->coin < 1)
+		return (ft_printf("Invalid map elements\n"), free_map(g->map), 0);
+	if (!check_valid_chars(g))
+		return (free_map(g->map), 0);
+	return (1);
+}
+
+int	nd_val_map(t_game *g)
+{
+	find_player_position(g);
+	find_exit_position(g);
+	count_coin(g);
+	if (!check_player_can_move(g))
+		return (free_map(g->map), 0);
+	if (!check_coins_accesibility(g))
+		return (free_map(g->map), 0);
+	if (!check_exit_accesibility(g))
+		return (free_map(g->map), 0);
+	return (1);
+}
+
+int	init_game(t_game *g)
+{
+	if (!init_graphics(g))
+		return (free_map(g->map), 0);
+	mlx_key_hook(g->win, keymap, g);
+	mlx_hook(g->win, 17, 0, close_game, g);
+	render_map(g);
+	ft_printf("So_Long is comming!\n");
+	update_stats_display(g);
+	mlx_loop(g->mlx);
+	return (1);
+}
 
 int	main(int ac, char **av)
 {
@@ -19,15 +64,16 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("Error\nUse: ./so_long/maps <map.ber>\n"), 1);
 	ft_memset(&game, 0, sizeof(t_game));
-	game.map = read_map(av[1]);
-	if (!game.map)
+	if (!st_val_map(&game, av[1]))
 		return (1);
-	if (!validate_map(game.map))
-		return (free_map(game.map), 1);
-	calculate_map_size(&game);
-	if (check_walls(&game))
-		return (free_map(game.map), 1);
-	check_elements(&game);
+	if (!nd_val_map(&game))
+		return (1);
+	if (!init_game(&game))
+		return (1);
+	return (0);
+}
+
+/*check_elements(&game);
 	if (game.player != 1 || game.exit != 1 || game.coin < 1)
 		return (ft_printf("Error\nInvalid map elements\n"),
 			free_map(game.map), 1);
@@ -39,8 +85,5 @@ int	main(int ac, char **av)
 	mlx_key_hook(game.win, keymap, &game);
 	mlx_hook(game.win, 17, 0, close_game, &game);
 	render_map(&game);
-	mlx_loop(game.mlx);
-	return (0);
-}
-
-	//start_game(&game);
+	ft_printf("🎮 So_Long Started!\n");
+	mlx_loop(game.mlx);*/
