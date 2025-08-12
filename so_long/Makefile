@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 # archivos fuente proyecto principal
-SRCS = $(wildcard src/*.c)
+SRCS = $(shell find src -type f -maxdepth 1 -name "*.c")
 
 # archivos objeto
 OBJS = $(SRCS:.c=.o)
@@ -19,7 +19,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MINILIBX = $(MINILIBX_DIR)/libmlx.a
 
 # headers
-INCLUDES = -I include -I $(LIBFT_DIR) -I $(MINILIBX_DIR)/include
+INCLUDES = -Iinclude -I $(LIBFT_DIR) -I $(MINILIBX_DIR)/include
 
 # librerias del sistema para MINILIBX
 MINILIBX_LIBS = -lX11 -lXext
@@ -55,7 +55,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	@make -C $(LIBFT_DIR) fclean
-	@make -C $(MINILIBX_DIR) fclean
+	@make -C $(MINILIBX_DIR) clean || true
 
 # recompilar
 re: fclean all

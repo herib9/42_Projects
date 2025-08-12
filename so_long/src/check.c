@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:31:25 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/07 19:22:54 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/12 20:22:16 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,12 @@ int	check_valid_chars(t_game *g)
 		{
 			c = g->map[y][x];
 			if (c != '1' && c != '0' && c != 'C' && c != 'E' && c != 'P')
-				return (ft_printf("Invalid char '%c' at position [%d,%d]\n",
-						c, y, x), 0);
+			{
+				
+				ft_printf("Error\nInvalid char '%c' at position [%d,%d]\n", 
+						c, y, x);
+				return (0);
+			}	
 			x++;
 		}
 		y++;

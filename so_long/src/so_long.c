@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 01:37:45 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/07 01:17:39 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/12 20:24:25 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	st_val_map(t_game *g, char *filename)
 		return (free_map(g->map), 0);
 	check_elements(g);
 	if (g->player != 1 || g->exit != 1 || g->coin < 1)
-		return (ft_printf("Invalid map elements\n"), free_map(g->map), 0);
+	{
+		ft_printf("Error\nInvalid map elements\n"), free_map(g->map);
+		return (0);
+	}
 	if (!check_valid_chars(g))
 		return (free_map(g->map), 0);
 	return (1);
