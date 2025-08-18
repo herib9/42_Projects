@@ -1,7 +1,6 @@
 # Colores
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
-RED = \033[0;31m
 BLUE = \033[0;34m
 RESET = \033[0m
 
@@ -37,7 +36,7 @@ RM = rm -f
 all: $(NAME)
 	@echo "$(GREEN)✅ $(NAME) SUCCESSFULLY COMPILED!$(RESET)"
 
-# compilar MLX42
+# compilar minilibx
 $(MINILIBX):
 	@echo "$(YELLOW) Compiling MinilibX...$(RESET)"
 	@make -C $(MINILIBX_DIR) > /dev/null 2>&1
@@ -50,25 +49,25 @@ $(LIBFT):
 # regla principal del ejecutable
 $(NAME): $(MINILIBX) $(LIBFT) $(OBJS)
 	@echo "$(BLUE) Linking $(NAME)...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIBX) $(MINILIBX_LIBS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIBX) $(MINILIBX_LIBS) -o $(NAME)
 
 # compilar archivos .c a .o
 %.o: %.c
 	@echo "$(YELLOW) Compiling $<...$(RESET)"
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # limpiar objetos
 clean:
 	@echo "$(BLUE) Cleaning object files...$(RESET)"
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 	@make -C $(LIBFT_DIR) clean > /dev/null 2>&1
 	@make -C $(MINILIBX_DIR) clean > /dev/null 2>&1
 
 # limpiar todo
 fclean:
 	@echo "$(BLUE) Complete cleaning...$(RESET)"
-	$(RM) $(OBJS)
-	$(RM) $(NAME)
+	@$(RM) $(OBJS)
+	@$(RM) $(NAME)
 	@make -C $(LIBFT_DIR) fclean > /dev/null 2>&1
 	@make -C $(MINILIBX_DIR) clean > /dev/null 2>&1
 
