@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:18:33 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 03:47:18 by heri             ###   ########.fr       */
+/*   Updated: 2025/07/15 19:16:19 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*reserva memoria dinámica para un bloque de elementos, a diferencia de malloc,
 inicializa la memoria asignada a cero. 
 - Reserva memoria: La función reserva un bloque de memoria grande suficiente
-para contener NUM elementos, cada uno con un tamaño de SIZE bytes.
-*/
+para contener NUM elementos, cada uno con un tamaño de SIZE bytes. */
 
 #include "libft.h"
 

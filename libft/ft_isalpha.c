@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:35:38 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 03:52:01 by heri             ###   ########.fr       */
+/*   Updated: 2025/07/15 19:28:25 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,3 @@ int	ft_isalpha(int c)
 	printf ("1 true, 0 fail: %d\n", ft_isalpha(1));
 	return (0);
 }  */
-
-

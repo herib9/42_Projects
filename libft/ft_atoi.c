@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:19:56 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 04:14:52 by heri             ###   ########.fr       */
+/*   Updated: 2025/08/18 19:54:27 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,28 @@ entero (int)*/
 
 #include "libft.h"
 
-int	ft_atoi(const char *s)
+int	ft_atoi(const char *nptr)
 {
-	int     sign;
-	int     result;
-	int		i;
+	int					sign;
+	unsigned long int	result;
+	int					i;
 
 	sign = 1;
 	result = 0;
 	i = 0;
-	while (s[i] <= 32)
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
 		i++;
-	if (s[i] == '-' || s[i] == '+')
+	if (nptr[i] == '-')
 	{
-        if (s[i] == '-')
-		    sign = -1;
-		    i++;
+		sign = -1;
+		i++;
 	}
-	while (ft_isdigit(s[i]))
+	else if (nptr[i] == '+')
+		i++;
+	while (ft_isdigit(nptr[i]))
 	{
-		result = result * 10 + (s[i] - '0');
+		result *= 10;
+		result += nptr[i] - '0';
 		i++;
 	}
 	return (result * sign);

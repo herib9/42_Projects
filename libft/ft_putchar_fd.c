@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:25:33 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 03:54:43 by heri             ###   ########.fr       */
+/*   Updated: 2025/07/15 22:00:28 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-int	main(void)
+/*int	main(void)
 {
-	int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	
+	int	fd;
+
+	fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		write(2, "Error to write\n", 26);
@@ -34,8 +35,6 @@ int	main(void)
 	}
 	ft_putchar_fd('c', fd);
 	write(fd, "\n", 15);
-
 	close(fd);
-	
 	return (0);
-}
+}*/

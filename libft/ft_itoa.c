@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:23:33 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 03:52:17 by heri             ###   ########.fr       */
+/*   Updated: 2024/12/20 23:55:04 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//convierte un número entero (int) a una cadena de caracteres (char*)
+/*convierte un número entero (int) a una cadena de caracteres (char*)*/
 
 #include "libft.h"
 

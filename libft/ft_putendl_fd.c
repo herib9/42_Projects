@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:27:19 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 03:55:36 by heri             ###   ########.fr       */
+/*   Updated: 2025/07/15 22:00:35 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-int main(void)
+/*int	main(void)
 {
-	ft_putendl_fd("Hello World", 1);
+	int	fd;
 
-	int fd = open ("out_endl.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	ft_putendl_fd("Hello World", 1);
+	fd = open ("out_endl.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd != -1)
 	{
 		ft_putendl_fd("Hello World", fd);
 		close(fd);
 	}
 	return (0);
-}
+}*/

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 00:53:39 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 04:09:36 by heri             ###   ########.fr       */
+/*   Updated: 2024/12/20 17:54:08 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//devuelve un puntero a la última coincidencia del carácter c en la cadena s
+//devuelve un puntero a la última ocurrencia del carácter c en la cadena s
 
 #include "libft.h"
 

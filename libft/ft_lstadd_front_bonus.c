@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 12:05:34 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/15 22:00:04 by hmolina          ###   ########.fr       */
+/*   Created: 2025/07/15 19:55:29 by hmolina           #+#    #+#             */
+/*   Updated: 2025/07/15 21:40:51 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//comprueba si un carácter int es un dígito decimal, del '0' al '9'
+//agrega un nuevo elemento al principio de una lista enlazada
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57))
-		return (1);
-	return (0);
+	new->next = *lst;
+	*lst = new;
 }
-
-/*int	main(void)
-{
-	printf ("1 si es alfanumerico: %i\n", ft_isalnum('9'));
-	printf ("1 si es alfanumerico: %i\n", ft_isalnum('!'));
-	return (0);
-}*/

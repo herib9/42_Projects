@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heri <heri@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:28:53 by hmolina           #+#    #+#             */
-/*   Updated: 2025/07/04 03:56:09 by heri             ###   ########.fr       */
+/*   Updated: 2025/07/15 22:00:43 by hmolina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	nbr;
 
-    if (fd < 0)
-        return;
 	if (n < 0)
 	{
 		write(fd, "-", 1);
@@ -33,12 +31,13 @@ void	ft_putnbr_fd(int n, int fd)
 	write(fd, &"0123456789"[nbr % 10], 1);
 }
 
-int	main(void)
+/*int	main(void)
 {
+	int	fd;
+
 	ft_putnbr_fd(42, 1);
 	write(1, "\n", 1);
-
-	int fd = open("out_nbr.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open("out_nbr.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd != -1)
 	{
 		ft_putnbr_fd(-42, fd);
@@ -46,4 +45,4 @@ int	main(void)
 		close(fd);
 	}
 	return (0);
-}
+}*/
