@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 23:31:41 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/19 01:25:53 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/27 22:29:21 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ int	main(int ac, char **av)
 		return (ft_printf("Error\n"), 1);
 	stack_a = init_node(ac, av);
 	stack_b = NULL;
+	if (ac == 4)
+		sort_three(&stack_a);
 	return (0);
 }

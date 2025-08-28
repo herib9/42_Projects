@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 23:16:01 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/25 23:24:13 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/27 19:57:40 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,16 @@
 void	reverse_rotate(t_node **stack)
 {
 	t_node	*last;
-	t_node	*second_last;
 
-	if (!stack || !*stack || !(stack)->next)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	last = *stack;
-	second_last = NULL;
 	while (last->next)
-	{
-		second_last = last;
 		last = last->next;
-	}
-	second_last->next = NULL;
+	last->prev->next = NULL;
+	last->prev = NULL;
 	last->next = *stack;
+	(*stack)->prev = last;
 	*stack = last;
 }
 

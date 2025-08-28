@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 00:56:56 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/23 00:07:52 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/27 19:58:43 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_node	*create_node(int value)
 		return (NULL);
 	node->value = value;
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }
 
@@ -39,6 +40,7 @@ void	add_end_node(t_node **stack, t_node *new)
 	while (last->next)
 		last = last->next;
 	last->next = new;
+	new->prev = last;
 }
 
 t_node	*init_node(int ac, char **av)
