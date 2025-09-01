@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:40:12 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/28 21:05:43 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 23:37:55 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,87 @@ void	sort_two(t_node **stack_a)
 
 void	sort_three(t_node **stack_a)
 {
-	int	min_pos;
+	int	one;
+	int	two;
+	int	three;
 
-	if (sort(*stack_a))
-		return ;
-	min_pos = get_position(*stack_a, get_min_num(*stack_a));
-	while (min_pos != 0)
-	{
-		if (min_pos == 1)
-			sa(stack_a);
-		else if (min_pos == 2)
-			rra(stack_a);
-		min_pos = get_position(*stack_a, get_min_num(*stack_a));
-	}
-	if ((*stack_a)->next->value > (*stack_a)->next->next->value)
+	one = (*stack_a)->value;
+	two = (*stack_a)->next->value;
+	three = (*stack_a)->next->next->value;
+	if (one > two && two < three && one < three)
 		sa(stack_a);
+	else if (one > two && two > three && one > three)
+	{
+		sa(stack_a);
+		rra(stack_a);
+	}
+	else if (one > two && two < three && one > three)
+		ra(stack_a);
+	else if (one < two && two > three && one < three)
+	{
+		sa(stack_a);
+		ra(stack_a);
+	}
+	else if (one < two && two > three && one > three)
+		rra(stack_a);
 }
 
 void	sort_five(t_node **stack_a, t_node **stack_b)
 {
-	int
-}
-
-void	sort_stack(t_node **stack_a, t_node **stack_b)
-{
-	int	size;
 	if (sort(*stack_a))
 		return ;
-	size = get_size(*stack_a);
-	if (size == 2)
-		sort_two(**stack_a);
-	else if (size == 3)
-		sort_three(**stack_a);
-	else if (size <= 5)
-		sort_five(**stack_a, **stack_b);
-	/*else
-		sort(**stack_a, **stack_b);*/
+	// move 2 min numbers to stack_b
+	push_min_2_stack_b(stack_a, stack_b);
+	push_min_2_stack_b(stack_a, stack_b);
+	// sort 3 rest numbers
+	sort_three(stack_a);
+	// return of stack_b to stack_a
+	pa(stack_a, stack_b);
+	pa(stack_a, stack_b);
 }
+
+void	sort_stack(t_node **stack_a, t_node **stack_b, int size)
+{
+	if (sort(*stack_a))
+		return ;
+	if (size == 2)
+		sort_two(stack_a);
+	else if (size == 3)
+		sort_three(stack_a);
+	else if (size <= 5)
+		sort_five(stack_a, stack_b);
+	else
+		radix_sort(stack_a, stack_b, size);
+}
+
+void	push_min_2_stack_b(t_node **stack_a, t_node **stack_b)
+{
+	int		min;
+	int		min_pos;
+	int		node_size;
+	t_node	*temp;
+
+	min = get_min_num(*stack_a);
+	min_pos = get_position(*stack_a, min);
+	node_size = 0;
+	temp = *stack_a;
+	while (temp)
+	{
+		node_size++;
+		temp = temp->next;
+	}
+	if (min_pos <= node_size / 2)
+	{
+		while ((*stack_a)->value != min)
+			ra(stack_a);
+	}
+	else
+	{
+		while ((*stack_a)->value != min)
+			rra(stack_a);
+	}
+	pb(stack_a, stack_b);
+}
+
+//con el if roto hacia alante (mas corto)
+//con el else roto hacia atras (mas corto)

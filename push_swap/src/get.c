@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:08:27 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/28 20:59:57 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 23:49:46 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,48 @@ int	get_min_num(t_node *node)
 	return (min);
 }
 
-int	get_stack_size(t_node *stack)
-{
-
-}
-
 int	get_max_num(t_node *stack)
 {
+	int	max;
 
+	max = stack->value;
+	while (stack)
+	{
+		if (stack->value > max)
+			max = stack->value;
+		stack = stack->next;
+	}
+	return (max);
 }
 
-void	normalize_stack(t_node *stack)
+int	get_max_bits(int max_num)
 {
+	int	bits;
 
+	bits = 0;
+	while ((max_num >> bits) != 0)
+		bits++;
+	return (bits);
+}
+
+void	normalize_stack(t_node *stack, int size)
+{
+	t_node	*actual;
+	t_node	*compare;
+	int		rank;
+
+	actual = stack;
+	while (current)
+	{
+		rank = 0;
+		compare = stack;
+		while (compare)
+		{
+			if (compare->value < actual->value)
+				rank++;
+			compare = compare->next;
+		}
+		actual->index = rank;
+		actual = actual->next;
+	}
 }

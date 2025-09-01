@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 23:31:41 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/27 22:29:21 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/01 23:01:07 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,32 @@ int	main(int ac, char **av)
 		return (ft_printf("Error\n"), 1);
 	stack_a = init_node(ac, av);
 	stack_b = NULL;
-	if (ac == 4)
-		sort_three(&stack_a);
+	sort_stack(&stack_a, &stack_b, ac - 1);
 	return (0);
+}
+
+void	radix_sort(t_node **stack_a, t_node *stack_b, int size)
+{
+	int max_bits;
+	int	bit;
+	int	i;
+
+	normalize_stack(*stack_a, size);
+	max_bits = get_max_bits(size - 1);
+	bit = 0;
+	while (bit < max_bits)
+	{
+		i = 0;
+		while (i < size)
+		{
+			if ((((*stack_a)->index >> bit) & 1) == 0)
+				pb(stack_a, stack_b);
+			else
+				ra(stack_a);
+			i++;
+		}
+		while (*stack_b)
+			pa(stack_a, stack_b);
+		bit++;
+	}
 }
