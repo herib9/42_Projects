@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 23:31:41 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/01 23:01:07 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/01 23:34:55 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-void	radix_sort(t_node **stack_a, t_node *stack_b, int size)
+void	radix_sort(t_node **stack_a, t_node **stack_b, int size)
 {
 	int max_bits;
 	int	bit;
 	int	i;
 
-	normalize_stack(*stack_a, size);
+	normalize_stack(*stack_a);
 	max_bits = get_max_bits(size - 1);
 	bit = 0;
 	while (bit < max_bits)
