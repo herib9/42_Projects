@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 19:03:36 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/02 22:52:32 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 00:18:20 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,6 @@ int	val_numb(char *s)
 	{
 		if (!ft_isdigit(s[i]))
 			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	check_overflow(char *s)
-{
-	long	num;
-
-	num = ft_atol(s);
-	if (num < INT_MIN || num > INT_MAX)
-		return (0);
-	return (1);
-}
-
-int	check_duplicates(int ac, char **av)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < ac)
-	{
-		j = i + 1;
-		while (j < ac)
-		{
-			if (ft_atol(av[i]) == ft_atol(av[j]))
-				return (0);
-			j++;
-		}
 		i++;
 	}
 	return (1);
@@ -80,4 +50,18 @@ int	val_args(int ac, char **av)
 	return (1);
 }
 
-int	count_args(char **args)
+int	val_args_split(char **args)
+{
+	int	i;
+	
+	if (!args || !args[0])
+		return (0);
+	i = 0;
+	while (args[i])
+	{
+		if (!val_numb(args[i]) || !check_overflow(args[i]))
+			return (0);
+		i++;
+	}
+	return (check_duplicates_split(args));
+}

@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 00:56:56 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/27 19:58:43 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 23:43:34 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,20 @@ t_node	*init_node(int ac, char **av)
 		i++;
 	}
 	return (stack);
+}
+
+int	get_stack_size(t_node *stack)
+{
+	t_node	*current;
+	int		size;
+	if (!stack)
+		return (0);
+	size = 1;
+	current = stack->next;
+	while (current != stack)
+	{
+		size++;
+		current = current->next;
+	}
+	return (size);
 }
