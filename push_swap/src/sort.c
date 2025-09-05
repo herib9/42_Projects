@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:40:12 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/01 23:27:45 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 20:16:03 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,24 @@ void	sort_three(t_node **stack_a)
 
 void	sort_five(t_node **stack_a, t_node **stack_b)
 {
+	int	actual_size;
+	t_node	*temp;
+
+	actual_size = 0;
+	temp = *stack_a;
+	while (temp)
+	{
+		actual_size++;
+		temp = temp->next;
+	}
 	if (sort(*stack_a))
 		return ;
-	// move 2 min numbers to stack_b
 	push_min_2_stack_b(stack_a, stack_b);
-	push_min_2_stack_b(stack_a, stack_b);
-	// sort 3 rest numbers
+	if (actual_size == 5)
+		push_min_2_stack_b(stack_a, stack_b);
 	sort_three(stack_a);
-	// return of stack_b to stack_a
-	pa(stack_a, stack_b);
-	pa(stack_a, stack_b);
+	while (*stack_b)
+		pa(stack_a, stack_b);
 }
 
 void	sort_stack(t_node **stack_a, t_node **stack_b, int size)

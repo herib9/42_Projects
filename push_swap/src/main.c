@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 23:31:41 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/01 23:34:55 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 20:50:33 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		return (0);
 	if (!val_args(ac, av))
-		return (ft_printf("Error\n"), 1);
+		return (write(2, "Error\n", 6), 1);
+		//return (ft_printf("Error\n"), 1);
 	stack_a = init_node(ac, av);
 	stack_b = NULL;
 	sort_stack(&stack_a, &stack_b, ac - 1);

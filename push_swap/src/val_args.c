@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 19:03:36 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/19 01:26:30 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 22:52:32 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,5 @@ int	val_args(int ac, char **av)
 		return (0);
 	return (1);
 }
+
+int	count_args(char **args)
