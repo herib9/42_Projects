@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 19:01:54 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/05 23:13:24 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/08 22:31:16 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,31 @@ typedef struct s_node
 }	t_node;
 
 int		main(int ac, char **av);
+t_node	*parse_args(int ac, char **av);
+t_node	*take_single_string(char *s);
+t_node	*take_multiple_args(int ac, char **av);
 void	radix_sort(t_node **stack_a, t_node **stack_b, int size);
 
-// === validation & parsing ===
+// === validation arguments ===
 int		val_numb(char *s);
+int		val_args(int ac, char **av);
+int		val_simple_args(int count, char **args);
+int		val_args_split(char **args);
+void	free_args(char **args);
+
+// === check functions ===
 int		check_overflow(char *s);
 int		check_duplicates(int ac, char **av);
-int		val_args(int ac, char **av);
-int		count_args(char **args);
+int		check_duplicates_simple(int count, char **args);
+int		check_duplicates_split(char **args);
+int		get_stack_size(t_node *stack);
 
 // === stack functions ===
 t_node	*create_node(int value);
 void	add_end_node(t_node **stack, t_node *new);
 t_node	*init_node(int ac, char **av);
+t_node	*init_node_split(char **args);
+void	free_stack(t_node **stack);
 
 // === sort functions ===
 int		sort(t_node *node);
