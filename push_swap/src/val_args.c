@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 19:03:36 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/06 00:18:20 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/08 22:35:33 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,24 @@ int	val_args(int ac, char **av)
 	return (1);
 }
 
+/*int	val_simple_args(int count, char **args)
+{
+	int	i;
+
+	i = 0;
+	while (i < count - 1)
+	{
+		if (!val_numb(args[i]) || !check_overflow(args[i]))
+			return (0);
+		i++;
+	}
+	return (check_duplicates_simple(count, args));
+}*/
+
 int	val_args_split(char **args)
 {
 	int	i;
-	
+
 	if (!args || !args[0])
 		return (0);
 	i = 0;
@@ -64,4 +78,19 @@ int	val_args_split(char **args)
 		i++;
 	}
 	return (check_duplicates_split(args));
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	if (!args)
+		return ;
+	while (args[i])
+	{
+		free (args[i]);
+		i++;
+	}
+	free(args);
 }

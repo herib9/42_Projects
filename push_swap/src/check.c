@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 00:17:47 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/06 00:22:57 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/08 21:36:15 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,59 @@ int	check_duplicates(int ac, char **av)
 	return (1);
 }
 
-int	check_duplicates_split(int ac, char **av)
+int	check_duplicates_simple(int count, char **args)
 {
-	
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < count - 1)
+	{
+		j = i + 1;
+		while (j < count - 1)
+		{
+			if (ft_atol(args[i]) == ft_atol(args[j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
-void	free_split()
+int	check_duplicates_split(char **args)
 {
-	
+	int	i;
+	int	j;
+
+	i = 0;
+	while (args[i])
+	{
+		j = i + 1;
+		while (args[j])
+		{
+			if (ft_atol(args[i]) == ft_atol(args[j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	get_stack_size(t_node *stack)
+{
+	t_node	*current;
+	int		size;
+
+	if (!stack)
+		return (0);
+	size = 1;
+	current = stack->next;
+	while (current)
+	{
+		size++;
+		current = current->next;
+	}
+	return (size);
 }

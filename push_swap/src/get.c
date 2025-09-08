@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:08:27 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/01 23:33:54 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/08 22:35:12 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_position(t_node *node, int value)
 		node = node->next;
 		pos++;
 	}
-	return (1);
+	return (-1);
 }
 
 int	get_min_num(t_node *node)
@@ -86,3 +86,4 @@ void	normalize_stack(t_node *stack)
 		actual = actual->next;
 	}
 }
+

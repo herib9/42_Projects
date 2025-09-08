@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 23:31:41 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/05 23:58:50 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/08 22:32:01 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,41 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
-	if (ac == 2)
-		stack_a = take_single_arg(av[1]);
-	else
-		stack_a = take_va(ac, av);
+	stack_a = parse_args(ac, av);
 	if (!stack_a)
 		return (write(2, "Error\n", 6), 1);
 	stack_b = NULL;
 	sort_stack(&stack_a, &stack_b, get_stack_size(stack_a));
+	free_stack(&stack_a);
+	free_stack(&stack_b);
 	return (0);
 }
 
-t_node	*take_single_arg(char *arg)
+t_node	*parse_args(int ac, char **av)
 {
-	char	**parsed_args;
-	t_node	*stack;
-	int		arg_count;
+	if (ac == 2)
+		return (take_single_string(av[1]));
+	else
+		return (take_multiple_args(ac, av));
+}
 
-	parsed_args = ft_split(arg, ' ');
-	if (!parsed_args)
-		return (NULL);
-	arg_count = count_args(parsed_args) + 1;
-	if (!val_args(arg_count, parsed_args))
+t_node	*take_single_string(char *s)
+{
+	char	**args;
+	t_node	*stack;
+
+	args = ft_split(s, ' ');
+	if (!args || !val_args_split(args))
 	{
-		free_split(parsed_args);
+		free_args(args);
 		return (NULL);
 	}
-	stack = init_node_split(arg_count, parsed_args);
-	free_split(parsed_args);
+	stack = init_node_split(args);
+	free_args(args);
 	return (stack);
 }
 
-t_node	*take_va(int ac, char **av)
+t_node	*take_multiple_args(int ac, char **av)
 {
 	if (!val_args(ac, av))
 		return (NULL);
@@ -59,7 +62,7 @@ t_node	*take_va(int ac, char **av)
 
 void	radix_sort(t_node **stack_a, t_node **stack_b, int size)
 {
-	int max_bits;
+	int	max_bits;
 	int	bit;
 	int	i;
 
