@@ -6,12 +6,13 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 00:56:56 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/08 22:33:22 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/11 23:00:29 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//make a individual node
 t_node	*create_node(int value)
 {
 	t_node	*node;
@@ -70,7 +71,7 @@ t_node	*init_node_split(char **args)
 	t_node	*stack;
 	t_node	*new_node;
 	int		i;
-	
+
 	stack = NULL;
 	i = 0;
 	while (args[i])

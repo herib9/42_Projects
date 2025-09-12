@@ -6,12 +6,13 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 19:03:36 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/08 22:35:33 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/11 22:56:11 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//validate that is a number
 int	val_numb(char *s)
 {
 	int	i;
@@ -29,7 +30,10 @@ int	val_numb(char *s)
 	}
 	return (1);
 }
-
+//Verify that there are arguments
+//Verify that each one is a valid number
+//Verify that none are outside the limits
+//Verify that there are no duplicates
 int	val_args(int ac, char **av)
 {
 	int	i;
@@ -49,20 +53,6 @@ int	val_args(int ac, char **av)
 		return (0);
 	return (1);
 }
-
-/*int	val_simple_args(int count, char **args)
-{
-	int	i;
-
-	i = 0;
-	while (i < count - 1)
-	{
-		if (!val_numb(args[i]) || !check_overflow(args[i]))
-			return (0);
-		i++;
-	}
-	return (check_duplicates_simple(count, args));
-}*/
 
 int	val_args_split(char **args)
 {

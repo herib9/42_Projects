@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:08:27 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/08 22:35:12 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/08 23:36:11 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,3 @@ void	normalize_stack(t_node *stack)
 		actual = actual->next;
 	}
 }
-

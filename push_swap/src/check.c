@@ -6,12 +6,13 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 00:17:47 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/08 21:36:15 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/11 22:52:47 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//verify int limits
 int	check_overflow(char *s)
 {
 	long	num;
@@ -21,7 +22,8 @@ int	check_overflow(char *s)
 		return (0);
 	return (1);
 }
-
+//check that there are no duplicate numbers
+//atol convert string to int & verify if same
 int	check_duplicates(int ac, char **av)
 {
 	int	i;

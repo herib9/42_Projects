@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:40:12 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/08 22:34:30 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/11 21:33:40 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,35 +85,3 @@ void	sort_stack(t_node **stack_a, t_node **stack_b, int size)
 	else
 		radix_sort(stack_a, stack_b, size);
 }
-
-void	push_min_2_stack_b(t_node **stack_a, t_node **stack_b)
-{
-	int		min;
-	int		min_pos;
-	int		node_size;
-	t_node	*temp;
-
-	min = get_min_num(*stack_a);
-	min_pos = get_position(*stack_a, min);
-	node_size = 0;
-	temp = *stack_a;
-	while (temp)
-	{
-		node_size++;
-		temp = temp->next;
-	}
-	if (min_pos <= node_size / 2)
-	{
-		while ((*stack_a)->value != min)
-			ra(stack_a);
-	}
-	else
-	{
-		while ((*stack_a)->value != min)
-			rra(stack_a);
-	}
-	pb(stack_a, stack_b);
-}
-
-//con el if roto hacia alante (mas corto)
-//con el else roto hacia atras (mas corto)
