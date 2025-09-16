@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 22:17:46 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/08 23:36:02 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 19:05:16 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,11 @@ void	push_min_2_stack_b(t_node **stack_a, t_node **stack_b)
 	}
 	pb(stack_a, stack_b);
 }
+
+/*
+	FUNCIONES DE EMPUJE (PUSH)
+
+- push_node(t_node **from, t_node **to): Mueve el primer elemento de una pila a otra
+- pa(t_node **stack_a, t_node **stack_b): Mueve el primer elemento de B a A e imprime "pa"
+- pb(t_node **stack_a, t_node **stack_b): Mueve el primer elemento de A a B e imprime "pb"
+*/

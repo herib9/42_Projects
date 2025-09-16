@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 00:56:56 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/11 23:00:29 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 18:58:23 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,3 +104,27 @@ void	free_stack(t_node **stack)
 	}
 	*stack = NULL;
 }
+
+/*
+	FUNCIONES DE GESTIÓN DE PILAS
+
+create_node(int value)
+- Propósito: Crea un nuevo nodo con un valor específico
+- Funcionamiento: Reserva memoria e inicializa un nodo con el valor dado
+
+add_end_node(t_node **stack, t_node *new)
+- Propósito: Añade un nuevo nodo al final de la pila
+- Funcionamiento: Si la pila está vacía, el nuevo nodo se convierte en el primero. Si no, lo añade al final
+
+init_node(int ac, char **av)
+- Propósito: Inicializa una pila con argumentos individuales
+- Funcionamiento: Recorre los argumentos creando nodos y añadiéndolos a la pila
+
+init_node_split(char **args)
+- Propósito: Inicializa una pila con argumentos de una cadena dividida
+- Funcionamiento: Similar al anterior pero para arrays de strings
+
+free_stack(t_node **stack)
+- Propósito: Libera completamente la memoria de una pila
+- Funcionamiento: Recorre todos los nodos liberando su memoria y pone la pila a NULL
+*/

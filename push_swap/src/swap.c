@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 20:31:08 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/28 16:45:30 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 19:00:30 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,13 @@ void	ss(t_node **stack_a, t_node **stack_b)
 	swap(stack_b);
 	ft_printf("ss\n");
 }
+
+/*
+	OPERACIONES DE PILA
+
+FUNCIONES DE INTERCAMBIO (SWAP)
+- swap(t_node **stack): Intercambia los dos primeros elementos de una pila
+- sa(t_node **stack_a): Intercambia los dos primeros de la pila A e imprime "sa"
+- sb(t_node **stack_b): Intercambia los dos primeros de la pila B e imprime "sb"
+- ss(t_node **stack_a, t_node **stack_b): Ejecuta sa y sb simultáneamente e imprime "ss"
+*/

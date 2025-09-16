@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 00:17:47 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/11 22:52:47 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 18:56:58 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	check_overflow(char *s)
 		return (0);
 	return (1);
 }
+
 //check that there are no duplicate numbers
 //atol convert string to int & verify if same
 int	check_duplicates(int ac, char **av)
@@ -100,3 +101,23 @@ int	get_stack_size(t_node *stack)
 	}
 	return (size);
 }
+
+/*
+	FUNCIONES DE VERIFICACIÓN
+
+check_overflow(char *s)
+- Propósito: Verifica que un número no exceda los límites de un entero
+- Funcionamiento: Convierte la cadena a long y verifica que esté entre INT_MIN e INT_MAX
+
+check_duplicates(int ac, char **av)
+- Propósito: Verifica que no haya números duplicados en argumentos individuales
+- Funcionamiento: Compara cada argumento con todos los siguientes usando doble bucle
+
+check_duplicates_split(char **args)
+- Propósito: Verifica duplicados en argumentos que vienen de una cadena dividida
+- Funcionamiento: Similar al anterior pero para arrays de strings
+
+get_stack_size(t_node *stack)
+- Propósito: Calcula el número de elementos en una pila
+- Funcionamiento: Recorre la lista enlazada contando los nodos
+*/

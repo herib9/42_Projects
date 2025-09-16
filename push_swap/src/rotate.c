@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 23:07:42 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/27 19:59:10 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 19:10:11 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,12 @@ void	rr(t_node **stack_a, t_node **stack_b)
 	rotate(stack_b);
 	ft_printf("rr\n");
 }
+
+/*
+	FUNCIONES DE ROTACIÓN (ROTATE)
+
+- rotate(t_node **stack): Mueve el primer elemento al final de la pila
+- ra(t_node **stack_a): Rota la pila A hacia arriba e imprime "ra"
+- rb(t_node **stack_b): Rota la pila B hacia arriba e imprime "rb"
+- rr(t_node **stack_a, t_node **stack_b): Ejecuta ra y rb simultáneamente e imprime "rr"
+*/

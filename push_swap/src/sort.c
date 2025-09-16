@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:40:12 by hmolina           #+#    #+#             */
-/*   Updated: 2025/09/11 21:33:40 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 19:10:00 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,41 @@ void	sort_stack(t_node **stack_a, t_node **stack_b, int size)
 	else
 		radix_sort(stack_a, stack_b, size);
 }
+
+/*
+	FUNCIONES DE ORDENAMIENTO
+
+sort(t_node *node)
+- Propósito: Verifica si una pila ya está ordenada
+- Funcionamiento: Recorre la pila verificando que cada elemento sea menor que el siguiente
+
+sort_two(t_node **stack_a)
+- Propósito: Ordena una pila de 2 elementos
+- Funcionamiento: Si el primer elemento es mayor que el segundo, los intercambia
+
+sort_three(t_node **stack_a)
+- Propósito: Ordena una pila de 3 elementos
+- Funcionamiento: Analiza las 6 posibles combinaciones y aplica la secuencia de operaciones correspondiente
+
+sort_five(t_node **stack_a, t_node **stack_b)
+- Propósito: Ordena pilas de 4 o 5 elementos
+- Funcionamiento:
+	* Mueve los elementos más pequeños a la pila B
+	* Ordena los 3 restantes en A
+	* Devuelve los elementos de B a A
+
+push_min_2_stack_b(t_node **stack_a, t_node **stack_b)
+- Propósito: Encuentra el elemento mínimo y lo mueve a la pila B
+- Funcionamiento:
+	* Encuentra la posición del mínimo
+	* Decide si rotar hacia arriba o abajo según la eficiencia
+	* Mueve el mínimo a la pila B
+
+sort_stack(t_node **stack_a, t_node **stack_b, int size)
+- Propósito: Función principal de ordenamiento que decide qué algoritmo usar
+- Funcionamiento:
+	* Si ya está ordenada, no hace nada
+	* Para 2-3 elementos: algoritmos específicos
+	* Para 4-5 elementos: algoritmo de 5
+	* Para más elementos: radix sort
+*/

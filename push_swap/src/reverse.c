@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
+/*   By: hmolina <hmolina@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 23:16:01 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/27 19:57:40 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/09/16 19:02:42 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,12 @@ void	rrr(t_node **stack_a, t_node **stack_b)
 	reverse_rotate(stack_b);
 	ft_printf("rrr\n");
 }
+
+/*
+	FUNCIONES DE ROTACIÓN INVERSA (REVERSE ROTATE)
+
+- reverse_rotate(t_node **stack): Mueve el último elemento al principio de la pila
+- rra(t_node **stack_a): Rota la pila A hacia abajo e imprime "rra"
+- rrb(t_node **stack_b): Rota la pila B hacia abajo e imprime "rrb"
+- rrr(t_node **stack_a, t_node **stack_b): Ejecuta rra y rrb simultáneamente e imprime "rrr"
+*/
