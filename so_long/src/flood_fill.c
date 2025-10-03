@@ -80,3 +80,23 @@ int	check_player_can_move(t_game *g)
 		return (ft_printf("Error\nPlayer cannot move\n"), 0);
 	return (1);
 }
+
+/*
+	=== ALGORITMO FLOOD FILL ===
+
+char **copy_map(char **map, int height)
+-  Qué hace: Crea una copia del mapa para testing
+-  Comportamiento: Duplica cada string usando ft_strdup
+
+void flood_fill(char **map, int x, int y, t_game *g)
+-  Qué hace: Algoritmo recursivo que marca celdas accesibles
+-  Comportamiento: Marca con 'V' (visitado) todas las celdas alcanzables, se detiene en paredes y salidas
+
+void exit_flood_fill(char **map, int x, int y, t_game *g)
+-  Qué hace: Versión específica del flood fill para verificar acceso a la salida
+-  Comportamiento: Similar al anterior pero permite pasar por la salida
+
+int check_player_can_move(t_game *g)
+-  Qué hace: Verifica que el jugador no esté completamente bloqueado
+-  Comportamiento: Cuenta direcciones válidas desde la posición inicial del jugador
+*/

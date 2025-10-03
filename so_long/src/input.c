@@ -43,3 +43,19 @@ void	handle_coin(t_game *g)
 {
 	ft_printf(" Coins collected: %i/%i\n", g->coined, g->t_coin);
 }
+
+/*
+	=== ENTRADA Y CONTROL ===
+
+int close_game(t_game *g)
+-  Qué hace: Limpia recursos y cierra el juego
+-  Comportamiento: Destruye imágenes, ventana, display, libera memoria y sale
+
+int close_handler(t_game *g)
+-  Qué hace: Wrapper para el cierre del juego
+-  Comportamiento: Simplemente llama a close_game
+
+void handle_coin(t_game *g)
+-  Qué hace: Muestra mensaje cuando se recoge una moneda
+-  Comportamiento: Printf con contador de monedas
+*/

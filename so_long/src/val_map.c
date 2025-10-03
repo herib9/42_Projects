@@ -72,3 +72,23 @@ int	check_map_extension(char *filename)
 	}
 	return (1);
 }
+
+/*
+	=== VALIDACIONES AVANZADAS ===
+
+int validate_map(char **map)
+-  Qué hace: Validación estructural del mapa
+-  Comportamiento: Verifica que no esté vacío, tenga dimensiones válidas y sea rectangular
+
+int is_rectangular(char **map, int height, int width)
+-  Qué hace: Verifica que todas las filas tengan la misma longitud
+-  Comportamiento: Compara strlen de cada fila con el ancho esperado
+
+int count_map_height(char **map)
+-  Qué hace: Cuenta el número de filas del mapa
+-  Comportamiento: Itera hasta encontrar NULL
+
+int check_map_extension(char *filename)
+-  Qué hace: Verifica que el archivo tenga extensión .ber
+-  Comportamiento: Usa strncmp para comparar los últimos 4 caracteres
+*/

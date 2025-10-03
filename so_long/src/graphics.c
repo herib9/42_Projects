@@ -79,3 +79,27 @@ void	render_exit(t_game *g, int x, int y)
 	mlx_put_image_to_window(g->mlx, g->win, g->_0, x * 64, y * 64);
 	mlx_put_image_to_window(g->mlx, g->win, g->_e, x * 64, y * 64);
 }
+
+/*
+	=== GRÁFICOS ===
+
+int load_sprites(t_game *g)
+-  Qué hace: Carga todas las imágenes XPM
+-  Comportamiento: Usa mlx_xpm_file_to_image para cargar sprites desde /img/
+
+int init_graphics(t_game *g)
+-  Qué hace: Inicializa MLX y crea la ventana
+-  Comportamiento: Conecta con X11, crea ventana con tamaño calculado, carga sprites
+
+void render_map(t_game *g)
+-  Qué hace: Dibuja todo el mapa en pantalla
+-  Comportamiento: Recorre matriz y dibuja sprite correspondiente, jugador se dibuja al final
+
+void render_coin(t_game *g, int x, int y)
+-  Qué hace: Dibuja una moneda con fondo
+-  Comportamiento: Dibuja primero el fondo ('0') y luego la moneda encima
+
+void render_exit(t_game *g, int x, int y)
+-  Qué hace: Dibuja la salida con fondo
+-  Comportamiento: Similar a render_coin pero para la salida
+*/

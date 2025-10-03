@@ -96,3 +96,24 @@ void	calculate_map_size(t_game *g)
 	else
 		g->map_width = 0;
 }
+
+/*
+	=== GESTIÓN DE MAPAS ===
+
+char **read_map(char *filename)
+-  Qué hace: Lee el archivo del mapa
+-  Comportamiento: Abre archivo, lee líneas con get_next_line, retorna matriz de strings
+
+char **asignement_n_read_lines(int fd)
+-  Qué hace: Lee todas las líneas del archivo
+-  Comportamiento: Reserva memoria para 100 líneas máximo, elimina '\n'
+-  Limitación: Hardcodeado a 99 líneas máximo
+
+void calculate_map_size(t_game *g)
+-  Qué hace: Calcula dimensiones del mapa
+-  Comportamiento: Cuenta filas y usa strlen de la primera fila para ancho
+
+void free_map(char **map)
+-  Qué hace: Libera memoria del mapa
+-  Comportamiento: Libera cada línea individualmente y luego el array principal
+*/

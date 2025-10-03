@@ -78,3 +78,26 @@ int	main(int ac, char **av)
 		return (1);
 	return (0);
 }
+
+/*
+	=== Funciones Principales ===
+
+int main(int ac, char **av)
+-  Qué hace: Punto de entrada del programa
+-  Comportamiento: Valida argumentos, inicializa el juego en dos fases y ejecuta el bucle principal
+-  Flujo: Validación básica → Primera validación del mapa → Segunda validación → Inicialización gráfica
+
+int st_val_map(t_game *g, char *filename) (Primera validación)
+-  Qué hace: Validaciones básicas del mapa
+-  Comportamiento: Extensión, lectura, formato rectangular, paredes, elementos básicos
+-  Retorna: 1 si todo está correcto, 0 si hay errores
+
+int nd_val_map(t_game *g) (Segunda validación)
+-  Qué hace: Validaciones avanzadas usando flood fill
+-  Comportamiento: Encuentra posiciones, verifica accesibilidad de monedas y salida
+-  Crítico: Usa algoritmo flood fill para verificar rutas válidas
+
+int init_game(t_game *g)
+-  Qué hace: Inicializa los gráficos y comienza el juego
+-  Comportamiento: Crea ventana, carga sprites, configura eventos, inicia bucle MLX
+*/

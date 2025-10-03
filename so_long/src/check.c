@@ -142,3 +142,27 @@ int	check_exit_accesibility(t_game *g)
 		return (ft_printf("Error\nExit isnt accessible\n"), 0);
 	return (1);
 }
+
+/*
+	=== VALIDACIONES BÁSICAS ===
+
+int check_walls(t_game *g)
+-  Qué hace: Verifica que el mapa esté completamente rodeado de paredes
+-  Comportamiento: Revisa bordes superior, inferior, izquierdo y derecho
+
+void check_elements(t_game *game)
+-  Qué hace: Cuenta elementos del mapa (P, E, C)
+-  Comportamiento: Recorre todo el mapa y cuenta cada tipo de elemento
+
+int check_valid_chars(t_game *g)
+-  Qué hace: Verifica que solo existan caracteres válidos
+-  Comportamiento: Permite solo '0', '1', 'P', 'E', 'C'
+
+int check_coins_accesibility(t_game *g)
+-  Qué hace: Verifica que todas las monedas sean accesibles
+-  Comportamiento: Usa flood fill para marcar celdas accesibles y cuenta monedas alcanzables
+
+int check_exit_accesibility(t_game *g)
+-  Qué hace: Verifica que la salida sea accesible
+-  Comportamiento: Similar al anterior pero específico para la salida
+*/

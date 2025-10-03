@@ -63,3 +63,24 @@ void	update_stats_display(t_game *g)
 	ft_printf("Movements: %i | Coins: %i/%i", g->moves, g->coined, g->t_coin);
 	fflush(stdout);
 }
+
+/*
+	=== MOVIMIENTO ===
+
+int keymap(int keycode, t_game *g)
+-  Qué hace: Maneja todas las teclas presionadas
+-  Comportamiento: WASD/flechas para movimiento, ESC para salir, re-renderiza después
+
+void move_player(t_game *g, int dx, int dy)
+-  Qué hace: Función principal de movimiento del jugador
+-  Comportamiento:
+	-  Calcula nueva posición
+	-  Verifica límites y paredes
+	-  Maneja recolección de monedas
+	-  Verifica condición de victoria
+	-  Actualiza posición y estadísticas
+
+void update_stats_display(t_game *g)
+-  Qué hace: Actualiza la línea de estadísticas en terminal
+-  Comportamiento: Usa códigos ANSI para sobrescribir la línea actual
+*/

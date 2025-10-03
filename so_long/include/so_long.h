@@ -6,7 +6,7 @@
 /*   By: hmolina <<hmolina@student.42.fr>>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:18:54 by hmolina           #+#    #+#             */
-/*   Updated: 2025/08/07 19:14:18 by hmolina          ###   ########lyon.fr   */
+/*   Updated: 2025/08/15 22:14:17 by hmolina          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,9 @@ void	render_coin(t_game *g, int x, int y);
 void	render_exit(t_game *g, int x, int y);
 
 // == INPUT FUNCTIONS ==
-int		close_game(t_game *g);
 int		close_handler(t_game *g);
+int		close_game(t_game *g);
 void	handle_coin(t_game *g);
-void	update_stats_display(t_game *g);
 
 // == MAP FUNCTIONS ==
 char	**asignement_n_read_lines(int fd);
@@ -136,7 +135,6 @@ int		main(int ac, char **av);
 int		count_map_height(char **map);
 int		is_rectangular(char **map, int height, int width);
 int		validate_map(char **map);
-int		check_walls(t_game *g);
-void	check_elements(t_game *game);
+int		check_map_extension(char *filename);
 
 #endif

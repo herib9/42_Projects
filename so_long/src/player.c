@@ -77,3 +77,19 @@ void	count_coin(t_game *g)
 		y++;
 	}
 }
+
+/*
+	=== FUNCIONES DEL JUGADOR ===
+
+void find_player_position(t_game *g)
+-  Qué hace: Encuentra la posición inicial del jugador en el mapa
+-  Comportamiento: Recorre el mapa buscando 'P' y guarda coordenadas
+
+void find_exit_position(t_game *g)
+-  Qué hace: Encuentra la posición de la salida
+-  Comportamiento: Similar al anterior pero busca 'E'
+
+void count_coin(t_game *g)
+-  Qué hace: Cuenta el número total de monedas en el mapa
+-  Comportamiento: Recorre todo el mapa contando 'C'
+*/
