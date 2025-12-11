@@ -1,0 +1,32 @@
+CONTENIDO DE PTHREAD.H:
+
+1. Tipos de datos fundamentales
+pthread_t           // Identificador de hilo
+pthread_mutex_t     // Mutex para sincronización
+pthread_cond_t      // Variable de condición
+pthread_attr_t      // Atributos de hilo
+pthread_mutexattr_t // Atributos de mutex
+pthread_condattr_t  // Atributos de variable de condición
+
+2. Funciones principales
+Gestión de hilos:
+pthread_create()    // Crear un nuevo hilo
+pthread_join()      // Esperar a que un hilo termine
+pthread_detach()    // Separar un hilo (no necesita join)
+pthread_exit()      // Terminar el hilo actual
+pthread_cancel()    // Cancelar un hilo
+pthread_self()      // Obtener el ID del hilo actual
+
+Sincronización - Mutex:
+pthread_mutex_init()    // Inicializar mutex
+pthread_mutex_lock()    // Bloquear mutex
+pthread_mutex_unlock()  // Desbloquear mutex
+pthread_mutex_trylock() // Intentar bloquear sin esperar
+pthread_mutex_destroy() // Destruir mutex
+
+Sincronización - Variables de condición:
+pthread_cond_init()     // Inicializar variable condición
+pthread_cond_wait()     // Esperar en variable condición
+pthread_cond_signal()   // Despertar un hilo en espera
+pthread_cond_broadcast()// Despertar todos los hilos en espera
+pthread_cond_destroy()  // Destruir variable condición
