@@ -1,0 +1,147 @@
+¿QUÉ SON LAS SEÑALES UNIX?
+
+Las señales UNIX son un mecanismo de comunicación entre procesos en sistemas operativos basados en UNIX (como Linux, macOS, BSD, etc.). Permiten que el sistema operativo o un proceso notifiquen a otro proceso sobre un evento importante, como una solicitud de terminación, una interrupción o un error.
+
+Características principales
+- Asíncronas: Llegan en cualquier momento, sin que el proceso receptor las espere.
+- Predefinidas: Hay señales estándar (ej: SIGKILL, SIGTERM) con comportamientos definidos.
+- Pueden ser manejadas: Un proceso puede decidir cómo responder (ignorar, ejecutar una función, terminar).
+
+Señales UNIX más comunes
+
+Señal	Número	Descripción
+SIGINT	2	Interrupción desde teclado (Ctrl+C). Termina el proceso de forma controlada.
+SIGTERM	15	Terminación "amigable" (por defecto, el proceso puede manejarla).
+SIGKILL	9	Terminación forzosa (no se puede ignorar ni manejar).
+SIGSEGV	11	Violación de segmento (acceso inválido a memoria).
+SIGUSR1	10	Señal definida por el usuario (uso personalizado).
+SIGUSR2	12	Otra señal para uso personalizado.
+SIGSTOP	19	Pausa el proceso (no se puede manejar).
+SIGCONT	18	Reanuda un proceso detenido.
+
+
+PID = PROCESS ID (IDENTIFICADOR DE PROCESO)
+
+Cada programa que se ejecuta en tu computadora tiene un número único llamado PID
+Es como el DNI de un programa
+Ejemplo: si ejecutas el programa "servidor", podría tener PID = 12345
+
+
+
+¿Qué son las señales SIGUSR1 y SIGUSR2?
+Las señales son como "toques en el hombro" que un programa puede enviar a otro.
+
+🚨 Analogía simple:
+SIGUSR1 = "¡Hey, esto representa un 0!"
+SIGUSR2 = "¡Hey, esto representa un 1!"
+// En código binario:
+// Letra 'A' = 01000001
+// 
+// Para enviar 'A':
+// SIGUSR1 (0)
+// SIGUSR2 (1) 
+// SIGUSR1 (0)
+// SIGUSR1 (0)
+// SIGUSR1 (0)
+// SIGUSR1 (0)
+// SIGUSR1 (0)
+// SIGUSR2 (1)
+
+
+
+FUNCIONES CLAVE EXPLICADAS
+
+1. SIGNAL() O SIGACTION() - "CONFIGURAR EL RECEPTOR"
+¿Qué hace? Le dice al programa: "Cuando alguien me envíe una señal, ejecuta esta función"
+
+// Ejemplo simple:
+void handle_signal(int sig)
+{    
+	if (sig == SIGUSR1)        
+		printf("Recibí un 0!\n");    
+	if (sig == SIGUSR2)        
+		printf("Recibí un 1!\n");
+}
+// Configurar el "receptor"
+signal(SIGUSR1, handle_signal);
+signal(SIGUSR2, handle_signal);
+
+Analogía: Es como decirle a tu amigo: "Si me tocas el hombro izquierdo, entenderé que es 0. Si me tocas el derecho, entenderé que es 1"
+
+
+2. KILL() - "ENVIAR LA SEÑAL"
+¿Qué hace? Envía una señal a otro programa usando su PID
+
+// Enviar un "0" al proceso con PID 12345
+kill(12345, SIGUSR1);
+// Enviar un "1" al proceso con PID 12345  
+kill(12345, SIGUSR2);
+
+Analogía: Es como tocar el hombro de tu amigo para enviarle el mensaje
+
+
+3. GETPID() - "¿CUÁL ES MI NÚMERO?"
+¿Qué hace? Te dice cuál es el PID de tu propio programa
+
+int mi_pid = getpid();
+printf("Mi PID es: %d\n", mi_pid);
+// Output: Mi PID es: 12345
+
+Analogía: Es como preguntarte: "¿Cuál es mi número de DNI?"
+
+
+4. USLEEP() - "ESPERAR UN POQUITO"
+¿Qué hace? Pausa el programa por microsegundos
+
+usleep(100);  // Espera 100 microsegundos
+
+¿Por qué es necesario?
+
+- Si envías señales muy rápido, el receptor puede perderse
+- Es como hablar muy rápido: la otra persona no entiende
+
+Analogía: Es como hacer una pausa entre cada palabra cuando hablas para que te entiendan mejor
+
+
+¿CÓMO FUNCIONA TODO JUNTO?
+
+SERVIDOR (el que escucha):
+- Se identifica: "Hola, soy el proceso 12345"
+- Se prepara para escuchar: "Si alguien me toca el hombro, haré algo"
+- Espera: Queda en bucle infinito esperando señales
+- Reconstruye: Junta los 0s y 1s para formar letras
+- Imprime: Cuando tiene una letra completa, la muestra
+
+CLIENTE (el que envía):
+- Identifica al servidor: "Voy a hablar con el proceso 12345"
+- Convierte mensaje: "Hola" → en 0s y 1s
+- Envía bit por bit: Toca el hombro derecho o izquierdo
+- Espera entre toques: Para no confundir al servidor
+
+🔄 Ejemplo Completo Simplificado
+
+// SERVIDOR
+int main() 
+{    
+	printf("Server PID: %d\n", getpid());  // "Mi número es 12345"
+        
+        signal(SIGUSR1, handle_zero);  // "Si me envías SIGUSR1, es un 0"
+        signal(SIGUSR2, handle_one);   // "Si me envías SIGUSR2, es un 1"
+        
+        while (1)  // Esperar para siempre        pause();
+}
+
+// CLIENTE
+int main(int argc, char **argv)
+{    
+	int server_pid = ft_atoi(argv[1]);  // PID del servidor 
+	char *message = argv[2];            // Mensaje a enviar
+        // Para cada letra del mensaje    
+        // Para cada bit de la letra    
+        // Enviar SIGUSR1 (0) o SIGUSR2 (1)    
+        kill(server_pid, SIGUSR1);  // Enviar un 0    
+        usleep(100);                 // Esperar un poquito    
+        kill(server_pid, SIGUSR2);  // Enviar un 1
+}
+
+
