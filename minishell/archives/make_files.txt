@@ -1,0 +1,19 @@
+minishell.h - Header principal con estructuras y declaraciones
+ft_utils.c / ft_utils_two.c - Funciones básicas de utilidad
+ft_split.c - Función para dividir strings
+main_minishell.c - Archivo principal con main
+ft_echo.c - Builtin echo
+ft_pwd.c - Builtin pwd
+ft_cd.c - Builtin cd
+env.c - Manejo básico de variables de entorno
+ft_export.c - Builtin export
+ft_unset.c - Builtin unset
+ft_exit.c - Builtin exit
+if_builtins.c - Sistema de identificación de builtins
+ft_parsing_*.c - Sistema de parsing (varios archivos)
+ft_redirections.c - Manejo de redirecciones
+ft_exe.c / ft_execute.c - Sistema de ejecución
+reset_pwd.c - Funciones auxiliares para PWD
+ft_signals_minishell.c - Manejo de señales
+ft_*_error.c - Archivos de manejo de errores
+ft_*_memory.c / ft_free_*.c - Gestión de memoria

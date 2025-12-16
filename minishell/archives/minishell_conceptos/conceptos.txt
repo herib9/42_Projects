@@ -1,0 +1,401 @@
+señales (movil)
+pipes(|) heredoc fork, (pipes ejecucion), parseo
+procesos hijos y padres
+builtins (echo, cd, export, unset, exit, pwd...)
+que es lo que hace bash
+mirar el subject las funciones permitidas
+
+
+🔑 CONCEPTOS CLAVE ANTES DE MINISHELL
+1. FUNDAMENTOS DE UNIX Y PROCESOS
+
+fork()		→ crear un proceso hijo.
+
+execve() 	→ reemplazar la imagen del proceso con un programa nuevo.
+
+wait / waitpid	→ esperar a que termine un hijo y recoger su estado.
+
+exit() 		→ terminar un proceso con un código de salida.
+
+PID (Process ID) → entender cómo se relaciona padre ↔ hijo.
+
+Rutas absolutas y relativas (ejemplo: /bin/ls vs ls).
+
+
+2. MANEJO DE ENTRADA/SALIDA
+
+File descriptors (0, 1, 2 → stdin, stdout, stderr).
+
+dup() y dup2() 	→ redirigir entrada y salida.
+
+pipe()		→ comunicación entre procesos.
+
+Redirecciones en shell:
+
+> (redirigir salida a un archivo).
+
+< (leer entrada desde un archivo).
+
+>> (append).
+
+| (pipes, conectar salida de un comando con entrada de otro).
+
+
+3. PARSING Y TOKENIZACIÓN
+
+Cómo dividir una línea de entrada en tokens:
+
+Separadores: espacios, tabulaciones.
+
+Comillas simples ' (no expanden variables) y dobles " (sí expanden).
+
+Carácteres especiales: |, <, >, $.
+
+Expansión de variables: $HOME, $? (último exit status).
+
+Herencia del entorno: env, export, unset.
+
+
+4. SEÑALES
+
+signal() o sigaction() → manejar señales.
+
+Señales clave:
+
+SIGINT (Ctrl+C).
+
+SIGQUIT (Ctrl+\).
+
+EOF (Ctrl+D).
+
+Diferencia entre cómo debe comportarse la shell y cómo deben comportarse los procesos hijos.
+
+
+5. BUILTINS
+
+Debes implementar directamente en tu minishell (sin execve):
+
+cd
+
+pwd
+
+echo
+
+exit
+
+env
+
+export
+
+unset
+
+(Son especiales porque afectan al estado interno de la shell, no a un proceso hijo).
+
+6. MEMORIA Y ESTRUCTURAS
+
+Gestión de memoria dinámica: cada comando puede crear muchas estructuras temporales → evitar leaks.
+
+Listas enlazadas / arrays dinámicos para representar tokens, pipes, redirecciones.
+
+Tablas de hash o arrays para variables de entorno (dependiendo del diseño).
+
+
+7. DISEÑO
+
+Loop principal (readline → parsear → ejecutar → esperar → repetir).
+
+Separar en módulos:
+
+Input (lectura con readline).
+
+Lexer/parser (tokens, comillas, variables).
+
+Executor (pipes, redirecciones, builtins, execve).
+
+Signals handler.
+
+Environment manager.
+
+
+
+MAPA VISUAL DEL FLUJO DE UN COMANDO
+
+🗺️ Flujo de ejecución en Minishell
+Usuario escribe:   ls -l | grep ".c" > salida.txt
+
+1. Loop principal
+
+La shell espera entrada:
+
+Mostrar prompt (minishell$ ).
+
+Leer input con readline().
+
+2. Parsing
+
+Lexer → divide en tokens:
+
+["ls", "-l", "|", "grep", ".c", ">", "salida.txt"]
+
+
+Parser → construye una estructura que representa el comando:
+
+PIPE
+ ├── CMD: ["ls", "-l"]
+ └── REDIR_OUT: "salida.txt"
+      └── CMD: ["grep", ".c"]
+
+
+(aquí gestionas comillas, expansiones $HOME, $?, etc.)
+
+3. Preparación del entorno
+
+Expandir variables de entorno.
+
+Crear estructuras de ejecución:
+
+Lista de procesos.
+
+Info de redirecciones (>, <, >>).
+
+Pipes necesarios (|).
+
+4. Ejecución
+
+Si el comando es builtin:
+
+Ejecutar dentro del proceso padre (ejemplo: cd, export).
+
+Si es comando externo:
+
+fork() → crear proceso hijo.
+
+En el hijo:
+
+Aplicar redirecciones (dup2 + close).
+
+Ejecutar con execve(path, argv, envp).
+
+En el padre:
+
+Guardar PID del hijo.
+
+Seguir con el siguiente comando (si hay pipes).
+
+waitpid() al final para esperar a todos.
+
+5. Redirecciones y pipes
+
+Para ls -l | grep ".c":
+
+Crear un pipe(fd).
+
+En hijo 1 (ls):
+
+dup2(fd[1], STDOUT) → salida va al pipe.
+
+execve("/bin/ls", ...).
+
+En hijo 2 (grep):
+
+dup2(fd[0], STDIN) → entrada desde pipe.
+
+execve("/bin/grep", ...).
+
+Cerrar descriptores en el padre.
+
+Para > salida.txt:
+
+Abrir archivo con open("salida.txt", O_CREAT | O_TRUNC | O_WRONLY, 0644).
+
+dup2(fd, STDOUT).
+
+6. Señales
+
+En el padre (minishell):
+
+Ctrl+C → interrumpe input (reset prompt).
+
+Ctrl+D → termina shell si la línea está vacía.
+
+En los hijos (comandos ejecutados):
+
+Ctrl+C → mata al proceso.
+
+Ctrl+\ → hace core dump.
+
+(La shell y los hijos manejan señales de forma diferente.)
+
+7. Fin de comando
+
+Guardar exit status en $?.
+
+Liberar memoria usada (tokens, estructuras).
+
+Volver al paso 1 (nuevo prompt).
+
+🔁 Resumen visual
+[Prompt] → [Leer línea]
+    ↓
+[Lexer] → [Parser] → [Estructuras de comandos]
+    ↓
+[Expand env / variables]
+    ↓
+[Executor]
+   ├─ Builtin (en padre)
+   └─ fork() hijos con execve()
+        ├─ Redirecciones
+        └─ Pipes
+    ↓
+[Wait hijos + signals]
+    ↓
+[Actualizar $? + liberar memoria]
+    ↓
+[Prompt otra vez]
+
+
+👉 Esto es lo que pasa cada vez que escribes un comando en tu minishell.
+
+
+
+📝 Pseudocódigo de Minishell
+int main(int argc, char **argv, char **envp)
+{
+    t_shell shell;
+
+    init_shell(&shell, envp);   // copia env, configura señales, etc.
+
+    while (true)
+    {
+        // 1. Prompt + lectura
+        line = readline("minishell$ ");
+        if (!line)              // Ctrl+D
+            exit_shell(&shell);
+
+        if (*line)              // guarda en historial si no está vacío
+            add_history(line);
+
+        // 2. Lexer → tokens
+        tokens = lexer(line);
+        if (!tokens)
+            continue;
+
+        // 3. Parser → AST / lista de comandos
+        cmd_table = parser(tokens);
+        if (!cmd_table)
+        {
+            free_tokens(tokens);
+            continue;
+        }
+
+        // 4. Expansiones
+        expand_variables(cmd_table, shell.env);
+
+        // 5. Ejecutor
+        execute(cmd_table, &shell);
+
+        // 6. Liberar memoria
+        free_tokens(tokens);
+        free_cmd_table(cmd_table);
+        free(line);
+    }
+}
+
+🔎 Funciones principales
+init_shell()
+
+Guarda una copia del entorno (envp) en una lista o array.
+
+Configura manejo de señales (SIGINT, SIGQUIT).
+
+Inicializa estructuras (t_shell con env, status, etc.).
+
+lexer(line)
+
+Recorre el string y lo divide en tokens:
+
+Palabras (ls, grep).
+
+Operadores (|, <, >, >>).
+
+Manejo de comillas ("...", '...').
+
+Devuelve lista de tokens.
+
+parser(tokens)
+
+Convierte la lista de tokens en una estructura más compleja:
+
+Lista de comandos (ls -l, grep .c, …).
+
+Cada comando tiene argumentos, redirecciones, pipes.
+
+Maneja errores de sintaxis (||, > > …).
+
+expand_variables(cmd_table, env)
+
+Sustituye $HOME, $PATH, $?, etc.
+
+Respeta comillas simples (no expanden) y dobles (sí expanden).
+
+execute(cmd_table, shell)
+if (es_builtin(cmd_table->cmd))
+    run_builtin(cmd_table, shell);
+else
+    run_external(cmd_table, shell);
+
+run_builtin(cmd_table, shell)
+
+Ejecuta cd, export, unset, echo, pwd, env, exit.
+
+Se hace en el padre porque afectan al estado de la shell.
+
+run_external(cmd_table, shell)
+
+Para cada comando en el pipeline:
+
+Crear pipe() si es necesario.
+
+fork():
+
+En el hijo:
+
+Redirecciones (dup2 con archivos o pipes).
+
+execve(path, args, env).
+
+En el padre:
+
+Guardar PIDs.
+
+Cerrar descriptores innecesarios.
+
+waitpid() a todos los hijos al final.
+
+Actualizar $? con WEXITSTATUS(status).
+
+exit_shell(shell)
+
+Liberar memoria (env, historial, etc.).
+
+exit(shell->last_status).
+
+🗂️ Estructuras útiles (ejemplo)
+typedef struct s_token {
+    char *value;
+    int type;   // WORD, PIPE, REDIR_IN, REDIR_OUT, etc.
+    struct s_token *next;
+} t_token;
+
+typedef struct s_cmd {
+    char **argv;          // ["ls", "-l", NULL]
+    char *redir_in;       // < file
+    char *redir_out;      // > file
+    int  append;          // >>
+    struct s_cmd *next;   // para pipes
+} t_cmd;
+
+typedef struct s_shell {
+    t_env  *env;          // lista o array con las variables
+    int    last_status;   // valor de $? 
+} t_shell;

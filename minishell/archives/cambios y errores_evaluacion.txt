@@ -1,0 +1,171 @@
+CAMBIOS REALIZADOS
+
+1. actualizado Makefile para que sea vea como querías al compilar
+2. ft_cd.c
+3. ft_echo.c
+4. ft_error.c
+5. ft_pwd.c
+
+
+
+
+ERRORES COMPROBADOS SUBJECT CORRECTION
+
+1. Comandos simples y la variable global
+	- Cuando pulsas TAB en bash hace tabulacion, en MS hace un 'ls'
+
+
+2. Argumentos
+	- /bin/echo hola mundo 			//bash	devuelve hola mundo 
+						//MS	devuelve hola mundo
+							free(): invalid pointer
+							[1]    136679 IOT instruction 	(core dumped)  ./minishell y sale de la MS
+	- /bin/echo "hola mundo" // OK
+	- /bin/echo hola mundo
+	echo $?			//bash			//MS 
+				echo $?			echo $?
+				hola mundo		hola mundo
+				0			echo 0
+				
+	/bin/ls /tmp
+	echo $?			//bash			//MS
+				0 (tmp existe)		/bin/ls: cannot access '/tmp'$'\n''echo': No such file or directory
+							/bin/ls: cannot access '0': No such file or directory
+							free(): invalid next size (fast)
+							[1]    139855 IOT instruction (core dumped)  ./minishell
+							(no se si esto estaria bien)
+							
+	/bin/ls /noexiste	//bash	/bin/ls: cannot access '/noexiste': No such file or directory
+	echo $?				2
+				//MS	/bin/ls: cannot access '/noexiste'$'\n''echo': No such file or directory
+					/bin/ls: cannot access '0': No such file or directory
+					free(): invalid pointer
+					[1]    140334 IOT instruction (core dumped)  ./minishell
+			
+
+export
+	export PATH=/bin
+	env | grep PATH			//bash	FT_HOOK_PATHNAME=login-user.d
+						XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+						PATH=/bin
+						XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+					//MS	[1]    207188 segmentation fault (core dumped)  ./minishell
+				
+
+unset	
+	export PRUEBA=hola		//bash 	PRUEBA=hola
+	env | grep '^PRUEBA='   		1
+	unset PRUEBA			//MS	double free or corruption (out)
+	env | grep '^PRUEBA='   		[1]    211463 segmentation fault (core dumped)  ./minishell
+	echo $?                
+
+	unset				//bash	unset: not enough arguments
+					//MS 	malloc(): unaligned fastbin chunk detected 2
+						[1]    208214 IOT instruction (core dumped)  ./minishell
+						
+	unset				//bash	unset: not enough arguments
+	echo $?					1
+					//MS	unset
+						echo: command not found
+
+	export A=1 B=2			//bash	A=1
+	env | grep -E '^(A|B)='			B=2
+	unset A B			//MS	grep: A: No such file or directory
+	env | grep -E '^(A|B)='			grep: B
+						env: No such file or directory
+	
+	unset 123VAR		//bash	unset: 123VAR: invalid parameter name
+	echo $?                 //MS	free(): invalid next size (fast)
+					[1]    212857 IOT instruction (core dumped)  ./minishell
+         
+	readonly RO=1		//bash	zsh: read-only variable: RO
+	unset RO		//MS	readonly: command not found
+	echo $?
+						
+
+cd	
+	cd /prueba		//bash	lo muestra
+	/prueba/ls		//MS	[1]    213261 segmentation fault (core dumped)  ./minishell
+	pwd
+
+	cd /usr			//bash	lo muestra
+	/bin/ls			//MS	cd: too many arguments
+	pwd
+
+	cd /noexiste			//bash	cd: no such file or directory: /noexiste
+	echo $?				//MS	cd: too many arguments			
+
+	cd .				//bash	OK
+	pwd				//MS	cd: too many arguments
+	
+	pwd				//bash	OK	                      
+	cd ..				//MS	OK
+	pwd
+	
+	cd /tmp				//bash	OK
+	pwd				//MS	cd: too many arguments
+	cd /usr
+	pwd
+	cd -
+	pwd
+
+
+Rutas relativas
+	cd /bin				//bash OK
+	./ls				//MS
+
+
+Variable de entorno PATH
+	no he sabido muy bien como hacer esta parte
+	
+
+Redirecciones
+	echo hola > file.txt		//bash	crear el archivo y muestra el contenido
+	cat file.txt			//MS	crea el archivo pero no es capaz de mostrar el contenido
+						si solamente haces cat.txt si es capaz de mostrarlo, pero haciendo el conjunto de las 2 ordenes no
+	
+	cat < file.txt > copia.txt	//bash	es capaz de mostrar el contenido
+	cat copia.txt			//MS	cat: copia.txt: No such file or directory
+	
+	cat << EOF			//bash	muestra hola mundo
+	hola				//MS	se queda en la parra y muestra Minishell>
+	mundo
+	EOF
+
+	wc -l << FIN			//bash	muestra 3
+	linea1				//MS	hace lo mismo que el anterior
+	linea2
+	linea3
+	FIN
+
+
+Pipes
+	cat file | grep bla | more			//bash	cat: file: No such file or directory
+							//MS 	cat: file: No such file or directory
+								more
+								: command not found
+	
+	ls archivoquenoexiste | grep bla | more		//bash	ls: cannot access 'archivoquenoexiste': No such file or directory
+							//MS	ls: cannot access 'archivoquenoexiste': No such file or directory
+								more
+								: command not found
+
+	cat file | grep bla > out.txt			//bash	cat: file: No such file or directory
+	sort < out.txt | uniq				//MS	cat: file: No such file or directory
+								out.txt: no such file or directory y se queda en la parra
+	
+	echo "hola mundo" | grep hola			//bash	muestra hola (rojo) mundo (normal)
+							//MS	free(): invalid next size (fast)
+								[1]    224610 IOT instruction (core dumped)  ./minishell y sale
+
+	echo -e "uno\ndos\ntres" | grep dos > salida.txt	//bash	dos
+	cat salida.txt						//MS	[1]    227865 segmentation fault (core dumped)  ./minishell y sale
+	
+
+Variables de entorno
+	export USER=prueba		//bash	devuelve prueba
+	echo "$USER"			//MS	no devuelve nada
+
+Vuelvete loco y el historial
+	cat | cat | ls			//bash hace ls y luego se queda pillado hasta que haces control C
+					//MS lo hace al reves

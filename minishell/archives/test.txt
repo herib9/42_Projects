@@ -1,0 +1,153 @@
+# Test for minishell
+
+# Echo
+    - echo
+    - echo hola
+    - echo ""
+    - echo "" hola	
+    - echo -n hola
+    - echo -n -n hola
+    - echo -n -nh -n hola
+    - echo $?hcudshfuewrf ew  wr 4ew""""
+    - echo ""uhjkhnkj"hjbmb"'''' defdjhfkjb "iujiouhj"f'f'f'f'f''f'f'f'f'f'f'
+    - echo ""uhjkhnkj"hjbmb"'''' defdjhfkjb "iujiouhj"f'f'a'j'o''i'w'q''q
+    - echo ""aaaaaaaa"bbbbb"'''' ccccccccc "dddddddd"e'e'e
+    - echo "ho   $USER"  'la   $LESS'   $USER$TERM
+    - echo "ho   $USER"'la   $LESS'$USER$TERM
+    - echo"ho   $USER"	
+    
+    - echo"ho   $USE$LESS"	???error: bash echoho   -R: command not found // ms echoho   $LESS: command not found
+
+    - "echo ho   $USER"
+    - "echo" "ho   $USER"
+    - e"cho" "ho   $USER"
+    - echo "ho   $USER"
+    - echo "$HOME '$LESS' $USER"
+    - echo '$HOME "$LESS" $USER'
+    - echo "$HOME '$LESS "pa $TERM" na' $USER"
+    - echo '$HOME "$LESS 'pa $TERM' na" $USER'
+    - echo '$'"HOME"
+
+# Export
+    - export a=b
+    - export b=wawa
+    - export b=lala
+    - export c=lala=kaka
+    - export a
+    - export a=
+    - export a= b=o
+    - export a===
+    - export a3=l
+    - export 2a=lala		error: bash bash: export: `2a=lala': not a valid identifier // MS export: not an identifier: 2a
+
+    - export !a=ma
+    - export $USER=la
+    - export $USER=$TERM
+    - export $USER=$TERM$HOME
+    - export $USER=$TERM$HOM
+    - export $HOME=$USER
+    - export $USER$SHLVL
+    - export		???error: faltan algunas lineas que tiene uno y no tiene el otro y viceversa
+    			bash tiene 	c='lala=kaka'
+    			ms tiene 	DBUS_STARTER_ADDRESS='unix:path=/run/user/105828/bus,guid=d887174d817fdc5c7ed3c32068dad25f'
+					DBUS_STARTER_BUS_TYPE=session
+
+    -            export		???error: igual que anterior
+    
+    - export ""
+    - export a b=$LESS $USER $HOME=la $COLORTERM=pa c=d
+
+# cd
+    - directorio existe
+    - directorio no existe
+    - file existe
+    - cd
+    -            cd
+    - cd - = $OLDPWD
+
+    - cd ~ = $HOME		error: el mismo que el anterior (falta salto de linea despues de arguments
+    
+    - cd $HOME si $HOME no existe
+    - cd directorio con distintos permisos	error: cuando se intenta cambiar los permisos a una carpeta creada da:
+    						free(): invalid next size (fast)
+						[1]    91752 IOT instruction (core dumped)  ./minishell
+
+# Env
+    - env			???error: lo que retorna no esta todo en el mismo orden
+    - env lalal			???error: bash retorna 'lalal' // ms lalal
+    - env directorio		error: mismo error que el anterior, bash 'directorio' // ms directorio
+
+# pwd
+    - con y sin argumentos	sin argumentos OK // con argumentos: bash pwd: too many arguments // ms /home/hmolina/Desktop/42_Proyects 
+													(actua como si no tuviese argumentos)
+# unset
+    - con y sin argumentos	error sin argumentos: bash unset: not enough arguments // ms hace un salto de linea y te pone para volver a meter comandos
+    				
+    - varios argumentos
+
+# exit 
+    - exit
+    - exit 0
+    - exit 1
+    - exit 42			????error: bash cierra el terminal // ms Invalid arguments
+    - exit lalal		????error: bash cierra el terminal // ms exit
+									exitlalalrequiered: num arg%   
+									y sale de minishell
+# pipe
+    - ls | wc
+    - ls|wc
+    - sort colors.txt | uniq | sort -r | wc
+    
+    - ls || wc		bonus part	error: bash hace un ls // ms parse error
+    
+    - ls |   | wc	bonus part	error: bash zsh: parse error near `|' // ms entra en bucle infinito
+    
+    - ls |   >/>>/</<< wc	*hacer que MS devuelva > es BONUS  error: bash > // ms parse error
+    
+    - ls | wc |		bonus part	error: bash pipe pipe> // ms parse error
+    
+    - |				???error: bash zsh: parse error near `|' // ms parse error
+
+    - | ls | wc			igual que el anterior
+
+# redirecciones
+    - </<</>/>>			error: bash heredoc> // ms parse error
+    
+    - echo hola >>>>>>> file	???error: bash zsh: parse error near `>>' // ms parse error
+    
+    - echo hola <<<<<<< file	???error: bash zsh: parse error near `<<<' // ms parse error
+
+    - echo hola>file
+    - echo hola </<</>/>>   </<</>/>> file	error: bash zsh: parse error near `<' // ms parse error
+    
+    - echo hola </<</>/>>   | file		error: bash zsh: parse error near `|' // ms parse error
+    
+    - echo hola > file </<</>/>>		error: bash heredoc> // ms parse error
+    
+    - echo hola > file
+    - echo hola > file > file2 > file3
+    - echo hola > file > file2 > file3 | ls
+    - wc < colors.txt			error si el archivo no existe, si existe OK: bash zsh: no such file or directory: colors.txt // ms colors.txt: no such file or directory y se queda en bucle infinito sin salir
+    
+    - wc < colors.txt > file
+    - cat colors.txt | wc
+    - echo hola > file << EOF					???error: bash heredoc> // ms Minishell>
+    - cat << EOF > file						???error: igual al anterior
+    - << EOF							???error: igual al anterior
+    - cat << hola << que << tal					???error: igual 
+    - cat << hola << que << tal -> aplicarle señales a heredoc	???error: igual
+    - cat << EOF | ls						???error: bash pipe heredoc> // ms Minishell>
+    - echo hola | cat | cat | cat | cat | cat | cat | cat	error: bash hola // ms Minishell>
+
+# general
+    - enter en input -> vacio
+    - solo espacios
+    - comillas sin cerrar				error: bash dquote> (y entra en bucle) // ms �: command not found (y sale para volver a escribir)
+
+    - echo $?
+    - unset $PATH -> ls -> /bin/ls			???error: bash zsh: permission denied: /bin/ls // ms /bin/ls: no such file or directory
+
+
+    - unset $HOME -> cd					(cambiando HOME por una carpeta existente) ???error: unset: not enough arguments // ms la acepta sin poner ningun mensaje
+    							si usas $HOME // bash unset: /home/hmolina: invalid parameter name // ms la acepta sin dar mensaje
+    							si usas HOME // bash unset: -: invalid parameter name // ms la acepta sin dar mensaje
