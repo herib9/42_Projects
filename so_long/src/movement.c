@@ -65,7 +65,7 @@ void	update_stats_display(t_game *g)
 }
 
 /*
-	=== MOVIMIENTO ===
+	=== MOVIMIENTOS ===
 
 int keymap(int keycode, t_game *g)
 -  Qué hace: Maneja todas las teclas presionadas

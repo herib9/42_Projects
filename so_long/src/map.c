@@ -17,7 +17,7 @@ char	**asignement_n_read_lines(int fd)
 	char	**map;
 	char	*line;
 	int		i;
-
+	
 	map = malloc(sizeof(char *) * 100);
 	if (!map)
 		return (NULL);
