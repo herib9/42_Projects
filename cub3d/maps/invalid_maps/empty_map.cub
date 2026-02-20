@@ -1,0 +1,7 @@
+NO ./textures/no.png
+SO ./textures/so.png
+WE ./textures/we.png
+EA ./textures/ea.png
+
+C 127,127,200
+F 50,88,41
