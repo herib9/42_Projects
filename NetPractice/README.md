@@ -109,6 +109,7 @@ netpractice/
 ├── level10.json
 └── README.md
 
+
 ## Networking Concepts Covered
 
 This project focuses on fundamental networking topics:
@@ -165,6 +166,7 @@ Layer 2 (Data Link)
 
 Layer 3 (Network)
 
+
 ## Resolution Strategy
 
 A general approach to solving levels:
@@ -191,6 +193,7 @@ Incorrect subnet masks
 
 Missing routes between networks
 
+
 ## Evaluation & Submission
 During Evaluation
 
@@ -211,6 +214,7 @@ All 10 levels exported
 Files placed at repository root
 
 README present and complete
+
 
 ## Resources
 Documentation & References
