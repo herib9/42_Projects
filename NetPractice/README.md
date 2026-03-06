@@ -4,7 +4,7 @@
 
 ## DESCRIPTION
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Description](#-description)
 - [Objectives](#-objectives)
@@ -16,7 +16,7 @@
 - [Resources](#-resources)
 
 
-## 🎯 Description
+## Description
 
 **NetPractice** is a networking fundamentals project from the 42 curriculum designed to introduce students to the core concepts of computer networks through practical exercises.
 
@@ -33,7 +33,7 @@ You will work with:
 The primary goal is to develop a clear understanding of **how network communication works at a practical level**, rather than only at a theoretical level.
 
 
-## 🎯 Objectives
+## Objectives
 
 The main learning objectives of NetPractice are:
 
@@ -45,7 +45,7 @@ The main learning objectives of NetPractice are:
 - Diagnose network connectivity problems
 
 
-## ⚙️ Instructions
+## Instructions
 
 ### Running the Training Interfac
 
@@ -109,7 +109,7 @@ netpractice/
 ├── level10.json
 └── README.md
 
-🌐 Networking Concepts Covered
+## Networking Concepts Covered
 
 This project focuses on fundamental networking topics:
 
@@ -165,7 +165,7 @@ Layer 2 (Data Link)
 
 Layer 3 (Network)
 
-🧠 Resolution Strategy
+## Resolution Strategy
 
 A general approach to solving levels:
 
@@ -191,7 +191,7 @@ Incorrect subnet masks
 
 Missing routes between networks
 
-📝 Evaluation & Submission
+## Evaluation & Submission
 During Evaluation
 
 You will have:
@@ -212,7 +212,7 @@ Files placed at repository root
 
 README present and complete
 
-📚 Resources
+## Resources
 Documentation & References
 
 RFC 1918 — Private IP Addressing
