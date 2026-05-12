@@ -1,0 +1,337 @@
+MOSTRAR TEXTO EN PANTALLA
+std::cout	std:: → significa que cout vive dentro de una "biblioteca" llamada std (standard).
+
+cout → significa character output, es decir, salida de caracteres. Es el canal por donde salen los textos a la pantalla.
+
+<< → es el operador de inserción. Piénsalo como una flecha que empuja el texto hacia la pantalla. "Manda esto a la pantalla".
+
+
+LEER LO QUE ESCRIBE EL USUARIO
+std::cin y std::getline
+
+std::cin >>	El problema: para cuando el usuario pulsa espacio. Si el usuario escribe "Juan Garcia", std::cin >> solo guarda "Juan" y tira el " Garcia".
+
+std::getline	Lee toda la línea hasta que el usuario pulsa Enter, incluyendo espacios. Si el usuario escribe "Juan Garcia", guarda "Juan Garcia" completo.
+
+¿Por qué std::getline en vez de std::cin >>?
+Para el PhoneBook usamos std::getline porque los nombres pueden tener espacios. Siempre que quieras leer una línea completa, usa std::getline.
+
+¿Qué devuelve std::getline?
+Devuelve el propio std::cin, que puede evaluarse como true (lectura correcta) o false (error, por ejemplo si el usuario pulsa Ctrl+D para cerrar el input).
+
+
+LAS CLASES
+Una clase es un molde para crear objetos. Piénsalo como el plano de un piso. El plano no es el piso, pero a partir de él puedes construir todos los pisos iguales que quieras.
+En el PhoneBook tienes dos clases:
+
+Contact → el plano de un contacto
+PhoneBook → el plano de la agenda
+
+¿Cómo se declara una clase?
+
+cppclass Contact
+{
+private:
+    std::string _firstName;
+    std::string _lastName;
+    std::string _phoneNumber;
+
+public:
+    void setName(std::string name);
+    std::string getName(void);
+};
+
+¿Qué es private?
+Los atributos private solo se pueden tocar desde dentro de la propia clase. Desde fuera, nadie puede acceder directamente a _firstName. Es como la cocina de un restaurante — los clientes no entran, solo los cocineros.
+cppContact contacto;
+contacto._firstName = "Juan"; // ERROR — es privado
+
+¿Qué es public?
+Las funciones public sí son accesibles desde fuera. Son la ventanilla del restaurante — por ahí pasan los pedidos.
+cppContact contacto;
+contacto.setName("Juan"); // OK — setName es pública
+
+¿Por qué esta separación?
+Para proteger los datos. Si _firstName fuera pública, cualquiera podría escribir basura directamente en ella. Al hacerla privada y controlada por setName, puedes validar lo que entra.
+
+¿Dónde se declara la clase?
+En el archivo .hpp (el header). La implementación de las funciones va en el .cpp.
+Contact.hpp  → declara qué existe
+Contact.cpp  → explica cómo funciona
+
+
+CONSTRUCTOR Y DESTRUCTOR
+
+El constructor es una función especial que se ejecuta automáticamente cuando creas un objeto. Su nombre es igual al de la clase:
+cpp// En Contact.hpp
+
+class Contact
+{
+public:
+    Contact(); // constructor
+};
+
+// En Contact.cpp
+
+Contact::Contact()
+{
+    this->_firstName = "";
+    this->_lastName = "";
+    this->_phoneNumber = "";
+}
+
+Cuando haces:
+cppContact contacto;
+
+El constructor se ejecuta solo. Inicializa todos los atributos a "" para que no haya basura dentro.
+
+El destructor se ejecuta automáticamente cuando el objeto deja de existir:
+
+cppContact::~Contact()
+{
+    // vacío porque no usamos memoria dinámica
+}
+
+En el PhoneBook no necesitas hacer nada en el destructor porque no usas new. Si usaras new, aquí harías el delete.
+
+
+EL OBJETO HABLANDO DE SÍ MISMO
+
+THIS es un puntero especial que significa "yo mismo" — el objeto que está ejecutando la función en este momento.
+
+cppvoid Contact::setName(std::string name)
+{
+    this->_firstName = name;
+}
+
+this->_firstName significa "el atributo _firstName de este contacto concreto". Si tienes 8 contactos en el array, cada uno tiene sus propios atributos, y this apunta al correcto.
+
+¿Por qué -> y no .?
+Porque this es un puntero (como en C). Con punteros se usa ->. Con objetos normales se usa .:
+
+cppContact contacto;
+contacto.setName("Juan");    // contacto es un objeto normal → punto
+
+this->_firstName = "Juan";   // this es un puntero → flecha
+
+
+A QUIÉN PERTENECE ESTA FUNCIÓN
+
+Cuando implementas una función de una clase en el .cpp, tienes que decirle al compilador a qué clase pertenece:
+
+cppvoid PhoneBook::add(void)
+{
+    // ...
+}
+
+PhoneBook:: significa "esta función add pertenece a la clase PhoneBook". Sin esto, el compilador pensaría que es una función suelta sin clase.
+
+
+LOS BUCLES Y CONDICIONES EN C++
+
+Son exactamente iguales que en C. Pero veamos cómo se usan en el contexto del PhoneBook.
+while con condición compuesta:
+
+cppstd::string input;
+while (input.empty())
+{
+    std::cout << "First name: ";
+    std::getline(std::cin, input);
+}
+
+El bucle repite mientras input esté vacío. En cuanto el usuario escribe algo, input.empty() devuelve false y el bucle para.
+while (true) con break:
+
+cppwhile (true)
+{
+    std::getline(std::cin, input);
+    if (!input.empty())
+        break;
+    std::cout << "No puede estar vacío: ";
+}
+
+Bucle infinito que solo sale cuando encuentras la condición correcta con break. Útil cuando la condición de salida es compleja.
+continue:
+
+cppint i = 0;
+while (input[i])
+{
+    if (input[i] == ' ')
+    {
+        i++;
+        continue; // salta al inicio del bucle sin ejecutar lo que viene después
+    }
+    // solo llega aquí si no es un espacio
+    i++;
+}
+
+continue salta directamente al inicio del bucle, ignorando lo que queda de la iteración actual.
+
+
+RECORRER UN STRING CARÁCTER A CARÁCTER
+
+std::string nombre = "Juan";
+int i = 0;
+while (nombre[i])
+{
+    // hacer algo con nombre[i]
+    i++;
+}
+
+nombre[i] devuelve el carácter en la posición i. Cuando i llega al final del string, nombre[i] devuelve \0 (carácter nulo), que equivale a false, y el bucle para.
+Validar que solo hay letras:
+
+cppint i = 0;
+int valid = 1;
+while (nombre[i])
+{
+    if (!(nombre[i] >= 'a' && nombre[i] <= 'z') && !(nombre[i] >= 'A' && nombre[i] <= 'Z'))
+    {
+        valid = 0;
+        break;
+    }
+    i++;
+}
+
+Los caracteres en C++ tienen valores numéricos. Las letras minúsculas van de 'a' (97) a 'z' (122) y las mayúsculas de 'A' (65) a 'Z' (90). Comparando el carácter con esos rangos sabes si es una letra o no.
+Validar que solo hay números:
+
+cppif (!(input[i] >= '0' && input[i] <= '9'))
+{
+    valid = 0;
+    break;
+}
+
+Igual pero con dígitos. '0' es 48 y '9' es 57.
+
+
+EL OPERADOR % (MÓDULO) Y EL ÍNDICE CIRCULAR
+
+El % devuelve el resto de una división:
+
+9 % 8 = 1   (9 dividido entre 8, resto 1)
+8 % 8 = 0
+7 % 8 = 7
+
+En el PhoneBook lo usamos para que _next dé la vuelta al llegar a 8:
+
+this->_next = (this->_next + 1) % 8;
+
+El resultado visual:
+
+_next: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 0 → 1 → ...
+
+Nunca supera 7, y cuando llega a 8 vuelve a 0 automáticamente. Así siempre sobreescribe al contacto más antiguo.
+
+
+STD::SETW — COLUMNAS DE ANCHO FIJO
+
+#include <iomanip>
+
+std::cout << std::setw(10) << "Juan" << "|";
+
+Resultado:
+      Juan|
+
+setw(10) reserva 10 caracteres. Como "Juan" solo tiene 4, rellena con 6 espacios a la izquierda.
+
+std::right hace que el texto se alinee a la derecha (es el comportamiento por defecto con setw, pero puedes ponerlo explícitamente):
+
+std::cout << std::right << std::setw(10) << "Juan" << "|";
+// resultado:       Juan|
+
+std::cout << std::left << std::setw(10) << "Juan" << "|";
+// resultado: Juan      |
+
+Importante: setw solo afecta a lo siguiente que imprimes. Después se resetea:
+
+std::cout << std::setw(10) << "Juan" << "Garcia";
+
+// resultado:       JuanGarcia
+// el setw(10) solo aplicó a "Juan"
+
+
+PARTE 13 — SUBSTR — RECORTAR UN STRING
+
+std::string nombre = "Alexander";
+
+nombre.substr(0, 9); // devuelve "Alexander" (del índice 0, coge 9 caracteres)
+nombre.substr(0, 4); // devuelve "Alex"
+
+En la función truncate del PhoneBook:
+
+std::string PhoneBook::truncate(std::string str)
+{
+    if (str.length() > 10)
+        return (str.substr(0, 9) + ".");
+    return (str);
+}
+
+Si str es "Alexanderino" (12 caracteres):
+
+str.substr(0, 9) → "Alexander" (9 caracteres)
++ "." → "Alexander." (10 caracteres)
+
+Si str es "Juan" (4 caracteres):
+
+No entra en el if
+Devuelve "Juan" tal cual
+
+
+PARTE 14 — STD::ATOI Y .C_STR() — CONVERTIR TEXTO A NÚMERO
+
+Cuando el usuario escribe un índice en SEARCH, lo lees como std::string. Pero necesitas un int para acceder al array. Aquí entra atoi:
+
+std::string input = "3";
+int index = std::atoi(input.c_str());
+// index ahora vale 3 (el número entero)
+
+atoi es una función de C que convierte texto a int. El problema es que espera char * (el tipo de C) y no std::string (el tipo de C++). .c_str() convierte el std::string al formato que atoi entiende.
+
+
+PARTE 15 — EL FLUJO COMPLETO DEL PHONEBOOK
+
+Ahora que conoces todas las piezas, así es como encajan:
+main()
+  │
+  ├── lee comando con getline
+  │
+  ├── si es "ADD"  → phonebook.add()
+  │       │
+  │       ├── pide firstName con checkEmptyName()
+  │       ├── pide lastName con checkEmptyName()
+  │       ├── pide nickname con checkEmptyName()
+  │       ├── pide phone con checkEmptyPhone()
+  │       ├── pide secret con checkEmptyName()
+  │       ├── guarda en _contacts[_next]
+  │       └── actualiza _next y _total
+  │
+  ├── si es "SEARCH" → phonebook.search()
+  │       │
+  │       ├── muestra tabla con setw(10) y truncate()
+  │       ├── pide índice al usuario
+  │       ├── valida que sea un número
+  │       ├── valida que esté en rango
+  │       └── muestra los 5 campos del contacto
+  │
+  └── si es "EXIT" → termina el programa
+
+
+
+
+
+
+
+public y private
+
+constructor y destructor
+
+
+
+
+
+
+
+
+
+
