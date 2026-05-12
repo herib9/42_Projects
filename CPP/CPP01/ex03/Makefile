@@ -4,7 +4,7 @@ BLUE = \033[0;34m
 RESET = \033[0m
 
 
-NAME = hi
+NAME = 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
@@ -12,7 +12,10 @@ RM = rm -f
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRCS =	main.cpp
+SRCS =	$(SRC_DIR)main.cpp \
+		$(SRC_DIR)Weapon.cpp \
+		$(SRC_DIR)HumanA.cpp \
+		$(SRC_DIR)HumanB.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

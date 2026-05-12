@@ -12,8 +12,10 @@ class	HumanA
 	public:
 		HumanA	(std::string	name);
 		HumanA	(std::string	weapon);
+
 		HumanA();
 		~HumanA();
+		
 		void	attack(void);
 		void	setName(std::string	name);
 		void	setWeapon(std::string weapon);
