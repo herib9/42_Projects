@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "Weapon.hpp"
 
 
@@ -10,14 +11,14 @@ class	HumanA
 		Weapon		&_weapon;
 
 	public:
-		HumanA	(std::string name, Weapon &weapon);
+		HumanA	(const std::string &name, Weapon &weapon);
 
 		//HumanA();
 		~HumanA();
 		
 		void	attack(void);
-		void	setName(std::string	name);
-		void	setWeapon(Weapon &weapon);
+		void	setName(const std::string &name);
+		//void	setWeapon(Weapon &weapon);
 		//const	std::string	&getName(void) const;
 		//const	Weapon &getWeapon(void) const;
 };

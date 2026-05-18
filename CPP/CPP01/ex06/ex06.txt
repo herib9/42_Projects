@@ -1,0 +1,88 @@
+1. MAIN.CPP: Control de entrada
+
+int main(int ac, char **av)
+{
+    if(ac != 2) // Solo aceptamos UN argumento (el nivel)
+    {
+        std::cerr << "Error\nUse: ./HarlFilter <av>" << std::endl;
+        return -1;
+    }
+    Harl harl;
+    harl.complain(av[1]); // Pasamos el argumento directamente a Harl
+    return 0;
+}
+
+    ac != 2: 
+Verificamos que el usuario haya escrito algo después del nombre del programa.
+
+    av[1]: E
+s el string que el usuario escribe en la terminal (ej: "WARNING").
+
+
+2. HARL.CPP: La lógica del "Embudo"
+
+Como el sistema switch de C++ no acepta strings directamente, primero debemos convertir ese texto en un número.
+
+	A. La búsqueda del índice:
+
+std::string funcPtr[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+int i = 0;
+
+while(i < 4 && funcPtr[i] != level) // Recorremos el array buscando el nombre
+    i++;
+
+    Si el usuario pone "WARNING", el bucle se detiene cuando i = 2.
+
+    Si el usuario pone algo que no existe, i terminará valiendo 4.
+
+	B. El switch con Cascada (Fall-through):
+
+Aquí es donde ocurre la magia del filtro. Al no poner la palabra break entre los casos, el código "se cae" al siguiente nivel.
+
+switch (i)
+{
+    case 0: // Si i es 0 (DEBUG)
+        this->debug();
+        // FALLTHROUGH		-> Salta al caso 1 sin preguntar
+    case 1: // Si i es 1 (INFO)
+        this->info();
+        // FALLTHROUGH 		-> Salta al caso 2
+    case 2: // Si i es 2 (WARNING)
+        this->warning();
+        // FALLTHROUGH 		-> Salta al caso 3
+    case 3: // Si i es 3 (ERROR)
+        this->error();
+        break; 			// Único freno: aquí se detiene
+    default:
+        std::cout << "\nProbably complaining about insignificant problems" << std::endl;
+}
+
+📝 Resumen del comportamiento letra por letra:
+
+    Si eliges WARNING (i = 2):
+        El programa salta directamente al case 2.
+        Ejecuta warning().
+        Como no hay break, cae al case 3.
+        Ejecuta error().
+        Encuentra el break y termina.
+        Resultado: Ves Warning y Error.
+
+    Si eliges ERROR (i = 3):
+        Salta al case 3.
+        Ejecuta error() y se detiene por el break.
+        Resultado: Solo ves Error.
+
+    Si eliges algo inválido (i = 4):
+        No coincide con ningún caso del 0 al 3.
+        Salta al default.
+        Resultado: Mensaje de "insignificant problems".
+
+💡 Conclusión del Módulo 01
+
+Has pasado de gestionar memoria manual con zombies a crear una herramienta de filtrado lógico con Harl. Los conceptos que ahora dominas son:
+
+    Punteros a funciones (Ex05): Para elegir una acción exacta sin condiciones lentas.
+
+    Lógica Switch/Fall-through (Ex06): Para crear sistemas de jerarquía o filtros acumulativos.
+
+¿Sientes que el uso del switch es más cómodo para este filtro que los punteros a funciones que usamos en el ejercicio anterior?

@@ -1,0 +1,79 @@
+1. LA DIFERENCIA FILOSOFICA ENTRE HUMAN_A Y HUMAN_B
+
+Humano		Atributo de Arma		Por qué
+
+HumanA		Weapon &_weapon; (Referencia)	Porque se le pasa el arma en el constructor. No existe un Bob sin garrote.
+
+HumanB		Weapon *_weapon; (Puntero)	Porque puede nacer sin arma. Un puntero puede ser NULL, una referencia no.
+
+
+2. HUMAN_A: EL GUERRERO CONSTANTE
+
+// HumanA.hpp
+Weapon &_weapon; // Una referencia
+
+// HumanA.cpp
+HumanA::HumanA(const std::string &name, Weapon &weapon) : _name(name), _weapon(weapon) {}
+
+    Referencia como atributo: 
+Al declarar _weapon como referencia, obligas a que el arma se asigne en el momento de nacer (en la lista de inicialización del constructor).
+
+    Inmortalidad del vínculo: 
+Una vez que Bob tiene su club, no puedes cambiarle el arma por otra distinta (las referencias no se pueden reasignar), pero si el club cambia de tipo (de "madera" a "hierro"), Bob lo notará porque está vinculado al objeto original.
+
+
+3. HUMAN_B: EL GUERRERO ADAPTABLE
+
+// HumanB.hpp
+Weapon *_weapon; // Un puntero
+
+// HumanB.cpp
+HumanB::HumanB(const std::string &name) : _name(name), _weapon(NULL) {}
+
+    Puntero como atributo: 
+Al usar un puntero, HumanB puede empezar con _weapon apuntando a NULL (el "desarmado").
+
+    setWeapon(Weapon &weapon): 
+Este método permite darle un arma más tarde. Dentro hacemos this->_weapon = &weapon;. Guardamos la dirección de memoria.
+
+    Flexibilidad: 
+Como es un puntero, Jim puede soltar el garrote y coger una espada simplemente cambiando la dirección a la que apunta el puntero.
+
+
+4. EL ATAQUE Y LA SEGURIDAD
+
+Mira cómo cambia la función attack en cada uno debido a su naturaleza:
+
+    En HumanA:
+std::cout << _name << " attacks with their " << _weapon.getType() << std::endl;
+
+No necesitas comprobar nada. Como es una referencia, sabes 100% que el arma existe.
+
+    En HumanB:
+    if (this->_weapon) // ¡CRÍTICO!
+        std::cout << ... << this->_weapon->getType() << std::endl;
+    else
+        std::cout << ... << " has no weapon" << std::endl;
+
+Como es un puntero, tienes que comprobar si es NULL. Si intentaras acceder a _weapon->getType() siendo NULL, el programa explotaría (Segmentation Fault).
+
+
+5. WEAPON.CPP LA HERRAMIENTA PASIVA
+
+const std::string &getType(void) const;
+
+    const al final: 
+Promete que esta función no cambiará nada dentro de la clase Weapon. Es solo de lectura.
+
+    Retorno por referencia constante: 
+Devuelve el string sin copiarlo (más rápido) y evita que quien lo reciba lo pueda modificar accidentalmente.
+
+📝 Resumen para tu defensa:
+
+    HumanA usa Referencia porque el arma es obligatoria y se conoce desde el principio. Una referencia garantiza que el objeto existe.
+
+    HumanB usa Puntero porque el arma es opcional. El puntero permite el estado "sin arma" (NULL) y permite cambiar de arma durante la ejecución.
+
+    Encapsulamiento: Ambos humanos usan el arma a través de sus métodos originales, por lo que si el tipo de arma cambia externamente (setType), el ataque del humano refleja el cambio automáticamente.
+
+¿Entiendes ahora por qué Bob (HumanA) no tiene un método setWeapon y Jim (HumanB) sí lo necesita? Es la diferencia entre un vínculo permanente y uno temporal.

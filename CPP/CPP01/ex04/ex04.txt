@@ -1,0 +1,93 @@
+1. LA FUNCION LOGICA: mySed
+
+Aquí es donde ocurre la transformación del texto. No trabajas con archivos todavía, solo con "memoria" (strings).
+
+std::string mySed(std::string content, const std::string &s1, const std::string &s2)
+{
+    if(s1.empty()) // Protección: si lo que buscamos es nada, no hacemos nada
+        return content;
+
+    std::string result = "";
+    size_t      pos = 0;
+    size_t      last_pos = 0;
+
+    size_t pos:
+Guardará la posición donde encontremos s1.
+
+    last_pos:
+Es el "punto de lectura". Nos dice desde dónde tenemos que seguir buscando para no entrar en un bucle infinito.
+
+
+    while((pos = content.find(s1, last_pos)) != std::string::npos)
+    {
+        result.append(content, last_pos, pos - last_pos); // 1. Copia lo que NO cambia
+        result = result + s2;                             // 2. Pega la palabra nueva
+        last_pos = pos + s1.length();                     // 3. Salta sobre la palabra vieja
+    }
+
+    find(s1, last_pos):
+Busca la palabra s1 a partir de donde nos quedamos la última vez.
+
+    std::string::npos:
+Es una constante que significa "No se ha encontrado nada". El bucle sigue mientras haya coincidencias.
+
+    append: 
+Copia el trozo de texto original que hay antes de encontrar la palabra a sustituir.
+
+
+2. EL MAIN: MANEJO DE ARCHIVOS (INPUT/OUTPUT)
+
+Aquí es donde el programa interactúa con el mundo real.
+
+    std::ifstream ifs(file.c_str());
+    if(!ifs.is_open()) { /* Error si no existe */ }
+
+    std::ifstream: (Input File Stream). 
+    Abre el archivo original para leer.
+
+    .c_str(): C++98 
+    requiere que los nombres de los archivos se pasen como punteros char * (estilo C), no como std::string.
+
+
+    std::stringstream ss;
+    ss << ifs.rdbuf();
+    std::string file_content = ss.str();
+    ifs.close();
+
+    std::stringstream: 
+Es como un "cubo" temporal. Volcamos todo el contenido del archivo (rdbuf()) dentro de él para luego convertirlo en un solo string gigante (ss.str()). Esto es mucho más rápido que leer línea por línea.
+
+
+3. LA CREACION DEL ARCHIVO DE SALIDA
+
+    std::ofstream ofs((file + ".replace").c_str());
+    if(!ofs.is_open()) { /* Error si no se puede crear */ }
+    ofs << finalResult;
+    ofs.close();
+
+    std::ofstream: (Output File Stream). 
+Crea un archivo nuevo para escribir.
+
+    file + ".replace": 
+El subject suele pedir que el resultado esté en un archivo con extensión .replace.
+
+
+📝 Puntos críticos para tu defensa:
+
+    ¿Por qué no usar std::string::replace?: 
+Porque la función miembro de string suele dar problemas si la longitud de s1 y s2 es diferente (puede mover el índice de forma inesperada). Tu método de "ir construyendo un nuevo string" (result) es mucho más seguro y profesional.
+
+    Gestión de errores: 
+Es obligatorio comprobar si el archivo existe (is_open()) y si el número de argumentos es correcto (ac != 4).
+
+    Fugas de memoria: 
+En este ejercicio no hay new, por lo que no hay delete. Todo se limpia automáticamente al salir de la función porque usas objetos del Stack.
+
+    Buffer: 
+Al usar stringstream, estás leyendo el archivo completo a memoria. Esto es eficiente para archivos normales, aunque si el archivo fuera de varios Gigabytes, tendrías que leerlo por trozos (buffers).
+
+💡 Un detalle sobre tu código:
+
+En tu main, has usado file + ".s&r". Ten cuidado con esto, porque como vimos en el Makefile, el símbolo & puede dar problemas en algunos sistemas operativos o shells si no se escapa. La mayoría de los evaluadores de 42 esperan .replace.
+
+¿Te ha quedado claro cómo el while va saltando por el texto usando pos y last_pos para no dejarse nada atrás?

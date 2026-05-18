@@ -1,0 +1,86 @@
+Cerramos con el Ex05: Harl 2.0, un ejercicio diseñado específicamente para enseñarte a usar Punteros a Funciones Miembro. Es la forma más elegante y avanzada de evitar los interminables bloques de if-else o switch cuando tienes que elegir una acción basada en una cadena de texto.
+
+
+1. EL CONCEPTO: LA "DISPATH TABLE" (TABLA DE DESPACHO)
+
+Imagina que estás en un hotel. En lugar de preguntar puerta por puerta si ahí vive el botones, vas a la recepción y miras una lista que dice: "Botones -> Habitación 4". Eso es lo que has hecho en el código.
+
+
+2. HARL.HPP (Privacidad absoluta)
+
+    private: 
+void debug(); ...: Las funciones de queja son privadas. Harl no quiere que nadie le obligue a quejarse directamente.
+
+    public: void complain(...);: 
+Este es el único botón que el mundo exterior puede pulsar. Harl decide internamente qué función llamar.
+
+
+3. HARL.CPP: El Corazón Matemático
+
+Vamos a analizar la línea más compleja, letra por letra:
+
+void (Harl::*funcPtr[])(void) = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
+
+    void: 
+Es el tipo de retorno de las funciones a las que apuntamos.
+
+    (Harl::*: 
+El asterisco dice que es un puntero, y 
+    Harl:: 
+especifica que ese puntero pertenece a la clase Harl. 
+Sin esto, el compilador pensaría que es una función normal de C.
+
+    funcPtr[]: 
+Es el nombre de nuestro array (nuestra "lista de habitaciones").
+
+    (void): 
+Indica que las funciones que guardamos no reciben argumentos.
+
+    { &Harl::debug, ... }: 
+Aquí guardamos las direcciones de memoria de tus funciones privadas.
+
+
+4. LA EJECUCION: EL "THIS"
+
+Dentro del while, cuando encuentras que el nivel coincide (ej. "DEBUG"), ejecutas esto:
+
+(this->*funcPtr[i])();
+
+    this: 
+Es un puntero al objeto Harl actual que está ejecutando el código.
+
+    ->*: 
+Es el operador especial para "entrar" en un puntero a función miembro.
+
+    funcPtr[i]: 
+Accede a la dirección de memoria de la función (ej. la dirección de debug).
+
+    (): 
+Al final, los paréntesis ejecutan la función.
+
+
+5. ¿POR QUE ES MEJOR QUE UN "IF" - "ELSE"?
+
+    Escalabilidad: 
+Si Harl tuviera 100 tipos de quejas, tu código seguiría teniendo el mismo número de líneas. Solo tendrías que añadir el nombre al array numLevel y la función al array funcPtr.
+
+    Rendimiento: 
+Aunque en este caso es despreciable, en sistemas grandes, acceder a un índice de un array es más rápido que evaluar 100 condiciones de if.
+
+    Limpieza (Norma de 42): 
+En muchos proyectos de 42 se penaliza el uso excesivo de condicionales. Esta técnica demuestra que dominas la memoria de C++.
+
+
+📝 Resumen Final del Módulo 01
+
+A lo largo de estos ejercicios has aprendido la jerarquía de la memoria:
+
+    Ex00/01: Memoria dinámica (new/delete) vs estática.
+
+    Ex02/03: Referencias vs Punteros (cuándo usar cada uno).
+
+    Ex04: Manipulación de flujos de archivos (fstream).
+
+    Ex05/06: Automatización de la lógica con punteros a funciones y switch (Harl).
+
+¿Sientes que ahora tienes el control sobre dónde vive cada variable y cómo acceder a ella, o hay algún "símbolo raro" que todavía te genere dudas?
