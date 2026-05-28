@@ -1,662 +1,562 @@
-# C++ — Temario Completo CPP00
-## Todo lo que necesitas saber para el Módulo 00
+# CPP - Module 00
+
+## De cero a entenderlo todo de verdad
 
 ---
 
 # ÍNDICE
 
-1. ¿Qué es C++ y cómo difiere de C?
-2. El léxico completo — palabras clave y símbolos nuevos
-3. Namespaces — qué es std::
-4. Entrada y salida — cout, cin, cerr
-5. std::string — todo en profundidad
-6. argc y argv — argumentos del programa
-7. Clases — el concepto central
-8. .hpp y .cpp — cómo separar el código
-9. Include guards y pragma once
-10. Constructores
-11. Destructores
-12. El puntero this
-13. private y public — encapsulación
-14. Getters y Setters
-15. static — atributos y métodos de clase
-16. const — métodos constantes
-17. Arrays de objetos (sin memoria dinámica)
-18. iomanip — formatear la salida
-19. Glosario completo
+**PARTE 1 — Antes de escribir una sola línea**
+1. Qué es C++ y en qué se diferencia de C
+2. El primer cambio visible — adiós printf, hola cout
+3. Qué es un namespace y por qué existe std::
+
+**PARTE 2 — Strings: el reemplazo de char***
+4. El problema con las cadenas en C
+5. std::string — la solución
+6. Todo lo que puedes hacer con un string
+7. Cómo recorrer un string — índices e iteradores
+8. Convertir un string a mayúsculas
+
+**PARTE 3 — Clases: agrupar datos y funciones**
+9. El problema que resuelven las clases
+10. Qué es una clase — el molde
+11. La diferencia entre clase y objeto
+12. Private y public — quién puede tocar qué
+13. Cómo se separa el código — .hpp y .cpp
+14. Include guards y pragma once
+
+**PARTE 4 — Los constructores y destructores**
+15. El problema sin constructor
+16. El constructor — la función que nace sola
+17. El destructor — la función que muere sola
+18. El puntero this — quién soy yo
+
+**PARTE 5 — Getters, setters y encapsulación**
+19. Por qué no dejar los atributos públicos
+20. El getter — la ventanilla de lectura
+21. El setter — la ventanilla de escritura
+
+**PARTE 6 — Static y const en clases**
+22. El atributo static — compartido por todos
+23. El método const — promesa de no tocar nada
+24. El atributo static const — la constante de clase
+
+**PARTE 7 — Entrada y salida**
+25. std::cin — leer del teclado
+26. El problema de mezclar cin y getline
+27. iomanip — formatear columnas
+
+**PARTE 8 — argc y argv — argumentos del programa**
+28. Cómo recibe el programa datos desde la terminal
+
+**PARTE 9 — Los ejercicios explicados uno a uno**
+29. Ex00: Megaphone
+30. Ex01: PhoneBook — Contact
+31. Ex01: PhoneBook — la clase PhoneBook
+32. Ex02: Account — static en acción
+
+**Glosario completo**
 
 ---
 
-# PARTE 1 — LOS FUNDAMENTOS
+# PARTE 1 — ANTES DE ESCRIBIR UNA SOLA LÍNEA
 
 ---
 
-## 1. ¿Qué es C++ y cómo difiere de C?
+## 1. Qué es C++ y en qué se diferencia de C
 
-C++ es una extensión de C creada por Bjarne Stroustrup. La idea fue tomar C — que ya era potente a bajo nivel — y añadirle una forma de organizar el código más grande y complejo: la **Programación Orientada a Objetos** (OOP).
+Ya sabes C. Ya sabes que puedes reservar memoria, escribir funciones, trabajar con punteros. C++ no tira nada de eso — lo conserva todo y añade una capa encima.
 
-Por eso al principio se llamó "C with Classes" — C con clases.
+Esa capa se llama **Programación Orientada a Objetos** (OOP). La idea central es simple: en lugar de tener datos por un lado y funciones que los manipulan por otro, C++ te permite empaquetar ambas cosas juntas en una **clase**.
 
-Todo lo que sabes de C sigue funcionando en C++. Las variables, los bucles, los punteros, las funciones, los arrays — todo está. Lo que C++ añade encima es la posibilidad de crear **clases**, que son moldes para crear objetos que agrupan datos y funciones juntos de forma organizada.
-
-### ¿Qué cambia visualmente respecto a C?
+En C hacías esto:
 
 ```c
-// C — así imprimías
-printf("Hola %s\n", nombre);
+// Datos separados de las funciones
+struct Contacto {
+    char nombre[50];
+    char telefono[20];
+};
 
-// C++ — así imprimes
+void mostrar_contacto(struct Contacto c) { ... }
+void guardar_contacto(struct Contacto *c, char *nombre) { ... }
+```
+
+En C++ puedes hacer esto:
+
+```cpp
+// Datos y funciones juntos
+class Contacto {
+    std::string _nombre;
+    std::string _telefono;
+    
+    void mostrar() { ... }      // la función PERTENECE al objeto
+    void guardar(std::string n) { ... }
+};
+```
+
+El objeto `Contacto` lleva sus propias funciones consigo. Cuando tienes un `Contacto`, ya sabes lo que puede hacer.
+
+Además, en 42 usas el estándar **C++98** — la versión más antigua. Esto es intencionado: te obliga a entender los fundamentos sin atajos modernos.
+
+---
+
+## 2. El primer cambio visible — adiós printf, hola cout
+
+Lo primero que choca al pasar de C a C++ es que `printf` está prohibido. En su lugar usas `std::cout`.
+
+```c
+// C
+printf("Hola %s, tienes %d años\n", nombre, edad);
+
+// C++
+std::cout << "Hola " << nombre << ", tienes " << edad << " años" << std::endl;
+```
+
+`std::cout` es un **objeto** que representa la pantalla. El operador `<<` manda datos hacia él. Puedes encadenar tantos `<<` como quieras — cada uno manda su dato al stream y devuelve el mismo stream para que puedas seguir encadenando.
+
+Visualizando la ejecución:
+
+```
 std::cout << "Hola " << nombre << std::endl;
+
+Paso 1: "Hola " va al stream → pantalla muestra: Hola 
+Paso 2: nombre ("Alice") va al stream → pantalla muestra: Hola Alice
+Paso 3: std::endl va al stream → pantalla muestra: Hola Alice\n
 ```
 
-```c
-// C — así leías entrada
-scanf("%s", buffer);
+`std::endl` hace dos cosas: salta de línea y vacía el buffer (el buffer es una zona temporal donde se acumula lo que vas a imprimir antes de que aparezca en pantalla). En la práctica, para 42, usa siempre `std::endl`.
 
-// C++ — así lees entrada
-std::cin >> variable;
-```
+Para tener acceso a `std::cout` necesitas incluir:
 
-```c
-// C — archivos de cabecera
-#include <stdio.h>
-#include <string.h>
-
-// C++ — archivos de cabecera
+```cpp
 #include <iostream>
-#include <string>
 ```
-
-En 42 trabajas con el estándar **C++98** — la versión más antigua y estricta. Esto es intencionado: te obliga a entender los fundamentos sin atajos modernos. Además, en CPP00 están prohibidas las funciones de C: `printf`, `malloc`, `free`. Tienes que usar las alternativas de C++.
 
 ---
 
-## 2. El léxico completo — palabras clave y símbolos nuevos
+## 3. Qué es un namespace y por qué existe std::
 
-Antes de escribir código necesitas conocer el vocabulario. Aquí están todos los términos nuevos que aparecen en CPP00.
+Imagina que en tu empresa hay dos empleados llamados García. Cuando alguien dice "llama a García", nadie sabe a cuál. Para distinguirlos dices "García de ventas" o "García de contabilidad".
 
-### Palabras clave nuevas
+Un **namespace** es exactamente eso — una etiqueta que agrupa nombres para evitar conflictos.
 
-| Palabra | Significado |
-|---|---|
-| `class` | Define una clase — un molde para crear objetos |
-| `public` | Lo que es accesible desde fuera de la clase |
-| `private` | Lo que solo es accesible desde dentro de la clase |
-| `this` | Puntero especial al objeto actual dentro de un método |
-| `const` | Indica que algo no puede modificarse |
-| `static` | Pertenece a la clase, no a un objeto concreto |
-| `bool` | Tipo booleano — solo vale `true` o `false` |
-| `true` | Verdadero (equivale a 1) |
-| `false` | Falso (equivale a 0) |
+La librería estándar de C++ mete todo dentro de un namespace llamado `std`. Por eso escribes `std::cout`, `std::string`, `std::endl` — estás diciendo "el `cout` que pertenece a `std`".
 
-### Operadores nuevos
+El `::` se llama **operador de resolución de ámbito**. Significa "lo que está dentro de". `std::cout` se lee: "el `cout` que está dentro del namespace `std`".
 
-| Operador | Nombre | Uso |
-|---|---|---|
-| `::` | Resolución de ámbito | `PhoneBook::addContact()` — indica a qué clase pertenece |
-| `.` | Acceso a miembro | `contact.getName()` — objeto directo |
-| `<<` | Inserción | `std::cout << "hola"` — manda datos a la salida |
-| `>>` | Extracción | `std::cin >> variable` — lee datos de la entrada |
-
-### Símbolos importantes en la estructura de clase
-
-```cpp
-class PhoneBook {
-//              ^-- el cuerpo empieza aquí
-    private:    // sección privada
-        // ...
-    public:     // sección pública
-        // ...
-};              // <-- el punto y coma al final es OBLIGATORIO
-```
-
-El punto y coma después de `}` en una clase es único en C++ — en las funciones normales no lo pones, pero en las clases sí.
-
----
-
-## 3. Namespaces — qué es std::
-
-Imagina que en una empresa hay dos empleados llamados García. Cuando alguien dice "llama a García", nadie sabe cuál. Para distinguirlos dices "García del departamento de ventas" o "García del departamento técnico".
-
-Un **namespace** (espacio de nombres) es exactamente eso — una etiqueta que agrupa nombres para evitar conflictos.
-
-La librería estándar de C++ mete todo dentro de un namespace llamado `std`. Por eso escribes:
-
-```cpp
-std::cout    // el cout del namespace std
-std::cin     // el cin del namespace std
-std::string  // el string del namespace std
-std::endl    // el endl del namespace std
-```
-
-El `::` es el operador que dice "dentro de". Así que `std::cout` se lee "el `cout` que está dentro de `std`".
-
-### ¿Por qué no usar `using namespace std`?
-
-Existe un atajo para no escribir `std::` cada vez:
+Existe un atajo para no escribir `std::` todo el rato:
 
 ```cpp
 using namespace std;
 cout << "Hola" << endl;   // ya no necesitas std::
 ```
 
-**En 42 esto está PROHIBIDO en los headers (`.hpp`)** y muy desaconsejado en general. El motivo: si tu proyecto usa dos namespaces distintos que tienen funciones con el mismo nombre, el compilador no sabe cuál usar y se lía. Es una fuente de bugs difíciles de detectar.
+**Pero en 42 esto está prohibido en los headers** y muy desaconsejado en general. La razón: si tu proyecto tiene dos namespaces con funciones del mismo nombre, el compilador no sabe cuál usar. Es una fuente de bugs difíciles de detectar.
 
-La regla de oro en 42: **escribe siempre `std::` explícitamente.**
-
-### Crear tu propio namespace
-
-En el ex00 de CPP00 (Megaphone) el subject menciona namespaces. Puedes crear el tuyo:
-
-```cpp
-namespace MegafoneUtils {
-    void convertirMayusculas(std::string &texto);
-}
-
-// para usarlo:
-MegafoneUtils::convertirMayusculas(mi_texto);
-```
+La regla de oro: **escribe siempre `std::` explícitamente.**
 
 ---
 
-## 4. Entrada y salida — cout, cin, cerr
+# PARTE 2 — STRINGS: EL REEMPLAZO DE CHAR*
 
-Para usar estos necesitas:
-```cpp
-#include <iostream>
+---
+
+## 4. El problema con las cadenas en C
+
+En C las cadenas de texto eran arrays de `char` terminados en `'\0'`. El problema era que tenías que gestionar el tamaño tú mismo:
+
+```c
+char nombre[20];          // tienes que adivinar el tamaño máximo
+strcpy(nombre, "Alice");  // copia manual
+strcat(nombre, " Smith"); // concatenación manual — peligrosa si se sale del array
+int len = strlen(nombre); // longitud manual
 ```
 
-### std::cout — salida estándar (pantalla)
+Si el string crecía más de 19 caracteres, desbordabas el array y corrompías memoria. Si lo hacías demasiado grande, desperdiciabas espacio.
 
-`cout` significa *character output*. Es el objeto que representa la pantalla.
+---
 
-```cpp
-std::cout << "Hola mundo" << std::endl;
-```
+## 5. std::string — la solución
 
-Desglosado:
-- `std::cout` — el objeto pantalla
-- `<<` — el operador de inserción. "Manda esto a la pantalla"
-- `"Hola mundo"` — lo que mandas
-- `std::endl` — salta de línea y vacía el buffer
+En C++, `std::string` es una clase que gestiona todo esto automáticamente. Tú solo escribes texto:
 
-Puedes encadenar varios `<<`:
 ```cpp
 std::string nombre = "Alice";
-int edad = 25;
-std::cout << "Nombre: " << nombre << ", Edad: " << edad << std::endl;
-// imprime: Nombre: Alice, Edad: 25
+nombre += " Smith";          // concatenación automática, sin desbordamientos
+int len = nombre.length();   // longitud automática
 ```
 
-### std::endl vs '\n'
+Por dentro, `std::string` reserva y libera memoria según lo necesite. Tú no te preocupas del tamaño ni del `'\0'`. Para usarla necesitas:
 
-Ambos saltan de línea, pero hay una diferencia:
-- `'\n'` — solo salta de línea
-- `std::endl` — salta de línea **y además vacía el buffer**
-
-El buffer es una zona de memoria temporal donde se acumula lo que vas a imprimir antes de que aparezca en pantalla. Vaciarlo (`flush`) garantiza que lo que mandas aparece inmediatamente.
-
-En práctica para 42: usa `std::endl`. Es más seguro aunque ligeramente más lento.
-
-### std::cin — entrada estándar (teclado)
-
-`cin` significa *character input*. Es el objeto que representa el teclado.
-
-```cpp
-std::string nombre;
-std::cin >> nombre;   // espera a que el usuario escriba algo y pulse Enter
-```
-
-**Problema importante**: `std::cin >> variable` lee hasta el primer espacio. Si el usuario escribe "Hola mundo", solo guardará "Hola".
-
-Para leer una línea entera incluyendo espacios:
-```cpp
-std::string frase;
-std::getline(std::cin, frase);   // lee toda la línea hasta el Enter
-```
-
-### El problema de mezclar cin >> y getline
-
-Este es un bug clásico que aparece en el PhoneBook:
-
-```cpp
-int numero;
-std::cin >> numero;       // el usuario escribe "5" y pulsa Enter
-                          // cin lee el "5" pero deja el '\n' en el buffer
-
-std::string nombre;
-std::getline(std::cin, nombre);   // lee el '\n' que quedó → nombre queda vacío!
-```
-
-La solución: limpiar el buffer después de `cin >>`:
-```cpp
-std::cin >> numero;
-std::cin.ignore();        // ignora el '\n' que quedó en el buffer
-std::getline(std::cin, nombre);   // ahora sí lee correctamente
-```
-
-O mejor: usar siempre `std::getline` para todo y convertir cuando necesites un número.
-
-### std::cerr — salida de errores
-
-`cerr` significa *character error*. Funciona igual que `cout` pero está pensado para mensajes de error — va a la salida de errores estándar en lugar de la salida normal:
-
-```cpp
-std::cerr << "Error: el archivo no existe" << std::endl;
-```
-
----
-
-## 5. std::string — todo en profundidad
-
-Para usarlo:
 ```cpp
 #include <string>
 ```
 
-En C, las cadenas de texto eran arrays de `char` terminados en `'\0'`. Gestionarlas era incómodo — tamaño fijo, `strlen`, `strcpy`, `strcat`...
+Grábate esto: en C++ usas `std::string`, no `char *`. Si ves `char *` para texto en C++, algo está mal.
 
-En C++, `std::string` es una clase que gestiona todo automáticamente. Tú solo escribes texto y ella se ocupa del resto.
+---
+
+## 6. Todo lo que puedes hacer con un string
+
+Vamos con ejemplos concretos usando siempre el mismo string:
 
 ```cpp
-std::string nombre = "Alice";   // sin preocuparte del tamaño ni del '\0'
-```
-
-### Operaciones fundamentales
-
-**Crear y asignar:**
-```cpp
-std::string a = "Alice";          // inicialización directa
-std::string b("Bob");             // otra forma
-std::string c = b;                // copia
-std::string vacio = "";           // string vacío
-std::string vacio2;               // también vacío — valor por defecto es ""
-```
-
-**Concatenar (unir strings):**
-```cpp
-std::string nombre = "Alice";
-std::string apellido = "Smith";
-std::string completo = nombre + " " + apellido;   // "Alice Smith"
-
-nombre += " Cooper";   // añadir al final — nombre ahora es "Alice Cooper"
+std::string frase = "Hola Alice mundo";
 ```
 
 **Tamaño:**
+
 ```cpp
-std::string texto = "Alice";
-int n = texto.length();   // 5
-int m = texto.size();     // también 5 — son exactamente equivalentes
+frase.length()   // 16
+frase.size()     // también 16 — son equivalentes
 ```
 
 **Comprobar si está vacío:**
-```cpp
-std::string texto = "";
-if (texto.empty())
-    std::cout << "Está vacío" << std::endl;
 
-// equivale a:
-if (texto.length() == 0)
-    std::cout << "Está vacío" << std::endl;
+```cpp
+std::string vacio = "";
+vacio.empty()    // true
+frase.empty()    // false
 ```
 
-**Acceder a un carácter:**
+**Acceder a un carácter por posición:**
+
 ```cpp
-std::string texto = "Alice";
-//                   01234    ← índices
-
-char primera = texto[0];    // 'A'
-char segunda = texto[1];    // 'l'
-char ultima  = texto[4];    // 'e'
+frase[0]    // 'H'
+frase[5]    // 'A'
+frase[15]   // 'o'
+// los índices empiezan en 0, igual que en C
 ```
-
-Los índices empiezan en 0, igual que en C con los arrays.
 
 **Comparar:**
-```cpp
-std::string a = "ADD";
-std::string b = "ADD";
-std::string c = "SEARCH";
 
-if (a == b)    // true — son iguales
-if (a != c)    // true — son distintos
-if (a == "ADD") // también funciona — comparar con string literal
+```cpp
+std::string a = "Hola";
+std::string b = "Hola";
+a == b    // true — en C necesitabas strcmp, aquí basta con ==
+a != b    // false
 ```
 
-En C necesitabas `strcmp`. En C++ puedes usar `==` directamente. Mucho más limpio.
+**Buscar una subcadena:**
 
-**Buscar dentro del string:**
 ```cpp
-std::string frase = "Hola Alice mundo";
-int pos = frase.find("Alice");   // devuelve 5 — posición donde empieza
+frase.find("Alice")    // devuelve 5 — la posición donde empieza "Alice"
+frase.find("zombie")   // devuelve std::string::npos — no encontrado
+```
 
-if (frase.find("zombie") == std::string::npos)
+`std::string::npos` es una constante especial que significa "no encontrado". Siempre comprueba contra ella cuando uses `find`:
+
+```cpp
+if (frase.find("Alice") == std::string::npos)
     std::cout << "No encontrado" << std::endl;
 ```
 
-`std::string::npos` es una constante especial que significa "no encontrado". Es el valor que devuelve `find` cuando la búsqueda falla.
+**Extraer parte del string:**
 
-**Extraer parte del string (substring):**
 ```cpp
-std::string texto = "Hola Alice mundo";
-//                   0123456789...
-
-std::string trozo = texto.substr(5, 5);
-// substr(posición_inicio, cantidad_caracteres)
-// desde posición 5, coge 5 caracteres → "Alice"
+frase.substr(5, 5)   // desde posición 5, coge 5 caracteres → "Alice"
+frase.substr(11)     // desde posición 11 hasta el final → "mundo"
 ```
 
-**Convertir a número y viceversa:**
+**Concatenar:**
 
-En C++98 no hay `std::stoi` (es C++11). Tienes que usar stringstream:
 ```cpp
-#include <sstream>
-
-// número a string
-int numero = 42;
-std::stringstream ss;
-ss << numero;
-std::string texto = ss.str();   // "42"
-
-// string a número
-std::string s = "42";
-std::stringstream ss2(s);
-int n;
-ss2 >> n;   // n = 42
+std::string a = "Hola";
+std::string b = " mundo";
+std::string c = a + b;   // "Hola mundo"
+a += " Alice";           // a ahora es "Hola Alice"
 ```
 
-### Convertir a mayúsculas — el método del CPP00
-
-El ex00 (Megaphone) necesita convertir todo a mayúsculas. `std::string` no tiene un método directo para esto. Tienes que recorrer carácter por carácter:
+**Borrar parte del string:**
 
 ```cpp
-#include <cctype>   // para toupper y tolower
+frase.erase(5, 6)    // borra 6 caracteres desde posición 5 → "Hola mundo"
+```
 
-std::string texto = "hola alice";
+**Insertar texto en una posición:**
 
-for (int i = 0; i < (int)texto.length(); i++) {
-    texto[i] = toupper(texto[i]);
+```cpp
+frase.insert(5, "Bob ")  // inserta "Bob " en posición 5 → "Hola Bob Alice mundo"
+```
+
+---
+
+## 7. Cómo recorrer un string — índices e iteradores
+
+Hay dos formas de recorrer un string carácter por carácter. Ambas producen el mismo resultado.
+
+**Forma 1 — con índice (la más simple, igual que C):**
+
+```cpp
+std::string frase = "Hola Alice";
+
+for (int i = 0; i < (int)frase.length(); i++) {
+    std::cout << frase[i] << std::endl;
 }
-std::cout << texto << std::endl;   // HOLA ALICE
+// imprime: H o l a   A l i c e (uno por línea)
 ```
 
-- `toupper(c)` — convierte un `char` a su versión mayúscula. Si ya es mayúscula, lo deja igual. Si es un dígito o símbolo, lo deja igual.
-- `tolower(c)` — convierte un `char` a su versión minúscula.
+El cast `(int)` antes de `frase.length()` evita un warning — `length()` devuelve `size_t` (entero sin signo) y `i` es `int` (con signo). Mezclarlos da warning. El cast lo silencia.
 
-Estas funciones trabajan con un solo carácter a la vez — por eso el bucle.
+**Forma 2 — con iterador (la forma C++ estándar):**
 
-**¿Por qué el cast `(int)texto.length()`?**
+Un iterador es como un cursor que señala a un elemento dentro de una colección. Para moverlo hacia adelante usas `it++`. Para leer el elemento al que apunta usas `*it`.
 
-`texto.length()` devuelve un tipo `size_t`, que es un entero sin signo. Compararlo con `int i` puede dar warnings porque mezclas tipos con/sin signo. El cast elimina el warning.
-
-### Moverse por un string — tres formas
-
-**Forma 1: con índice (la más simple):**
 ```cpp
-std::string texto = "Alice";
-
-for (int i = 0; i < (int)texto.length(); i++) {
-    std::cout << texto[i];   // accedes como array
-}
-```
-
-**Forma 2: con iterador (la forma C++ estándar):**
-```cpp
-std::string texto = "Alice";
+std::string frase = "Hola Alice";
 std::string::iterator it;
 
-for (it = texto.begin(); it != texto.end(); it++) {
-    std::cout << *it;   // *it da el carácter actual
+for (it = frase.begin(); it != frase.end(); it++) {
+    std::cout << *it << std::endl;
 }
 ```
 
-**Forma 3: con iterador constante (cuando no vas a modificar):**
-```cpp
-std::string texto = "Alice";
-std::string::const_iterator it;
-
-for (it = texto.begin(); it != texto.end(); it++) {
-    std::cout << *it;
-}
-```
-
-### Los iteradores — qué son y cómo funcionan
-
-Un **iterador** es como un cursor que señala a un elemento dentro de una colección. Para un string, señala a un carácter concreto.
-
-Piénsalo como el cursor parpadeante en un editor de texto — está en una posición concreta, puedes moverlo hacia adelante o hacia atrás, y en cada posición lees o modificas el carácter que hay allí.
+Visualizando el iterador:
 
 ```
-texto = "Alice"
-         ^   ^
-         |   |
-      begin() end()
+frase = "Hola Alice"
+         ^         ^
+         |         |
+      begin()    end()
+      (apunta a 'H')  (apunta al lugar DESPUÉS de 'e')
 ```
 
-Los cuatro iteradores de `std::string`:
+`end()` no apunta al último carácter — apunta a la posición imaginaria después de él. Por eso el bucle es `it != end()` y no `it <= end()`.
 
-| Iterador | Apunta a... |
-|---|---|
-| `texto.begin()` | El primer carácter ('A') |
-| `texto.end()` | La posición DESPUÉS del último — imaginaria, no existe |
-| `texto.rbegin()` | El último carácter ('e') — para recorrer al revés |
-| `texto.rend()` | La posición ANTES del primero — para recorrer al revés |
-
-**IMPORTANTE**: `end()` no apunta al último carácter. Apunta a una posición imaginaria después de él. Por eso el bucle es `it != texto.end()` (diferente de end) y no `it <= texto.end()` (menor o igual).
-
-**Operaciones sobre iteradores:**
-
-```cpp
-std::string::iterator it = texto.begin();
-
-it++;    // avanza al siguiente carácter
-it--;    // retrocede al carácter anterior
-*it      // el carácter al que apunta (desreferenciar)
-*it = 'X';  // modifica el carácter al que apunta
-```
-
-**Recorrer modificando con iterador:**
-```cpp
-std::string texto = "Alice";
-std::string::iterator it;
-
-for (it = texto.begin(); it != texto.end(); it++) {
-    *it = toupper(*it);   // convierte cada carácter a mayúscula
-}
-// texto ahora es "ALICE"
-```
-
-**¿Cuándo usar iteradores vs índices?**
-
-Para strings simples en CPP00, los índices son más claros y directos. Los iteradores son la forma universal de C++ para recorrer cualquier tipo de colección (strings, listas, mapas...) y funcionan igual en todas. En módulos avanzados (08, 09) los usarás más con contenedores STL.
+Para strings simples, los índices son más claros. Los iteradores son la forma universal de C++ para recorrer cualquier tipo de colección y los usarás más en módulos avanzados.
 
 ---
 
-## 6. argc y argv — argumentos del programa
+## 8. Convertir un string a mayúsculas
 
-En C ya los conocías. En C++ funcionan exactamente igual:
+`std::string` no tiene un método directo para esto. Tienes que recorrer carácter por carácter usando `toupper()` de `<cctype>`:
 
 ```cpp
-int main(int argc, char **argv) {
-    // argc — número de argumentos (incluye el nombre del programa)
-    // argv — array de strings con los argumentos
+#include <cctype>
+
+std::string frase = "Hola Alice";
+
+for (int i = 0; i < (int)frase.length(); i++) {
+    frase[i] = toupper(frase[i]);
 }
+// frase ahora es "HOLA ALICE"
 ```
 
-El ex00 (Megaphone) los usa así:
+`toupper(c)` toma un `char` y devuelve su versión mayúscula. Si ya es mayúscula, lo deja igual. Si es un número o símbolo, también lo deja igual. Solo afecta a las letras minúsculas.
 
-```
-./megaphone "hola mundo" "esto es un test"
-argc = 3
-argv[0] = "./megaphone"
-argv[1] = "hola mundo"
-argv[2] = "esto es un test"
-```
+`tolower(c)` hace lo mismo pero al revés — convierte a minúscula.
 
-Para convertir `argv[i]` (que es `char *`) a `std::string`:
-```cpp
-std::string argumento = argv[1];   // conversión automática
-```
-
-Para recorrer todos los argumentos:
-```cpp
-int main(int argc, char **argv) {
-    if (argc == 1) {
-        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-        return 0;
-    }
-
-    for (int i = 1; i < argc; i++) {
-        std::string argumento = argv[i];
-        for (int j = 0; j < (int)argumento.length(); j++) {
-            std::cout << (char)toupper(argumento[j]);
-        }
-    }
-    std::cout << std::endl;
-    return 0;
-}
-```
+El ex00 (Megaphone) usa exactamente esto — recibe los argumentos del programa y los imprime todos en mayúsculas.
 
 ---
 
-# PARTE 2 — CLASES
+# PARTE 3 — CLASES: AGRUPAR DATOS Y FUNCIONES
 
 ---
 
-## 7. Clases — el concepto central
+## 9. El problema que resuelven las clases
 
-Una **clase** es un molde para crear objetos. Define qué datos tiene cada objeto y qué puede hacer.
+Imagina que tienes que hacer la agenda telefónica del ex01. En C harías algo así:
 
-Analogía: una clase es el plano de un apartamento. El plano en sí no es un apartamento — es la descripción de cómo construirlo. Cada apartamento construido siguiendo ese plano es un **objeto** (también llamado **instancia**).
+```c
+// Los datos aquí
+char nombre[50];
+char apellido[50];
+char telefono[20];
 
-En el PhoneBook tienes dos clases:
-- `Contact` — el plano de un contacto. Define que cada contacto tiene nombre, apellido, apodo, teléfono y secreto
-- `PhoneBook` — el plano de la agenda. Define que tiene un array de contactos y puede añadir/buscar
+// Las funciones allá
+void mostrar_contacto(char *nombre, char *apellido, char *telefono) { ... }
+void pedir_datos(char *nombre, char *apellido, char *telefono) { ... }
+```
+
+El problema: los datos y las funciones están separados. Si tienes 8 contactos, tienes 24 variables sueltas por ahí. Si quieres pasar un contacto a una función, tienes que pasar las 3 variables. Si el contacto cambia (añades un campo), tienes que modificar todas las funciones.
+
+Las clases resuelven esto agrupándolo todo:
 
 ```cpp
 class Contact {
-    // aquí defines qué tiene y qué puede hacer un Contact
-};
-
-Contact alice;   // alice es un objeto de tipo Contact
-Contact bob;     // bob es otro objeto de tipo Contact
-```
-
-`alice` y `bob` son dos objetos distintos, cada uno con sus propios datos, pero creados con el mismo molde.
-
-### La diferencia entre clase y struct en C++
-
-En C usabas `struct` para agrupar datos. Las clases hacen lo mismo pero añaden dos cosas fundamentales:
-
-**1. Métodos** — funciones que pertenecen al objeto:
-```cpp
-class Contact {
-    public:
-        std::string nombre;
-        void mostrar() {           // este método es del objeto
-            std::cout << nombre;   // puede acceder a los datos directamente
-        }
+    std::string _nombre;
+    std::string _apellido;
+    std::string _telefono;
+    
+    void mostrar();        // la función conoce _nombre, _apellido y _telefono
+    void pedirDatos();     // directamente — son suyos
 };
 ```
 
-**2. Encapsulación** — control de acceso con `private` y `public`:
-```cpp
-class Contact {
-    private:
-        std::string _nombre;   // nadie de fuera puede tocarlo directamente
-    public:
-        void mostrar();        // esto sí pueden usarlo desde fuera
-};
-```
-
-Técnicamente en C++ la diferencia entre `struct` y `class` es solo que en `struct` todo es público por defecto y en `class` todo es privado por defecto. Pero por convención, usamos `class` cuando queremos encapsulación y `struct` para datos simples sin lógica.
-
-### La nomenclatura en 42
-
-- Nombres de clase en **UpperCamelCase**: `Contact`, `PhoneBook`, `Account`
-- Nombres de atributos privados con guión bajo: `_nombre`, `_telefono`, `_index`
-- Nombres de métodos en **lowerCamelCase**: `getName`, `addContact`, `displayAll`
-- Archivos nombrados igual que la clase: `Contact.hpp`, `Contact.cpp`, `PhoneBook.hpp`, `PhoneBook.cpp`
+Ahora `Contact` es una unidad completa. Lleva sus datos y sus funciones juntos.
 
 ---
 
-## 8. .hpp y .cpp — cómo separar el código
+## 10. Qué es una clase — el molde
+
+Una clase es un **molde** para crear objetos. El molde define qué datos tiene cada objeto y qué puede hacer.
+
+La analogía perfecta: una clase es el plano de un apartamento. El plano en sí no es un apartamento — es la descripción de cómo construirlo. Cada apartamento construido siguiendo ese plano es un **objeto** (también llamado instancia).
+
+```cpp
+class Contact {          // ← el plano
+    std::string _nombre;
+};
+
+Contact alice;           // ← apartamento 1
+Contact bob;             // ← apartamento 2
+```
+
+`alice` y `bob` son dos objetos distintos con sus propios datos, pero construidos con el mismo molde. Si cambias el nombre de `alice`, el de `bob` no cambia.
+
+**El punto y coma después de `}`:**
+
+```cpp
+class Contact {
+    // ...
+};    // ← obligatorio en C++
+```
+
+En las funciones normales no pones `;` después de `}`. En las clases sí es obligatorio. Si lo olvidas, error de compilación críptico.
+
+---
+
+## 11. La diferencia entre clase y objeto
+
+- **Clase** = el plano = Contact
+- **Objeto** = el apartamento construido = alice, bob
+
+La clase solo existe en tu código fuente. Los objetos existen en memoria cuando el programa se ejecuta.
+
+```
+EN EL CÓDIGO:          EN MEMORIA (durante la ejecución):
+class Contact          alice._nombre = "Alice"
+{                      alice._apellido = "Smith"
+  _nombre;             
+  _apellido;           bob._nombre = "Bob"
+};                     bob._apellido = "Jones"
+```
+
+Puedes crear tantos objetos como quieras a partir del mismo molde.
+
+---
+
+## 12. Private y public — quién puede tocar qué
+
+Aquí está una de las ideas más importantes de C++: **encapsulación**.
+
+Por defecto, todo lo que está en una clase es privado — nadie de fuera puede tocarlo. Para que algo sea accesible desde fuera, tienes que marcarlo explícitamente como `public`.
+
+```cpp
+class Contact {
+    private:                    // nadie de fuera puede tocar esto
+        std::string _nombre;
+        std::string _telefono;
+    
+    public:                     // esto sí es accesible desde fuera
+        void mostrar();
+        void setNombre(std::string n);
+};
+```
+
+Si alguien intenta acceder a `_nombre` directamente desde fuera:
+
+```cpp
+Contact alice;
+alice._nombre = "Alice";   // ERROR de compilación — _nombre es private
+alice.setNombre("Alice");  // correcto — setNombre es public
+```
+
+**¿Por qué proteger los datos?**
+
+Sin protección, cualquiera puede poner cualquier basura en los atributos:
+
+```cpp
+alice._nombre = "";          // nombre vacío — estado inválido
+alice._telefono = "abc123";  // teléfono inválido
+```
+
+Con un setter puedes validar antes de guardar:
+
+```cpp
+void Contact::setNombre(std::string n) {
+    if (n.empty())     // si está vacío, no lo guardo
+        return;
+    _nombre = n;       // solo guardo si es válido
+}
+```
+
+La clase controla su propio estado. Eso es la encapsulación.
+
+**La convención del guión bajo:**
+
+En 42, los atributos privados llevan `_` delante: `_nombre`, `_telefono`. No es obligatorio por el lenguaje — es una convención para distinguirlos visualmente de los parámetros y variables locales.
+
+---
+
+## 13. Cómo se separa el código — .hpp y .cpp
 
 En C++ los archivos de clase se dividen en dos:
 
-**El `.hpp` (header / cabecera):** declara qué existe. Dice qué tiene la clase y qué puede hacer. No dice cómo funciona.
+**El `.hpp` (header / cabecera):** declara qué existe. Dice qué tiene la clase y qué puede hacer. No dice cómo funciona — solo la "firma" de cada función.
 
 **El `.cpp` (implementación):** define cómo funciona cada cosa declarada en el `.hpp`.
 
 ```
-Contact.hpp  →  "Contact tiene _nombre y puede getName()"
-Contact.cpp  →  "así es como funciona getName()"
+Contact.hpp  →  "Contact tiene _nombre y puede mostrar()"
+Contact.cpp  →  "así es como funciona mostrar()"
 ```
 
-¿Por qué separar? Porque cuando `PhoneBook.cpp` usa la clase `Contact`, solo necesita incluir `Contact.hpp` — no necesita saber cómo está implementada por dentro. Es como un contrato: el `.hpp` promete lo que la clase hace, el `.cpp` cumple esa promesa.
-
-### Estructura del .hpp
+Ejemplo completo:
 
 ```cpp
-#pragma once                        // evita doble inclusión (ver sección 9)
-
-#include <string>                   // dependencias necesarias
+// Contact.hpp
+#pragma once
+#include <string>
 #include <iostream>
 
 class Contact {
-    private:                        // sección privada — datos protegidos
-        std::string _firstName;
-        std::string _lastName;
-        std::string _nickname;
-        std::string _phoneNumber;
-        std::string _darkestSecret;
-
-    public:                         // sección pública — lo que el mundo puede usar
-        Contact();                  // constructor
-        ~Contact();                 // destructor
-
-        void setFirstName(std::string name);
-        std::string getFirstName(void) const;
-        bool isEmpty(void) const;
+    private:
+        std::string _nombre;
+        std::string _apellido;
+    
+    public:
+        Contact();
+        ~Contact();
+        void setNombre(std::string nombre);
+        std::string getNombre(void) const;
 };
 ```
 
-### Estructura del .cpp
-
 ```cpp
-#include "Contact.hpp"              // incluye su propio header
+// Contact.cpp
+#include "Contact.hpp"
 
-Contact::Contact() {                // implementación del constructor
-    // inicialización si es necesaria
+Contact::Contact() {
+    _nombre = "";
+    _apellido = "";
 }
 
-Contact::~Contact() {               // implementación del destructor
+Contact::~Contact() { }
+
+void Contact::setNombre(std::string nombre) {
+    _nombre = nombre;
 }
 
-void Contact::setFirstName(std::string name) {
-    _firstName = name;
-}
-
-std::string Contact::getFirstName(void) const {
-    return _firstName;
-}
-
-bool Contact::isEmpty(void) const {
-    return _firstName.empty();
+std::string Contact::getNombre(void) const {
+    return _nombre;
 }
 ```
 
-El `Contact::` antes de cada método es el **operador de resolución de ámbito** (`::`) — le dice al compilador que este método pertenece a la clase `Contact`. Sin él, el compilador pensaría que son funciones libres sueltas sin relación con ninguna clase.
+El `Contact::` antes de cada función en el `.cpp` es el **operador de resolución de ámbito** — le dice al compilador "esta función pertenece a la clase Contact". Sin él, el compilador pensaría que son funciones sueltas sin relación con ninguna clase.
 
 ---
 
-## 9. Include guards y pragma once
+## 14. Include guards y pragma once
 
-Si el mismo `.hpp` se incluye desde varios archivos `.cpp`, el compilador intentaría procesarlo varias veces — y al encontrar la misma clase declarada dos veces, daría error.
+Si el mismo `.hpp` se incluye desde varios archivos `.cpp`, el compilador lo procesaría varias veces — y al encontrar la misma clase declarada dos veces, daría error.
 
-Los **include guards** evitan este problema.
+Los **include guards** evitan esto.
 
-### Forma clásica con #ifndef
+**Forma clásica:**
 
 ```cpp
 #ifndef CONTACT_HPP
@@ -667,714 +567,746 @@ Los **include guards** evitan este problema.
 #endif
 ```
 
-Cómo funciona:
-1. Primera vez que el compilador lee `Contact.hpp`: `CONTACT_HPP` no existe → entra, lo define, procesa el contenido
-2. Si intenta leerlo una segunda vez: `CONTACT_HPP` ya existe → se salta todo el contenido
+La primera vez que el compilador lee `Contact.hpp`: `CONTACT_HPP` no existe → entra, lo define, procesa el contenido. Si lo intenta leer una segunda vez: `CONTACT_HPP` ya existe → se salta todo.
 
-El nombre del guard (`CONTACT_HPP`) tiene que ser único en el proyecto. La convención es `NOMBRE_ARCHIVO_HPP` en mayúsculas.
-
-### Forma moderna con #pragma once
+**Forma moderna (la que usarás en 42):**
 
 ```cpp
 #pragma once
-
 // ... contenido del header
 ```
 
-Una sola línea que hace lo mismo. No es parte del estándar oficial de C++ pero todos los compiladores modernos lo soportan. En 42 funciona perfectamente y es más limpia.
+Una sola línea que hace lo mismo. Funciona en todos los compiladores modernos.
 
-### Regla importante
-
-**Nunca pongas implementaciones de funciones en un `.hpp`.**
-
-Si defines el cuerpo de una función en el header, ese código se copia en todos los archivos que incluyan ese header — causando el error "multiple definition" (definición múltiple).
-
-```cpp
-// MAL — implementación en el .hpp
-class Contact {
-    public:
-        std::string getFirstName() {
-            return _firstName;   // ❌ esto no va aquí
-        }
-};
-
-// BIEN — solo declaración en el .hpp
-class Contact {
-    public:
-        std::string getFirstName() const;   // ✅ solo la firma
-};
-// la implementación va en Contact.cpp
-```
+**Regla importante:** nunca pongas la implementación de funciones en un `.hpp`. Solo declaraciones. Si defines el cuerpo de una función en el header, ese código se copia en todos los archivos que incluyan el header — causando el error "multiple definition".
 
 ---
 
-## 10. Constructores
+# PARTE 4 — LOS CONSTRUCTORES Y DESTRUCTORES
 
-Un **constructor** es una función especial que se ejecuta **automáticamente** cuando se crea un objeto. Su trabajo es dejarlo en un estado válido y listo para usar.
+---
+
+## 15. El problema sin constructor
+
+Imagina que creas un objeto y no inicializas sus atributos:
 
 ```cpp
-// en Contact.hpp
 class Contact {
-    public:
-        Contact();                    // constructor por defecto
-        Contact(std::string nombre);  // constructor con parámetros
-};
-
-// en Contact.cpp
-Contact::Contact() {
-    // objeto creado sin parámetros — inicializamos con valores por defecto
-    _firstName = "";
-    _lastName  = "";
-}
-
-Contact::Contact(std::string nombre) {
-    _firstName = nombre;
-}
-```
-
-Cuando haces:
-```cpp
-Contact alice;              // se llama al constructor por defecto
-Contact bob("Bob");         // se llama al constructor con parámetros
-```
-
-El constructor se llama automáticamente — tú no lo llamas explícitamente.
-
-### Características del constructor
-
-- **Mismo nombre que la clase** — siempre
-- **Sin tipo de retorno** — ni siquiera `void`
-- **Se llama automáticamente** — al crear el objeto
-- **Puede sobrecargarse** — puedes tener varios con distintos parámetros
-- **El compilador crea uno vacío automáticamente** si no defines ninguno — pero en cuanto defines uno, el automático desaparece
-
-### La lista de inicialización
-
-Es una forma más eficiente de inicializar atributos. Va entre los paréntesis del constructor y el cuerpo `{ }`:
-
-```cpp
-Contact::Contact() : _firstName(""), _lastName(""), _nickname("") {
-    // el cuerpo puede estar vacío
-}
-```
-
-El `: _firstName(""), _lastName(""), _nickname("")` significa: "antes de ejecutar el cuerpo `{ }`, inicializa estos atributos con estos valores".
-
-Es más eficiente que asignar dentro del cuerpo porque evita construir el objeto con valor por defecto y luego sobreescribirlo — lo construye directamente con el valor correcto.
-
-Para múltiples atributos, se separan por comas:
-```cpp
-Contact::Contact(std::string first, std::string last)
-    : _firstName(first), _lastName(last), _nickname(""), _phoneNumber("") {
-}
-```
-
-### ¿Por qué en el PhoneBook necesitas el constructor por defecto?
-
-Porque `PhoneBook` tiene un array de `Contact`:
-```cpp
-class PhoneBook {
     private:
-        Contact _contacts[8];   // array de 8 Contact
+        std::string _nombre;
+        int         _edad;
 };
+
+Contact alice;
+// ¿qué valor tiene alice._edad? 
+// En C++ un int sin inicializar contiene basura — lo que hubiera en esa memoria antes
 ```
 
-Cuando el compilador crea el array de 8 `Contact`, necesita construir cada uno. No te pasa ningún parámetro. Necesita el constructor sin parámetros. Si no lo tienes, error de compilación.
+Sin constructor, el objeto nace en un estado desconocido. Cualquier operación sobre él es potencialmente peligrosa.
 
 ---
 
-## 11. Destructores
+## 16. El constructor — la función que nace sola
 
-El **destructor** es lo opuesto del constructor. Se ejecuta **automáticamente** cuando el objeto va a ser destruido.
+El constructor es una función especial que se ejecuta **automáticamente** cuando se crea un objeto. Su trabajo es dejar el objeto en un estado válido desde el primer instante.
 
 ```cpp
-// en Contact.hpp
 class Contact {
+    private:
+        std::string _nombre;
+        int         _edad;
+    
     public:
-        ~Contact();   // la tilde ~ indica destructor
+        Contact();    // declaración del constructor
 };
 
-// en Contact.cpp
-Contact::~Contact() {
-    // aquí liberas recursos si los hay
-    // en el PhoneBook no hay nada que liberar
+Contact::Contact() {         // implementación
+    _nombre = "";
+    _edad   = 0;
+    std::cout << "Contact creado" << std::endl;
 }
 ```
 
-### Características del destructor
+Cuando haces `Contact alice;`, el constructor se llama automáticamente. Tú no lo llamas manualmente — simplemente ocurre.
 
-- **Tilde `~` delante del nombre** — siempre
-- **Sin parámetros** — nunca recibe nada
-- **Sin tipo de retorno** — ni siquiera `void`
-- **Solo puede haber uno** — no se puede sobrecargar
-- **Se llama automáticamente** — al destruir el objeto
+**Características del constructor:**
 
-### Cuándo se llama
+- Mismo nombre que la clase — siempre
+- Sin tipo de retorno — ni siquiera `void`
+- Se llama automáticamente al crear el objeto
+- Puede sobrecargarse — puedes tener varios con distintos parámetros
 
-En CPP00 trabajas sin `new`/`delete` (memoria dinámica está prohibida en el PhoneBook). Los objetos viven en el stack:
+**La lista de inicialización:**
+
+Hay una forma más eficiente de inicializar atributos. En lugar de asignar dentro del cuerpo, usas `: atributo(valor)` entre los paréntesis y el cuerpo:
 
 ```cpp
-int main() {
-    PhoneBook book;    // constructor de PhoneBook llamado
-                       // también constructores de los 8 Contact del array
-    // ...
-    return 0;
-}   // al salir del main:
-    // → destructores de los 8 Contact llamados
-    // → destructor de PhoneBook llamado
+Contact::Contact() : _nombre(""), _edad(0) {
+    std::cout << "Contact creado" << std::endl;
+}
 ```
 
-Los objetos del stack se destruyen en **orden inverso** a como fueron creados (LIFO — Last In First Out):
+Esto construye los atributos directamente con el valor correcto, en lugar de construirlos vacíos y luego sobreescribirlos. Para tipos simples no importa mucho. Para objetos complejos es más eficiente. Y para las **referencias** (que verás en ex03 de CPP01) es **obligatorio** — una referencia debe inicializarse en la lista, no en el cuerpo.
+
+**Constructor con parámetros:**
+
+```cpp
+Contact::Contact(std::string nombre, int edad) : _nombre(nombre), _edad(edad) { }
+
+// uso:
+Contact alice("Alice", 25);
+```
+
+**Constructor por defecto:**
+
+Es el constructor sin parámetros. Lo necesitas en casos como el PhoneBook, donde tienes un array de 8 `Contact` — el compilador construye cada uno sin parámetros al crear el array.
+
+---
+
+## 17. El destructor — la función que muere sola
+
+El destructor es lo opuesto del constructor. Se ejecuta **automáticamente** cuando el objeto va a ser destruido.
+
+```cpp
+class Contact {
+    public:
+        Contact();
+        ~Contact();    // la tilde ~ indica destructor
+};
+
+Contact::~Contact() {
+    std::cout << "Contact destruido" << std::endl;
+}
+```
+
+**¿Cuándo se llama?**
+
+Cuando el objeto sale del scope `{ }` donde vivía:
+
+```cpp
+{
+    Contact alice;    // constructor llamado
+    // ... se usa alice ...
+}                     // destructor llamado aquí automáticamente
+```
+
+**¿Para qué sirve en la práctica?**
+
+Si tu clase reservó memoria dinámica con `new`, el destructor es donde la liberas con `delete`. En el PhoneBook del ex01 no hay memoria dinámica, así que el destructor queda vacío — pero debe existir y declararse.
+
+**El orden de destrucción:**
+
+Los objetos se destruyen en orden **inverso** al que fueron creados (LIFO):
 
 ```cpp
 Contact a;   // creado primero
 Contact b;   // creado segundo
+Contact c;   // creado tercero
 // al salir del scope:
-// → b destruido primero
-// → a destruida después
-```
-
-### ¿Para qué sirve el destructor en la práctica?
-
-En el PhoneBook no hace nada especial porque no hay memoria dinámica. Pero es buena práctica definirlo siempre. En proyectos más avanzados (cuando uses `new`), el destructor es donde haces `delete` de todo lo que reservaste.
-
----
-
-## 12. El puntero this
-
-`this` es un puntero especial que existe dentro de cualquier método de clase. Apunta al objeto concreto sobre el que ese método está siendo llamado en ese momento.
-
-```cpp
-void Contact::setFirstName(std::string name) {
-    this->_firstName = name;
-}
-```
-
-Si tienes tres contactos y llamas a `alice.setFirstName("Alice")`, dentro de ese método `this` apunta a `alice`. Si llamas a `bob.setFirstName("Bob")`, `this` apunta a `bob`. El mismo código, pero `this` cambia según quién lo ejecuta.
-
-### ¿Cuándo usar `this->` y cuándo no?
-
-Dentro de un método puedes escribir `_firstName` o `this->_firstName` — ambos significan lo mismo cuando no hay ambigüedad.
-
-Pero hay un caso donde sí es útil: cuando el nombre del parámetro y el atributo se parecen o son iguales:
-
-```cpp
-void Contact::setFirstName(std::string firstName) {
-    //                              ↑ mismo nombre que el atributo sin _
-    this->_firstName = firstName;   // this-> hace clara la distinción
-}
-```
-
-Por eso en 42 se usa `_` en los atributos — para distinguirlos visualmente de los parámetros sin necesidad de `this->` todo el rato.
-
----
-
-## 13. private y public — encapsulación
-
-La **encapsulación** es uno de los pilares de la OOP. Significa que los datos de un objeto están protegidos — nadie de fuera puede tocarlos directamente. Solo el objeto puede modificarse a sí mismo, a través de los métodos que expone.
-
-```cpp
-class Contact {
-    private:
-        std::string _firstName;   // protegido — solo Contact puede tocarlo
-
-    public:
-        std::string getFirstName() const;   // accesible desde cualquier sitio
-        void setFirstName(std::string name);
-};
-```
-
-Si alguien intenta acceder desde fuera:
-```cpp
-Contact c;
-c._firstName = "Alice";   // ❌ ERROR — _firstName es private
-c.setFirstName("Alice");  // ✅ correcto — setFirstName es public
-```
-
-### ¿Por qué proteger los datos?
-
-Sin protección, cualquiera puede poner cualquier basura en los atributos:
-```cpp
-// sin protección
-contact._firstName = "";          // nombre vacío — estado inválido
-contact._phoneNumber = "abc123";  // teléfono inválido
-contact._firstName = "   ";       // solo espacios
-```
-
-Con un setter puedes **validar** antes de guardar:
-```cpp
-void Contact::setFirstName(std::string name) {
-    if (name.empty())    // si está vacío, no lo guardo
-        return;
-    _firstName = name;  // solo guardo si es válido
-}
-```
-
-La clase controla su propio estado. Nadie puede dejarlo en un estado inválido sin que la clase lo sepa.
-
-### ¿Qué va en private y qué en public?
-
-**private:**
-- Todos los atributos (datos) — casi siempre
-- Métodos auxiliares internos que solo usa la propia clase
-
-**public:**
-- Constructor y destructor — para poder crear y destruir objetos desde fuera
-- Getters — para que otros puedan leer los datos
-- Setters — para que otros puedan modificar los datos de forma controlada
-- Métodos que el usuario de la clase necesita llamar (como `addContact`, `searchContact`)
-
-En el PhoneBook:
-```
-PhoneBook
-    private:
-        Contact _contacts[8]   ← nadie de fuera debe tocar el array directamente
-        int _nextIndex         ← control interno de dónde añadir el siguiente
-    public:
-        addContact()           ← el main llama a esto
-        searchContact()        ← el main llama a esto
-
-Contact
-    private:
-        _firstName, _lastName, _nickname, _phoneNumber, _darkestSecret
-    public:
-        getters y setters para cada campo
-        isEmpty() para saber si el contacto está vacío
+// → c destruido primero
+// → b destruido segundo
+// → a destruido tercero
 ```
 
 ---
 
-## 14. Getters y Setters
+## 18. El puntero this — quién soy yo
 
-Como los atributos son privados, necesitas métodos para leerlos y modificarlos desde fuera.
+Dentro de cualquier método de clase existe un puntero especial llamado `this`. Apunta al objeto concreto sobre el que se está ejecutando el método en ese momento.
 
-**Getter** — para leer un atributo:
+```cpp
+void Contact::setNombre(std::string nombre) {
+    this->_nombre = nombre;
+}
+```
+
+Si tienes tres contactos y llamas a `alice.setNombre("Alice")`, dentro de ese método `this` apunta a `alice`. Si llamas a `bob.setNombre("Bob")`, `this` apunta a `bob`. El mismo código — pero `this` cambia según quién lo ejecuta.
+
+**¿Cuándo necesitas escribir `this->` explícitamente?**
+
+Cuando el nombre del parámetro coincide con el del atributo:
+
+```cpp
+void Contact::setNombre(std::string _nombre) {   // ojo: mismo nombre
+    _nombre = _nombre;          // MAL — se asigna a sí mismo
+    this->_nombre = _nombre;    // BIEN — distingue atributo de parámetro
+}
+```
+
+Por eso en 42 los atributos llevan `_` — para evitar esta ambigüedad y no necesitar `this->` constantemente.
+
+---
+
+# PARTE 5 — GETTERS, SETTERS Y ENCAPSULACIÓN
+
+---
+
+## 19. Por qué no dejar los atributos públicos
+
+Ya lo vimos en la sección 12, pero vale la pena repetirlo con un ejemplo más completo.
+
+Si haces `_nombre` público en el PhoneBook, cualquiera puede poner lo que quiera:
+
+```cpp
+Contact alice;
+alice._nombre = "";          // nombre vacío — no debería existir un contacto así
+alice._telefono = "no sé";  // teléfono inválido
+```
+
+El subject dice explícitamente: "A saved contact can't have empty fields." Si `_nombre` fuera público, tendrías que comprobarlo en cada sitio donde alguien pudiera modificarlo. Con un setter, la comprobación está en un solo lugar.
+
+---
+
+## 20. El getter — la ventanilla de lectura
+
+Un getter es un método público que devuelve el valor de un atributo privado. Es como una ventanilla — no puedes entrar a la caja fuerte, pero puedes pedir la información a través de ella.
+
 ```cpp
 // en Contact.hpp
-std::string getFirstName(void) const;
+std::string getNombre(void) const;
 
 // en Contact.cpp
-std::string Contact::getFirstName(void) const {
-    return _firstName;
-}
-
-// uso:
-Contact c;
-std::cout << c.getFirstName() << std::endl;
-```
-
-**Setter** — para modificar un atributo:
-```cpp
-// en Contact.hpp
-void setFirstName(std::string name);
-
-// en Contact.cpp
-void Contact::setFirstName(std::string name) {
-    _firstName = name;
-}
-
-// uso:
-Contact c;
-c.setFirstName("Alice");
-```
-
-### La convención de nombres
-
-- **Getters**: `get` + NombreAtributo → `getFirstName`, `getLastName`, `getPhoneNumber`
-- **Setters**: `set` + NombreAtributo → `setFirstName`, `setLastName`, `setPhoneNumber`
-
-No es obligatorio — son nombres que tú decides. Pero es una convención tan universal que en 42 y en el mundo real todos la esperan.
-
-### El `const` en los getters
-
-```cpp
-std::string Contact::getFirstName(void) const {
-//                                       ^^^^ este const
-    return _firstName;
+std::string Contact::getNombre(void) const {
+    return _nombre;
 }
 ```
 
-El `const` al final de la firma del método significa: **"este método no modifica ningún atributo del objeto"**. Es una promesa al compilador.
-
-Los getters solo leen datos — no modifican nada — así que deben marcarse como `const`. Esto permite llamarlos sobre objetos que también son `const`:
+El `const` al final de la firma es una **promesa**: "este método no modifica ningún atributo del objeto". Los getters solo leen — no escriben — así que siempre deben marcarse como `const`. Esto permite llamarlos sobre objetos que son `const`:
 
 ```cpp
-const Contact c;           // objeto constante — no se puede modificar
-c.getFirstName();          // ✅ funciona porque getFirstName es const
-c.setFirstName("Alice");   // ❌ ERROR — setFirstName no es const
+const Contact alice;         // objeto constante — no se puede modificar
+alice.getNombre();            // funciona — getNombre es const
+alice.setNombre("Alice");    // ERROR — setNombre no es const
 ```
 
-Si intentas modificar un atributo dentro de un método marcado como `const`, el compilador da error. Es una red de seguridad.
+**La convención de nombres:**
+
+- Getter: `get` + NombreAtributo → `getNombre`, `getApellido`, `getTelefono`
+- Setter: `set` + NombreAtributo → `setNombre`, `setApellido`, `setTelefono`
+
+No es obligatorio por el lenguaje, pero es una convención tan universal que todos la esperan.
 
 ---
 
-## 15. static — atributos y métodos de clase
+## 21. El setter — la ventanilla de escritura
 
-`static` en el contexto de una clase significa que algo pertenece a **la clase en sí**, no a ningún objeto concreto.
+Un setter es un método público que modifica el valor de un atributo privado con posibilidad de validar:
 
-### Atributo static
+```cpp
+// en Contact.hpp
+void setNombre(std::string nombre);
+
+// en Contact.cpp
+void Contact::setNombre(std::string nombre) {
+    if (nombre.empty())
+        return;          // rechazo valores vacíos
+    _nombre = nombre;    // solo guardo si es válido
+}
+```
+
+Con esta estructura, es imposible que `_nombre` quede vacío — el setter lo impide. La clase controla su propio estado.
+
+---
+
+# PARTE 6 — STATIC Y CONST EN CLASES
+
+---
+
+## 22. El atributo static — compartido por todos
 
 Un atributo normal existe en cada objeto:
+
 ```cpp
-Contact alice;   // alice tiene su propio _firstName
-Contact bob;     // bob tiene su propio _firstName
+Contact alice;   // alice tiene su propio _nombre
+Contact bob;     // bob tiene su propio _nombre
 // son cosas distintas en memoria
 ```
 
-Un atributo `static` existe **una sola vez**, compartido por todos los objetos de la clase:
+Un atributo `static` existe **una sola vez** para toda la clase, compartido por todos los objetos:
+
 ```cpp
 class Account {
     private:
-        static int _nbAccounts;   // existe una sola vez para TODOS los Account
-        int _accountIndex;        // cada Account tiene el suyo propio
+        static int _nbAccounts;   // existe una sola vez para todos los Account
+        int        _amount;       // cada Account tiene el suyo propio
 };
 
-// inicialización FUERA de la clase (obligatorio):
-int Account::_nbAccounts = 0;
+int Account::_nbAccounts = 0;    // inicialización FUERA de la clase, en el .cpp
 ```
+
+Visualizando en memoria:
+
+```
+Account a;   Account b;   Account c;
+
+  a._amount = 100         b._amount = 200         c._amount = 50
+
+  Account::_nbAccounts = 3     ← uno solo, compartido
+```
+
+El ex02 (Account) usa atributos estáticos para llevar la cuenta del número total de cuentas y el dinero total depositado — datos que pertenecen a "todas las cuentas", no a ninguna en particular.
+
+**La inicialización fuera de la clase:**
+
+Los atributos estáticos deben inicializarse fuera de la clase en el `.cpp`. Si no, el compilador da error "undefined reference":
 
 ```cpp
-Account a1;   // _nbAccounts pasa a 1
-Account a2;   // _nbAccounts pasa a 2
-Account a3;   // _nbAccounts pasa a 3
-// los tres comparten el mismo _nbAccounts
+// Account.cpp
+int Account::_nbAccounts = 0;    // obligatorio
 ```
-
-**¿Para qué sirve?** El ex02 de CPP00 (Account) lo usa para llevar la cuenta total de cuántas cuentas existen, cuánto dinero hay en total, etc. — datos que son de "toda la clase", no de ninguna cuenta concreta.
-
-### Inicialización del atributo static
-
-Esto es una particularidad importante: los atributos `static` deben inicializarse **fuera** de la clase, en el `.cpp`:
-
-```cpp
-// en Account.hpp — solo la declaración
-class Account {
-    static int _nbAccounts;
-};
-
-// en Account.cpp — la inicialización
-int Account::_nbAccounts = 0;
-```
-
-Si no lo inicializas fuera, el compilador da error de "undefined reference".
-
-### Método static
-
-Un método `static` puede llamarse **sin crear ningún objeto**:
-
-```cpp
-class Account {
-    public:
-        static int getNbAccounts();   // método estático
-};
-
-int Account::getNbAccounts() {
-    return _nbAccounts;
-}
-
-// llamada SIN crear ningún Account:
-std::cout << Account::getNbAccounts() << std::endl;
-```
-
-Un método `static` **no tiene acceso a `this`** — no pertenece a ningún objeto concreto, así que no sabe a cuál apuntar. Solo puede acceder a atributos `static`.
-
-### En el PhoneBook — ¿por qué no usar static?
-
-El subject del PhoneBook dice que la **memoria dinámica está prohibida**. El array de contactos no es dinámico — es estático (de tamaño fijo):
-
-```cpp
-class PhoneBook {
-    private:
-        Contact _contacts[8];   // array estático — tamaño fijo, en el stack
-        int _nextIndex;
-};
-```
-
-Este array **no** usa `static` en el sentido de atributo de clase — es simplemente un array de tamaño fijo que vive en el stack. No confundas "array estático" (tamaño fijo) con "atributo static" (compartido por todos los objetos).
 
 ---
 
-## 16. const — métodos constantes
+## 23. El método const — promesa de no tocar nada
 
-Ya vimos `const` en los getters. Aquí la explicación completa.
+Ya lo vimos en los getters, pero aquí la explicación completa.
 
-`const` es una promesa: "esto no va a cambiar".
-
-### Variables const
-
-```cpp
-const int MAX_CONTACTS = 8;   // MAX_CONTACTS nunca cambiará
-MAX_CONTACTS = 10;             // ❌ ERROR — es const
-```
-
-### Parámetros const
-
-```cpp
-void imprimir(const std::string &texto) {
-    std::cout << texto << std::endl;
-    texto = "otra cosa";   // ❌ ERROR — texto es const
-}
-```
-
-Útil para pasar strings u objetos grandes **sin copiarlos** y **sin riesgo de modificarlos**.
-
-### Métodos const
+Un método marcado como `const` al final de su firma promete no modificar ningún atributo del objeto:
 
 ```cpp
 bool Contact::isEmpty(void) const {
-    return _firstName.empty();
-    // _firstName = "algo";   ← si añadieras esto, ERROR de compilación
+    return _nombre.empty();
+    // _nombre = "algo";   ← si añadieras esto, ERROR de compilación
 }
 ```
 
-El `const` al final garantiza que el método no toca ningún atributo del objeto. Es una promesa que el compilador verifica — si intentas modificar algo dentro, error inmediato.
+Si intentas modificar un atributo dentro de un método `const`, el compilador da error inmediatamente. Es una red de seguridad.
 
-**Regla práctica**: todo getter y todo método que solo lee datos → márcalo como `const`.
-
-### Por qué esto es importante en el PhoneBook
-
-Cuando el PhoneBook muestra un contacto, necesita leer sus datos. Si el contacto fuera `const` en ese contexto, solo podría llamar a métodos `const`:
-
-```cpp
-void PhoneBook::displayContact(int index) const {
-    // aquí solo puedes llamar a métodos const de Contact
-    std::cout << _contacts[index].getFirstName() << std::endl;
-    // getFirstName DEBE ser const para que esto compile
-}
-```
+**Regla práctica:** todo getter y todo método que solo lee datos → márcalo como `const`. Los setters no pueden ser `const` porque modifican atributos.
 
 ---
 
-## 17. Arrays de objetos (sin memoria dinámica)
+## 24. El atributo static const — la constante de clase
 
-El PhoneBook tiene un array de 8 contactos. La memoria dinámica (`new`/`delete`) está prohibida, así que usas un array de tamaño fijo en el stack:
+Combinando ambos modificadores se obtiene una constante que pertenece a la clase:
 
 ```cpp
 class PhoneBook {
     private:
-        Contact _contacts[8];   // 8 objetos Contact, creados en el stack
-        int _nextIndex;         // índice del próximo contacto a reemplazar
+        static const int MAX_CONTACTS = 8;
 };
 ```
 
-Cuando se crea un objeto `PhoneBook`, automáticamente se crean los 8 `Contact` — por eso necesitas el constructor por defecto de `Contact`.
+- `static` — existe una sola vez, no por objeto
+- `const` — nunca cambia
 
-### Acceder a los elementos
+Para tipos enteros (`int`, `short`...) C++ permite inicializarlo directamente en el header. Para otros tipos debes inicializarlo fuera.
 
-```cpp
-_contacts[0]   // primer contacto
-_contacts[7]   // octavo contacto (último)
-_contacts[i]   // contacto en posición i
-```
-
-Igual que un array normal en C.
-
-### La lógica de reemplazar el más antiguo
-
-El subject dice: si hay 9 contactos, el nuevo reemplaza al más antiguo. La forma más simple:
-
-```cpp
-class PhoneBook {
-    private:
-        Contact _contacts[8];
-        int _nextIndex;    // siempre apunta al siguiente hueco a usar
-
-    public:
-        PhoneBook() : _nextIndex(0) { }  // empieza en 0
-
-        void addContact(Contact c) {
-            _contacts[_nextIndex] = c;
-            _nextIndex = (_nextIndex + 1) % 8;
-            //                            ^^^
-            // % 8 hace que cuando llega a 8, vuelva a 0
-            // 0→1→2→3→4→5→6→7→0→1→2... (ciclo)
-        }
-};
-```
-
-El operador `%` (módulo) devuelve el resto de la división. `8 % 8 = 0`, `9 % 8 = 1`, etc. Hace que el índice cicle de 0 a 7 y vuelva a 0.
+Esto es más limpio que un `#define` de C porque está dentro del ámbito de la clase — no contamina el espacio de nombres global.
 
 ---
 
-## 18. iomanip — formatear la salida
+# PARTE 7 — ENTRADA Y SALIDA
 
-El subject del PhoneBook pide mostrar los contactos en columnas de exactamente 10 caracteres, alineados a la derecha, con `|` como separador. Para esto necesitas:
+---
+
+## 25. std::cin — leer del teclado
+
+`std::cin` es el objeto que representa la entrada del teclado. Funciona igual que `cout` pero al revés — con `>>`:
+
+```cpp
+std::string nombre;
+std::cin >> nombre;   // espera a que el usuario escriba y pulse Enter
+```
+
+**Problema:** `std::cin >>` lee hasta el primer espacio. Si el usuario escribe "Hola mundo", solo guardará "Hola".
+
+Para leer una línea entera incluyendo espacios, usas `std::getline`:
+
+```cpp
+std::string frase;
+std::getline(std::cin, frase);   // lee toda la línea hasta el Enter
+```
+
+---
+
+## 26. El problema de mezclar cin y getline
+
+Este es el bug más clásico en los ejercicios de C++. Cuando mezclas `cin >>` con `std::getline`, obtienes resultados raros:
+
+```cpp
+int numero;
+std::cin >> numero;           // el usuario escribe "5" y pulsa Enter
+                              // cin lee el "5" pero deja el '\n' en el buffer
+
+std::string nombre;
+std::getline(std::cin, nombre);  // lee el '\n' que quedó → nombre queda vacío!
+```
+
+Trazando lo que pasa:
+
+```
+Buffer del teclado antes de cin>>:   [5][\n]
+                                      ↑
+                               cin >> lee esto
+
+Buffer después de cin>>:              [\n]
+                                        ↑
+                          getline lee esto (el \n que quedó)
+nombre = ""   ← ¡vacío!
+```
+
+La solución: limpiar el buffer después de `cin >>`:
+
+```cpp
+std::cin >> numero;
+std::cin.ignore();               // ignora el '\n' que quedó
+std::getline(std::cin, nombre);  // ahora sí lee correctamente
+```
+
+En el PhoneBook, para evitar este problema, usa `std::getline` para todo y no mezcles con `cin >>`.
+
+---
+
+## 27. iomanip — formatear columnas
+
+El ex01 (PhoneBook) pide mostrar los contactos en columnas de exactamente 10 caracteres, alineados a la derecha, separados por `|`. Para esto necesitas:
 
 ```cpp
 #include <iomanip>
 ```
 
-### std::setw — establecer el ancho de campo
-
-`setw(n)` hace que el próximo valor que imprimas ocupe exactamente `n` caracteres:
+**`std::setw(n)`** — establece el ancho del siguiente campo:
 
 ```cpp
 std::cout << std::setw(10) << "Alice" << std::endl;
 // imprime: "     Alice" (5 espacios + "Alice" = 10 caracteres total)
 ```
 
-Si el texto tiene menos de 10 caracteres, rellena con espacios por la izquierda.
-Si tiene más de 10 caracteres, NO lo trunca automáticamente — eso lo tienes que hacer tú.
+Si el texto tiene menos de 10 caracteres, rellena con espacios por la izquierda. Si tiene más de 10, **no lo trunca** — eso tienes que hacerlo tú.
 
-**Importante**: `setw` solo afecta al **siguiente** elemento que imprimes. Después vuelve al comportamiento normal.
+**`std::right`** y **`std::left`** — alineación:
 
 ```cpp
-std::cout << std::setw(10) << "Alice" << "Bob" << std::endl;
+std::cout << std::right << std::setw(10) << "Alice";  // "     Alice"
+std::cout << std::left  << std::setw(10) << "Alice";  // "Alice     "
+```
+
+`std::right` es el comportamiento por defecto. A diferencia de `setw`, `std::right` y `std::left` **persisten** — una vez que los activas, se aplican a todos los campos siguientes.
+
+**`setw` solo afecta al siguiente campo:**
+
+```cpp
+std::cout << std::setw(10) << "Alice" << "Bob";
 // imprime: "     AliceBob"
 // setw solo afectó a "Alice", no a "Bob"
 ```
 
-### std::right y std::left — alineación
-
-Por defecto, `setw` alinea a la derecha. Puedes especificarlo explícitamente:
+**Truncar strings largos — lo que tienes que hacer tú:**
 
 ```cpp
-std::cout << std::right << std::setw(10) << "Alice" << std::endl;
-// "     Alice" — alineado a la derecha (por defecto)
-
-std::cout << std::left << std::setw(10) << "Alice" << std::endl;
-// "Alice     " — alineado a la izquierda
-```
-
-`std::right` y `std::left` **sí persisten** — una vez que los pones, se aplican a todos los campos siguientes hasta que los cambias.
-
-### Truncar strings largos — lo que tienes que hacer tú
-
-El subject pide: si el texto tiene más de 10 caracteres, truncarlo y reemplazar el último carácter por un punto:
-
-```cpp
-std::string formatearCampo(std::string texto) {
-    if (texto.length() > 10)
-        return texto.substr(0, 9) + ".";
-        // coge los primeros 9 caracteres + "." = 10 total
+std::string formatear(std::string texto) {
+    if ((int)texto.length() > 10)
+        return texto.substr(0, 9) + ".";   // 9 caracteres + "." = 10
     return texto;
 }
+
+std::cout << std::setw(10) << formatear(nombre) << "|";
 ```
 
-Y luego:
-```cpp
-std::cout << std::setw(10) << formatearCampo(nombre) << "|";
-```
-
-### La fila completa del PhoneBook
-
-Combinando todo:
+**Una fila completa:**
 
 ```cpp
-void PhoneBook::displayRow(int index) const {
-    std::string first  = _contacts[index].getFirstName();
-    std::string last   = _contacts[index].getLastName();
-    std::string nick   = _contacts[index].getNickname();
-
-    // truncar si es necesario
-    if (first.length() > 10) first = first.substr(0, 9) + ".";
-    if (last.length()  > 10) last  = last.substr(0, 9)  + ".";
-    if (nick.length()  > 10) nick  = nick.substr(0, 9)  + ".";
-
-    std::cout << std::right;
-    std::cout << std::setw(10) << index << "|";
-    std::cout << std::setw(10) << first << "|";
-    std::cout << std::setw(10) << last  << "|";
-    std::cout << std::setw(10) << nick  << std::endl;
-}
+std::cout << std::right;
+std::cout << std::setw(10) << indice        << "|";
+std::cout << std::setw(10) << formatear(fn) << "|";
+std::cout << std::setw(10) << formatear(ln) << "|";
+std::cout << std::setw(10) << formatear(nn) << std::endl;
 ```
 
-Resultado esperado para un contacto con nombre "Alice":
+Resultado para un contacto con nombre "Alice":
+
 ```
          0|     Alice|     Smith|      Ali|
 ```
 
 ---
 
-## 19. Glosario completo de CPP00
-
-| Término | Definición |
-|---|---|
-| **Clase** | Molde para crear objetos — agrupa datos y funciones relacionados |
-| **Objeto / Instancia** | Elemento concreto creado a partir de una clase |
-| **Atributo** | Variable que pertenece a una clase |
-| **Método** | Función que pertenece a una clase |
-| **Constructor** | Método especial que se llama automáticamente al crear un objeto |
-| **Constructor por defecto** | Constructor sin parámetros — necesario para arrays de objetos |
-| **Destructor** | Método especial que se llama automáticamente al destruir un objeto |
-| **Encapsulación** | Proteger los datos de una clase — acceso solo mediante métodos |
-| **Getter** | Método que devuelve el valor de un atributo privado |
-| **Setter** | Método que modifica el valor de un atributo privado |
-| **this** | Puntero al objeto actual dentro de un método |
-| **private** | Solo accesible desde dentro de la clase |
-| **public** | Accesible desde cualquier sitio |
-| **static (atributo)** | Existe una sola vez, compartido por todos los objetos de la clase |
-| **static (método)** | Puede llamarse sin crear ningún objeto |
-| **const (método)** | El método no modifica ningún atributo del objeto |
-| **Namespace** | Espacio de nombres — etiqueta para evitar conflictos de nombres |
-| **std::** | El namespace de la librería estándar de C++ |
-| **::** | Operador de resolución de ámbito — indica a qué clase o namespace pertenece algo |
-| **Include guard** | Mecanismo para evitar que un header se incluya dos veces |
-| **#pragma once** | Versión moderna y simple del include guard |
-| **.hpp** | Archivo de cabecera — declara qué existe en la clase |
-| **.cpp** | Archivo de implementación — define cómo funciona cada cosa |
-| **Stack** | Zona de memoria automática donde viven las variables locales |
-| **Array estático** | Array de tamaño fijo que vive en el stack |
-| **std::cout** | Stream de salida — la pantalla |
-| **std::cin** | Stream de entrada — el teclado |
-| **std::cerr** | Stream de error — para mensajes de error |
-| **std::endl** | Salta de línea y vacía el buffer |
-| **std::getline** | Lee una línea completa incluyendo espacios |
-| **std::string** | Clase de C++ para cadenas de texto — reemplaza a char* |
-| **toupper(c)** | Convierte un char a mayúscula |
-| **tolower(c)** | Convierte un char a minúscula |
-| **std::setw(n)** | Establece el ancho del siguiente campo a n caracteres |
-| **std::right** | Alinea los campos a la derecha (persiste) |
-| **std::left** | Alinea los campos a la izquierda (persiste) |
-| **argc** | Número de argumentos pasados al programa |
-| **argv** | Array de strings con los argumentos |
-| **UpperCamelCase** | Estilo de nombre para clases: PrimeraLetraEnMayúscula |
-| **lowerCamelCase** | Estilo de nombre para métodos: primeraLetraEnMinúscula |
-| **OOP** | Object-Oriented Programming — Programación Orientada a Objetos |
-| **LIFO** | Last In First Out — orden de destrucción en el stack |
-| **Buffer** | Zona de memoria temporal donde se acumula la salida antes de imprimirse |
-| **Flush** | Vaciar el buffer y mandar la salida inmediatamente |
-| **Módulo (%)** | Resto de la división — útil para hacer índices cíclicos |
+# PARTE 8 — ARGC Y ARGV
 
 ---
 
-# APÉNDICE — Estructura completa del PhoneBook
+## 28. Cómo recibe el programa datos desde la terminal
 
-Para que lo tengas de referencia visual:
+Ya los conocías de C. En C++ funcionan exactamente igual:
+
+```cpp
+int main(int argc, char **argv) {
+    // argc — número de argumentos (incluye el nombre del programa)
+    // argv — array de strings con los argumentos
+}
+```
+
+Cuando ejecutas `./megaphone "hola mundo" test`:
 
 ```
-CPP00/ex01/
-├── Makefile
-├── main.cpp
-├── Contact.hpp       ← declaración de la clase Contact
-├── Contact.cpp       ← implementación de Contact
-├── PhoneBook.hpp     ← declaración de la clase PhoneBook
-└── PhoneBook.cpp     ← implementación de PhoneBook
-
-Contact.hpp
-  private:
-    _firstName, _lastName, _nickname, _phoneNumber, _darkestSecret
-  public:
-    Contact()           ← constructor por defecto (necesario para el array)
-    ~Contact()          ← destructor
-    setFirstName(name)  ← setter
-    getFirstName()      ← getter (const)
-    ... (setters/getters para cada campo)
-    isEmpty()           ← saber si el contacto tiene datos (const)
-
-PhoneBook.hpp
-  private:
-    Contact _contacts[8]  ← array estático de 8 Contact
-    int _nextIndex        ← próxima posición donde añadir
-  public:
-    PhoneBook()           ← constructor
-    ~PhoneBook()          ← destructor
-    addContact()          ← añadir un contacto
-    searchContact()       ← mostrar contactos y pedir índice
-    displayRow(index)     ← mostrar una fila del SEARCH (const)
-
-main.cpp
-  Bucle infinito:
-    leer comando (ADD / SEARCH / EXIT / ignorar)
-    según el comando, llamar al método correspondiente de PhoneBook
+argc = 3
+argv[0] = "./megaphone"
+argv[1] = "hola mundo"
+argv[2] = "test"
 ```
+
+Para convertir `argv[i]` (que es `char *`) a `std::string`:
+
+```cpp
+std::string argumento = argv[1];   // conversión automática
+```
+
+El ex00 (Megaphone) recorre todos los argumentos, los convierte a `std::string` y los imprime en mayúsculas:
+
+```cpp
+for (int i = 1; i < argc; i++) {
+    std::string arg = argv[i];
+    for (int j = 0; j < (int)arg.length(); j++)
+        std::cout << (char)toupper(arg[j]);
+}
+std::cout << std::endl;
+```
+
+Si no hay argumentos (`argc == 1`), imprime el mensaje especial:
+
+```cpp
+if (argc == 1) {
+    std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
+    return 0;
+}
+```
+
+---
+
+# PARTE 9 — LOS EJERCICIOS EXPLICADOS UNO A UNO
+
+---
+
+## 29. Ex00: Megaphone
+
+**Lo que pide:** recibir strings como argumentos y imprimirlos en mayúsculas. Sin argumentos, imprimir el mensaje de ruido.
+
+**Lo nuevo que usa:** `argc`/`argv`, `std::string`, `toupper`, `std::cout`.
+
+**El flujo:**
+
+```
+./megaphone "hola" "mundo"
+  argc = 3
+  i=1: "hola" → toupper cada carácter → "HOLA"
+  i=2: "mundo" → toupper cada carácter → "MUNDO"
+  cout: HOLAMUNDO
+```
+
+Espera — ¿"HOLAMUNDO" sin espacio entre argumentos? Sí. Fíjate en la salida esperada del subject:
+
+```
+$> ./megaphone "shhhhh... I think the students are asleep..."
+SHHHHH... I THINK THE STUDENTS ARE ASLEEP...
+
+$> ./megaphone Damnit " ! " "Sorry students, I thought this thing was off."
+DAMNIT ! SORRY STUDENTS, I THOUGHT THIS THING WAS OFF.
+```
+
+En el segundo ejemplo hay un espacio al principio del resultado ("DAMNIT !"). Ese espacio viene del argumento `" ! "` — el espacio es parte del argumento, no lo añades tú.
+
+---
+
+## 30. Ex01: PhoneBook — la clase Contact
+
+**Lo que pide:** una agenda que guarda hasta 8 contactos con nombre, apellido, apodo, teléfono y secreto oscuro.
+
+La clase `Contact` guarda los datos de un contacto:
+
+```cpp
+class Contact {
+    private:
+        std::string _firstName;
+        std::string _lastName;
+        std::string _nickname;
+        std::string _phoneNumber;
+        std::string _darkestSecret;
+    
+    public:
+        Contact();
+        ~Contact();
+        
+        // setters — para guardar datos
+        void setFirstName(std::string name);
+        void setLastName(std::string name);
+        void setNickname(std::string name);
+        void setPhoneNumber(std::string phone);
+        void setDarkestSecret(std::string secret);
+        
+        // getters — para leer datos
+        std::string getFirstName(void) const;
+        std::string getLastName(void) const;
+        std::string getNickname(void) const;
+        std::string getPhoneNumber(void) const;
+        std::string getDarkestSecret(void) const;
+        
+        // utilidades
+        bool isEmpty(void) const;   // ¿este contacto tiene datos?
+};
+```
+
+El método `isEmpty()` lo usará PhoneBook para saber si una posición del array está vacía o tiene un contacto real.
+
+---
+
+## 31. Ex01: PhoneBook — la clase PhoneBook
+
+La clase `PhoneBook` gestiona el array de contactos:
+
+```cpp
+class PhoneBook {
+    private:
+        Contact _contacts[8];   // array estático — sin new, sin delete
+        int     _nextIndex;     // próxima posición donde añadir
+    
+    public:
+        PhoneBook();
+        ~PhoneBook();
+        
+        void addContact(void);
+        void searchContact(void) const;
+};
+```
+
+**El array estático — por qué no usar new:**
+
+El subject dice explícitamente: "dynamic allocation is forbidden." El array `_contacts[8]` vive en el stack — se crea cuando creas el `PhoneBook` y se destruye cuando este se destruye. Sin `new`, sin `delete`, sin memory leaks.
+
+Para que `Contact _contacts[8]` funcione, `Contact` debe tener un constructor por defecto (sin parámetros) — el compilador lo llama para construir cada uno de los 8 elementos al crear el array.
+
+**La lógica de reemplazar el más antiguo:**
+
+```cpp
+void PhoneBook::addContact(void) {
+    // pedir los datos al usuario
+    // ...
+    
+    // guardar en la posición _nextIndex
+    _contacts[_nextIndex].setFirstName(nombre);
+    // ...
+    
+    // avanzar al siguiente índice de forma cíclica
+    _nextIndex = (_nextIndex + 1) % 8;
+    //                             ^^^
+    // % 8 hace que cuando llega a 8, vuelva a 0
+    // 0→1→2→3→4→5→6→7→0→1→2... (ciclo)
+}
+```
+
+El operador `%` (módulo) devuelve el resto de la división. `8 % 8 = 0`, `9 % 8 = 1`. Esto hace que `_nextIndex` cicle de 0 a 7 y vuelva a 0 — sobreescribiendo el más antiguo.
+
+**El comando SEARCH:**
+
+Muestra la lista de contactos en columnas de 10 caracteres, pide un índice, y muestra ese contacto completo:
+
+```
+         0|     Alice|     Smith|      Ali|
+         1|       Bob|     Jones|     Bobs|
+Elige índice: 0
+First name: Alice
+Last name: Smith
+...
+```
+
+---
+
+## 32. Ex02: Account — static en acción
+
+Este ejercicio es diferente — te dan el `.hpp` y el log de salida esperado, y tienes que escribir el `.cpp` que los hace coincidir. El ex02 no es obligatorio para pasar el módulo.
+
+Lo que demuestra el ex02 es el uso de atributos y métodos estáticos. La clase `Account` representa una cuenta bancaria. Los datos totales (número de cuentas, dinero total) son estáticos — pertenecen a "todas las cuentas", no a ninguna en particular:
+
+```cpp
+class Account {
+    private:
+        static int _nbAccounts;    // total de cuentas — uno para todas
+        static int _totalAmount;   // dinero total — uno para todas
+        static int _totalNbDeposits;
+        static int _totalNbWithdrawals;
+        
+        int _accountIndex;         // índice de esta cuenta — uno por cuenta
+        int _amount;               // saldo de esta cuenta — uno por cuenta
+        int _nbDeposits;
+        int _nbWithdrawals;
+    
+    public:
+        Account(int initial_deposit);
+        ~Account(void);
+        
+        static void displayAccountsInfos(void);  // método estático — no necesita objeto
+        void makeDeposit(int deposit);
+        bool makeWithdrawal(int withdrawal);
+        // ...
+};
+```
+
+**Los métodos estáticos:**
+
+Un método `static` se puede llamar sin crear ningún objeto:
+
+```cpp
+Account::displayAccountsInfos();   // muestra el total de todas las cuentas
+// llamada con Account:: — sin ningún objeto delante
+```
+
+Un método estático no tiene `this` — no sabe qué objeto es el "actual". Solo puede acceder a atributos estáticos, no a los de instancia.
+
+---
+
+# GLOSARIO COMPLETO
+
+| Término | Definición |
+|---|---|
+| **C++** | Extensión de C que añade OOP — todo lo de C más clases, objetos y más |
+| **OOP** | Object-Oriented Programming — agrupar datos y funciones en clases |
+| **Namespace** | Etiqueta que agrupa nombres para evitar conflictos — std:: es el de la librería estándar |
+| **`::`** | Operador de resolución de ámbito — `std::cout` = "el cout dentro de std" |
+| **`std::cout`** | Objeto que representa la pantalla — reemplaza a printf |
+| **`std::cin`** | Objeto que representa el teclado — reemplaza a scanf |
+| **`std::endl`** | Salto de línea + vaciar buffer — reemplaza a '\n' en cout |
+| **`<<`** | Operador de inserción — manda datos al stream (cout) |
+| **`>>`** | Operador de extracción — lee datos del stream (cin) |
+| **`std::string`** | Clase de C++ para cadenas de texto — reemplaza a char* |
+| **`.length()`** | Número de caracteres del string |
+| **`.empty()`** | True si el string está vacío |
+| **`.find(s)`** | Posición donde empieza s en el string — npos si no encontrado |
+| **`std::string::npos`** | Constante especial que significa "no encontrado" |
+| **`.substr(pos, n)`** | Devuelve n caracteres desde posición pos |
+| **`.erase(pos, n)`** | Borra n caracteres desde posición pos |
+| **`.insert(pos, s)`** | Inserta el string s en posición pos |
+| **`toupper(c)`** | Convierte un char a mayúscula — de \<cctype\> |
+| **`tolower(c)`** | Convierte un char a minúscula — de \<cctype\> |
+| **Iterador** | Cursor que señala a un elemento dentro de una colección |
+| **`begin()`** | Iterador al primer elemento |
+| **`end()`** | Iterador a la posición DESPUÉS del último — no al último |
+| **Clase** | Molde para crear objetos — agrupa datos y funciones |
+| **Objeto / Instancia** | Elemento concreto creado a partir de una clase |
+| **Atributo** | Variable que pertenece a una clase |
+| **Método** | Función que pertenece a una clase |
+| **`private`** | Solo accesible desde dentro de la clase |
+| **`public`** | Accesible desde cualquier sitio |
+| **Encapsulación** | Proteger los datos con private — acceso solo mediante métodos |
+| **Constructor** | Método especial que se llama automáticamente al crear un objeto |
+| **Destructor** | Método especial que se llama automáticamente al destruir un objeto |
+| **Lista de inicialización** | `: atributo(valor)` antes del cuerpo — inicializa atributos eficientemente |
+| **`this`** | Puntero al objeto actual dentro de un método |
+| **Getter** | Método que devuelve el valor de un atributo privado |
+| **Setter** | Método que modifica el valor de un atributo privado |
+| **`const` (método)** | El método no modifica ningún atributo — `void f() const;` |
+| **`static` (atributo)** | Existe una sola vez para toda la clase — compartido por todos los objetos |
+| **`static` (método)** | Se puede llamar sin ningún objeto — no tiene `this` |
+| **`.hpp`** | Header — declara qué existe en la clase |
+| **`.cpp`** | Implementación — define cómo funciona cada cosa |
+| **Include guard** | Evita que un header se incluya dos veces |
+| **`#pragma once`** | Include guard moderno — una sola línea |
+| **`std::getline`** | Lee una línea entera incluyendo espacios |
+| **`cin.ignore()`** | Descarta el '\n' que queda en el buffer tras cin >> |
+| **`#include <iomanip>`** | Header para formatear la salida (setw, right, left) |
+| **`std::setw(n)`** | Establece el ancho del siguiente campo a n caracteres |
+| **`std::right`** | Alinea los campos a la derecha (persiste) |
+| **Array estático** | Array de tamaño fijo en el stack — sin new ni delete |
+| **`%` (módulo)** | Resto de la división — útil para hacer índices cíclicos |
+| **LIFO** | Last In First Out — los objetos del stack se destruyen al revés de como se crean |
+| **`UpperCamelCase`** | Estilo para nombres de clase — `PhoneBook`, `Contact` |
+| **`lowerCamelCase`** | Estilo para métodos — `setNombre`, `getApellido` |
