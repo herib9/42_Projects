@@ -8,7 +8,7 @@ RESET	= \033[0m
 
 NAME	= fragTrap
 CC		= c++
-CFLAGS	= -Wall -Wextra -Werror -std=c++98
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -Wshadow -Wnoshadow
 RM		= rm -f
 
 OBJ_DIR = .obj/
@@ -16,7 +16,8 @@ OBJ_DIR = .obj/
 SRCS =	main.cpp \
 		ClapTrap.cpp \
 		ScavTrap.cpp \
-		FragTrap.cpp
+		FragTrap.cpp \
+		DiamondTrap.cpp
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
