@@ -8,7 +8,8 @@ RESET	= \033[0m
 
 NAME	= fragTrap
 CC		= c++
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -Wshadow -Wnoshadow
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 
+#-Wshadow -Wnoshadow
 RM		= rm -f
 
 OBJ_DIR = .obj/

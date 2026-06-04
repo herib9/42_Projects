@@ -49,15 +49,29 @@
 
 int	main(void)
 {
-	ClapTrap	user("user");
+	ClapTrap	user("HERIB9");
 	ClapTrap	boss("T-1000");
 
-	std::cout << "=====================================================" << std::endl;
+	std::cout << "================== NORMAL BEHAVIOR ==================" << std::endl;
 	user.attack("T-1000");
+	std::cout << std::endl;
 	boss.takeDamage(5);
 	boss.beRepaired(3);
-	std::cout << "=====================================================" << std::endl;
-
+	std::cout << std::endl;
+	std::cout << "============ DRAINING ENERGY (10 attacks) ============" << std::endl;
+	int i = 0;
+	while (i < 10)
+	{
+		user.attack("T-1000");
+		i++;
+	}
+	std::cout << "\n--- OUT OF ENERGY ---" << std::endl;
+	user.beRepaired(5);
+	std::cout << std::endl;
+	boss.takeDamage(15);
+	boss.attack("HERIB9");
+	boss.beRepaired(5);
+	std::cout << "============ DRAINING ENERGY (10 attacks) ============" << std::endl;
 
 	return 0;
 }

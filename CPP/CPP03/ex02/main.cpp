@@ -10,15 +10,17 @@ int	main(void)
 	ScavTrap	finalBoss("AFX");
 	FragTrap	user2("TONIOEZU");
 	
-	std::cout << "=====================================================" << std::endl;
+	std::cout << "======================================================" << std::endl;
 	user.attack("T-1000");
+	std::cout << std::endl;
 	boss.takeDamage(5);
 	boss.beRepaired(3);
-	finalBoss.attack("Heri");
+	std::cout << std::endl;
+	finalBoss.attack("HERIB9");
 	finalBoss.guardGate();
+	std::cout << std::endl;
 	user2.highFivesGuys();
-	
-	std::cout << "=====================================================" << std::endl;
+	std::cout << "======================================================" << std::endl;
 
 	return 0;
 }

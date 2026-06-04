@@ -1,27 +1,30 @@
 #include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 #include <string>
 
-FragTrap::FragTrap() : ClapTrap("") {
+FragTrap::FragTrap() : ClapTrap("")
+{
 	_hitPoints = 100;
 	_energyPoints = 100;
 	_attackDamage = 30;
 	std::cout << "FragTrap " << _name << " default constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name) {
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
+{
 	_hitPoints = 100;
 	_energyPoints = 100;
 	_attackDamage = 30;
 	std::cout << "FragTrap " << name << " constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &target) : ClapTrap(target) {
+FragTrap::FragTrap(const FragTrap &target) : ClapTrap(target)
+{
 	std::cout << "FragTrap copy constructor called" << std::endl;
 }
 
-FragTrap&FragTrap::operator=(const FragTrap &player) {
+FragTrap&FragTrap::operator=(const FragTrap &player)
+{
 	std::cout << "FragTrap copy operator called" << std::endl;
 	if(this != &player) {
 		_name			= player._name;
@@ -32,20 +35,23 @@ FragTrap&FragTrap::operator=(const FragTrap &player) {
 	return *this;
 }
 
-FragTrap::~FragTrap() {
+FragTrap::~FragTrap()
+{
 	std::cout << "FragTrap " << _name << " destructor called" << std::endl;
 }
 
-void	FragTrap::attack(const std::string &target) {
+void	FragTrap::attack(const std::string &target)
+{
 	if(_hitPoints < 1 || _energyPoints < 1) {
 		std::cout << "FragTrap " << _name << " cannot attack" << std::endl;
 		return ;
 	}
 	_energyPoints--;
-	std::cout << "FragTrap " << _name << " attack" << target << std::endl;
+	std::cout << "FragTrap " << _name << " attack " << target << " causing " << _attackDamage << " damage points" << std::endl;
 }
 
 
-void	FragTrap::highFivesGuys(void) {
+void	FragTrap::highFivesGuys(void)
+{
 	std::cout << "FragTrap " << _name << " wants to high-five" << std::endl;
 }

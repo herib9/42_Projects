@@ -1,9 +1,8 @@
 #pragma once
 #include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
 #include <iostream>
 
-class	FragTrap	:	public ClapTrap
+class	FragTrap	:	virtual public ClapTrap
 {
 	public:
 		FragTrap();

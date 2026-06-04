@@ -1,5 +1,4 @@
 #include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 #include <string>
 
@@ -42,7 +41,7 @@ void	FragTrap::attack(const std::string &target) {
 		return ;
 	}
 	_energyPoints--;
-	std::cout << "FragTrap " << _name << " attack" << target << std::endl;
+	std::cout << "FragTrap " << _name << " attack " << target << " causing " << _attackDamage << " damage points" << std::endl;
 }
 
 
