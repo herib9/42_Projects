@@ -6,7 +6,7 @@ RED		= \033[38;5;196m
 RESET	= \033[0m
 
 
-NAME	= fragTrap
+NAME	= diamondTrap
 CC		= c++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98 
 #-Wshadow -Wnoshadow

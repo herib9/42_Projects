@@ -1,6 +1,4 @@
-#include "ClapTrap.hpp"
 #include "FragTrap.hpp"
-#include <string>
 
 FragTrap::FragTrap() : ClapTrap("")
 {
@@ -25,7 +23,7 @@ FragTrap::FragTrap(const FragTrap &target) : ClapTrap(target)
 
 FragTrap&FragTrap::operator=(const FragTrap &player)
 {
-	std::cout << "FragTrap copy operator called" << std::endl;
+	std::cout << "FragTrap assignement operator called" << std::endl;
 	if(this != &player) {
 		_name			= player._name;
 		_hitPoints		= player._hitPoints;
@@ -39,17 +37,20 @@ FragTrap::~FragTrap()
 {
 	std::cout << "FragTrap " << _name << " destructor called" << std::endl;
 }
-
-void	FragTrap::attack(const std::string &target)
-{
-	if(_hitPoints < 1 || _energyPoints < 1) {
-		std::cout << "FragTrap " << _name << " cannot attack" << std::endl;
+/* 
+void	FragTrap::attack(const std::string &target) {
+	if(_hitPoints < 1) {
+		std::cout << "FragTrap " << _name << " DEAD! cannot attack, no hit points" << std::endl;
+		return ;
+	}
+	else if (_energyPoints < 1) {
+	std::cout <<  "FragTrap " << _name << " cannot attack, no energy points" << std::endl;
 		return ;
 	}
 	_energyPoints--;
 	std::cout << "FragTrap " << _name << " attack " << target << " causing " << _attackDamage << " damage points" << std::endl;
 }
-
+ */
 
 void	FragTrap::highFivesGuys(void)
 {

@@ -1,6 +1,5 @@
 #pragma once
 #include "ClapTrap.hpp"
-#include <iostream>
 
 class	FragTrap	:	virtual public ClapTrap
 {
@@ -9,8 +8,15 @@ class	FragTrap	:	virtual public ClapTrap
 		FragTrap(std::string name);
 		FragTrap(const FragTrap &player);
 		FragTrap &operator=(const FragTrap &player);
-		~FragTrap();
+		virtual ~FragTrap();
 
-		void	attack(const std::string &target);
+		//virtual void	attack(const std::string &target);
 		void	highFivesGuys(void);
 };
+
+
+
+/*fragtrap hereda attack de claptrap, no deberia de declarar ni hacerse la funcion, la deberia coger automaticamente
+hay que revisar todos los constructores de copia, 
+
+*/

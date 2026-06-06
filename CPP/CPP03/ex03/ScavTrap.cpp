@@ -1,5 +1,4 @@
 #include "ScavTrap.hpp"
-#include "ClapTrap.hpp"
 
 ScavTrap::ScavTrap() : ClapTrap("")
 {
@@ -24,7 +23,7 @@ ScavTrap::ScavTrap(const ScavTrap &target) : ClapTrap(target)
 
 ScavTrap&ScavTrap::operator=(const ScavTrap &player)
 {
-	std::cout << "ScavTrap copy	operator called" << std::endl;
+	std::cout << "ScavTrap assignement operator called" << std::endl;
 	if(this != &player) {
 		_name			= player._name;
 		_hitPoints		= player._hitPoints;
@@ -39,14 +38,17 @@ ScavTrap::~ScavTrap()
 	std::cout << "ScavTrap " << _name << " destructor called" << std::endl;
 }
 
-void	ScavTrap::attack(const std::string &target)
-{
-	if(_hitPoints < 1 || _energyPoints < 1) {
-		std::cout << "ScavTrap " << _name << " cannot attack" << std::endl;
+void	ScavTrap::attack(const std::string &target) {
+	if(_hitPoints < 1) {
+		std::cout << "ScavTrap " << _name << " DEAD! cannot attack, no hit points" << std::endl;
+		return ;
+	}
+	else if (_energyPoints < 1) {
+	std::cout <<  "ScavTrap " << _name << " cannot attack, no energy points" << std::endl;
 		return ;
 	}
 	_energyPoints--;
-	std::cout << "ScavTrap " << _name << " attack " << target << " causing " << _attackDamage << " damage points" << std::endl;
+	std::cout << "ScavTrap " << _name << " attack " << target << " causing QUE SE MUERA" << _attackDamage << " damage points" << std::endl;
 }
 
 void	ScavTrap::guardGate()

@@ -1,8 +1,6 @@
 #pragma once
-#include "ClapTrap.hpp"
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
-#include <string>
 
 class	DiamondTrap : public ScavTrap, public FragTrap
 {
@@ -14,8 +12,8 @@ class	DiamondTrap : public ScavTrap, public FragTrap
 		DiamondTrap(std::string name);
 		DiamondTrap(const DiamondTrap &player);
 		DiamondTrap &operator=(const DiamondTrap &player);
-		~DiamondTrap();
+		virtual ~DiamondTrap();
 
-		void	attack(const std::string &player);
+		void	attack(const std::string &healthP);
 		void	whoAmI();
 };
