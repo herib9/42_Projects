@@ -2,49 +2,45 @@
 #include "FragTrap.hpp"
 #include <string>
 
-FragTrap::FragTrap() : ClapTrap("") {
-	_hitPoints = 100;
-	_energyPoints = 100;
-	_attackDamage = 30;
-	std::cout << "FragTrap " << _name << " default constructor called" << std::endl;
+FragTrap::FragTrap() : ClapTrap("defConsFrag")
+{
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
+	this->_attackDamage = 30;
+	std::cout << "FragTrap " << this->_name << " default constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name) {
-	_hitPoints = 100;
-	_energyPoints = 100;
-	_attackDamage = 30;
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
+{
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
+	this->_attackDamage = 30;
 	std::cout << "FragTrap " << name << " constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &target) : ClapTrap(target) {
+FragTrap::FragTrap(const FragTrap &target) : ClapTrap(target)
+{
 	std::cout << "FragTrap copy constructor called" << std::endl;
 }
 
-FragTrap&FragTrap::operator=(const FragTrap &player) {
-	std::cout << "FragTrap copy operator called" << std::endl;
-	if(this != &player) {
-		_name			= player._name;
-		_hitPoints		= player._hitPoints;
-		_energyPoints	= player._energyPoints;
-		_attackDamage	= player._attackDamage;
-	}
+FragTrap&FragTrap::operator=(const FragTrap &player)
+{
+	std::cout << "FragTrap assignement operator called" << std::endl;
+	if(this != &player)
+		ClapTrap::operator=(player);
 	return *this;
 }
 
-FragTrap::~FragTrap() {
-	std::cout << "FragTrap " << _name << " destructor called" << std::endl;
+FragTrap::~FragTrap()
+{
+	std::cout << "FragTrap " << this->_name << " destructor called" << std::endl;
 }
 
-void	FragTrap::attack(const std::string &target) {
-	if(_hitPoints < 1 || _energyPoints < 1) {
-		std::cout << "FragTrap " << _name << " cannot attack" << std::endl;
-		return ;
+void	FragTrap::highFivesGuys(void)
+{
+	if (this->_hitPoints < 1) {
+		std::cout << "FragTrap " << this->_name << "esta MUERTO, a quien le va a chocar los 5 compae??" << std::endl;
+		return;
 	}
-	_energyPoints--;
-	std::cout << "FragTrap " << _name << " attack " << target << " causing " << _attackDamage << " damage points" << std::endl;
-}
-
-
-void	FragTrap::highFivesGuys(void) {
-	std::cout << "FragTrap " << _name << " wants to high-five" << std::endl;
+	std::cout << "FragTrap " << this->_name << " dice: choca esos cinco!!" << std::endl;
 }

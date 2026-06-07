@@ -4,28 +4,35 @@
 
 int	main(void)
 {
-	ClapTrap	user("HERIB9");
-	ClapTrap	boss("T-1000");
-	ScavTrap	finalBoss("AFX");
+	ClapTrap	ct_user_1("HERIB9");
+	ClapTrap	ct_boss("T-1000");
+	ScavTrap	st_user_2("AFX");
+	ScavTrap	st_boss("T-800");
 	
 	
-	std::cout << "=====================================================" << std::endl;
-	user.attack("T-1000");
-	std::cout << std::endl;
-	boss.takeDamage(5);
-	boss.beRepaired(3);
+	std::cout << "\n================= CLAPTRAP — NORMAL BEHAVIOR ================" << std::endl;
+	ct_user_1.attack("T-1000");
+	ct_boss.takeDamage(5);
+	ct_boss.beRepaired(3);
+	std::cout << "\n========== CLAPTRAP — DRAINING ENERGY (10 repairs) ==========" << std::endl;
 	int i = 0;
 	while (i < 10)
 	{
-		user.attack("T-1000");
+		while(i < 9)
+			i++;
+		ct_user_1.beRepaired(10);
 		i++;
 	}
-	user.attack("T-1000");
-	user.beRepaired(5);
+	ct_user_1.attack("T-1000");
+	std::cout << "\n================= CLAPTRAP — DEATH SCENARIO =================" << std::endl;
+	ct_boss.takeDamage(15);
+	ct_boss.attack("HERIB9");
+	ct_boss.beRepaired(5);
+	std::cout << "\n================= SCAVTRAP — DRAINING ENERGY ================" << std::endl;
+	st_user_2.attack("T-800");
+	st_user_2.guardGate();	
+	std::cout << "\n================= SCAVTRAP — DEATH SCENARIO =================" << std::endl;	
+	st_boss.attack("AFX");	
 	std::cout << std::endl;
-	finalBoss.attack("Heri");
-	finalBoss.guardGate();
-	std::cout << "=====================================================" << std::endl;
-
 	return 0;
 }
