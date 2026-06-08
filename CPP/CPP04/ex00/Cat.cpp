@@ -20,7 +20,7 @@ Cat&Cat::operator=(const Cat &copy)
 {
 	std::cout << "CAT assignment constructor called" << std::endl;
 	if(this != &copy)
-		this->_type = copy._type;
+		Animal::operator=(copy);
 	return *this;
 }
 

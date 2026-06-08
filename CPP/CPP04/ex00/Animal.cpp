@@ -5,9 +5,8 @@ Animal::Animal(): _type("")
 	std::cout << "ANIMAL default constructor called" << std::endl;
 }
 
-Animal::Animal(std::string type) 
+Animal::Animal(std::string type) : _type(type)
 {
-	this->_type = type;
 	std::cout << "ANIMAL constructor called" << std::endl;
 }
 
