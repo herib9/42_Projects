@@ -15,17 +15,17 @@ Dog::Dog(const Dog &copy) : Animal(copy)
 	std::cout << "DOG copy constructor called" << std::endl;
 }
 
-Dog&Dog::operator=(const Dog &copy)
-{
-	std::cout << "DOG assignment constructor called" << std::endl;
-	if (this != &copy)
-		Animal::operator=(copy);
-	return *this;
-}
-
 Dog::~Dog()
 {
 	std::cout << "DOG destructor called" << std::endl;
+}
+
+Dog&Dog::operator=(const Dog &copy)
+{
+	std::cout << "DOG assignment operator called" << std::endl;
+	if (this != &copy)
+		Animal::operator=(copy);
+	return *this;
 }
 
 void	Dog::makeSound(void) const

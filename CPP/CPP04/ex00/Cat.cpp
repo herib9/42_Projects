@@ -1,4 +1,3 @@
-#include "Animal.hpp"
 #include "Cat.hpp"
 
 Cat::Cat() : Animal("CAT")
@@ -16,17 +15,17 @@ Cat::Cat(const Cat &copy) : Animal(copy)
 	std::cout << "CAT copy constructor called" << std::endl;
 }
 
-Cat&Cat::operator=(const Cat &copy)
-{
-	std::cout << "CAT assignment constructor called" << std::endl;
-	if(this != &copy)
-		Animal::operator=(copy);
-	return *this;
-}
-
 Cat::~Cat()
 {
 	std::cout << "CAT destructor called" << std::endl;
+}
+
+Cat&Cat::operator=(const Cat &copy)
+{
+	std::cout << "CAT assignment operator called" << std::endl;
+	if(this != &copy)
+		Animal::operator=(copy);
+	return *this;
 }
 
 void	Cat::makeSound(void) const

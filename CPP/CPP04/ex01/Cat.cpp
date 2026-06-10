@@ -7,6 +7,7 @@ Cat::Cat() : Animal("CAT")
 
 Cat::Cat(std::string type) : Animal(type)
 {
+	this->_brain = new Brain();
 	std::cout << "CAT constructor called" << std::endl;
 }
 
@@ -15,17 +16,18 @@ Cat::Cat(const Cat &copy) : Animal(copy)
 	std::cout << "CAT copy constructor called" << std::endl;
 }
 
+Cat::~Cat()
+{
+	delete this->_brain;
+	std::cout << "CAT destructor called" << std::endl;
+}
+
 Cat&Cat::operator=(const Cat &copy)
 {
 	std::cout << "CAT assignment operator called" << std::endl;
 	if(this != &copy)
 		Animal::operator=(copy);
 	return *this;
-}
-
-Cat::~Cat()
-{
-	std::cout << "CAT destructor called" << std::endl;
 }
 
 void	Cat::makeSound(void) const
