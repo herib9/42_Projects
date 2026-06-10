@@ -1,6 +1,5 @@
 #pragma once
 #include "ClapTrap.hpp"
-#include <iostream>
 
 class	FragTrap	:	public ClapTrap
 {

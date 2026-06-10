@@ -3,18 +3,18 @@
 DiamondTrap::DiamondTrap() : ClapTrap("defConsTrap_clap_name"), ScavTrap(), FragTrap()
 {
 	this->_name			= "defConsTrap";
-	this->_hitPoints	= 100;
+	this->_hitPoints	= FragTrap::_hitPoints;
 	this->_energyPoints	= 50;
-	this->_attackDamage	= 30;
+	this->_attackDamage	= FragTrap::_attackDamage;
 	std::cout << "DiamondTrap default constructor called" << std::endl;
 }
 
 DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name)
 {
 	this->_name			= name;
-	this->_hitPoints	= 100;
+	this->_hitPoints	= FragTrap::_hitPoints;
 	this->_energyPoints	= 50;
-	this->_attackDamage	= 30;
+	this->_attackDamage	= FragTrap::_attackDamage;
 	std::cout << "DiamondTrap " << this->_name << " constructor called" << std::endl;
 }
 
@@ -44,6 +44,16 @@ DiamondTrap::~DiamondTrap()
 
 void	DiamondTrap::attack(const std::string &healthP)
 {
+	if(this->_hitPoints < 1)
+	{
+		std::cout << "DiamondTrap " << this->_name << " esta mas que muerto" << std::endl;
+		return;
+	}
+	if(this->_energyPoints < 1)
+	{
+		std::cout << "DiamondTrap " << this->_name << " con esos pocos puntos no vas a ningun sitio" << std::endl;
+		return;
+	}
 	ScavTrap::attack(healthP);
 }
 

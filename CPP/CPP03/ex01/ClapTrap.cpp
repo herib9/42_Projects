@@ -44,15 +44,15 @@ void	ClapTrap::attack(const std::string &target)
 		return;
 	}
 	this->_energyPoints--;
-	std::cout << "ClapTrap " << this->_name << " ataca " << target << std::endl;
+	std::cout << "ClapTrap " << this->_name << " ataca a " << target << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int damageP)
 {
-	_hitPoints -= damageP;
+	this->_hitPoints -= (int)damageP;
 	if(this->_hitPoints < 0)
 		this->_hitPoints = 0;
-	std::cout << "ClapTrap " << this->_name << " recive " << damageP << " puntos de daño" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " recibe " << damageP << " puntos de daño" << std::endl;
 }
 
 void	ClapTrap::beRepaired(unsigned int healthP)

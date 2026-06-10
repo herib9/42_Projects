@@ -7,23 +7,15 @@ int	main(void)
 
 	std::cout << "\n================== NORMAL BEHAVIOR ===================" << std::endl;
 	user.attack("T-1000");
-	//std::cout << std::endl;
 	boss.takeDamage(5);
-	std::cout << "T-1000 tiene: " << boss.getHitPoints() << " health points" << std::endl;
+	std::cout << "\n================== DRAINING ENERGY ===================" << std::endl;
+	std::cout << "T-1000 tiene: " << boss.getHitPoints() << " puntos de vida" << std::endl;
 	boss.beRepaired(3);
-	std::cout << "\n============ DRAINING ENERGY (10 repairs) ============" << std::endl;
-	std::cout << "HERIB9 tiene: " << user.getEnergyPoints() << " energy points" << std::endl;
-	int i = 0;
-	while (i < 8)
-	{
-		while (i < 7)
-			i++;
-		user.beRepaired(10);
-		i++;
-	}
+	std::cout << "T-1000 tiene: " << boss.getHitPoints() << " puntos de vida" << std::endl;
+	std::cout << "HERIB9 tiene: " << user.getEnergyPoints() << " puntos de energia" << std::endl;
+	user.beRepaired(5);
 	std::cout << "\n=================== OUT OF ENERGY ====================" << std::endl;
 	user.attack("T-1000");
-	user.beRepaired(5);
 	boss.takeDamage(15);
 	boss.attack("HERIB9");
 	boss.beRepaired(5);

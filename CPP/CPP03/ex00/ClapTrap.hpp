@@ -9,6 +9,7 @@ class	ClapTrap
 		int			_hitPoints;
 		int			_energyPoints;
 		int			_attackDamage;
+		bool		_silent;
 
 	public:
 		ClapTrap();
@@ -17,10 +18,10 @@ class	ClapTrap
 		ClapTrap &operator=(const ClapTrap &player);
 		~ClapTrap();
 
-		void attack(const std::string &target);
-		void takeDamage(unsigned int healthP);
-		void beRepaired(unsigned int healthP);
-
-		int	getHitPoints(void) const;
-		int getEnergyPoints(void) const;
+		void	attack(const std::string &target);
+		void	takeDamage(unsigned int healthP);
+		void	beRepaired(unsigned int healthP);
+		
+		int		getHitPoints(void) const;
+		int		getEnergyPoints(void) const;
 };

@@ -1,5 +1,4 @@
 #include "ScavTrap.hpp"
-#include "ClapTrap.hpp"
 
 ScavTrap::ScavTrap() : ClapTrap("defConsScav")
 {
@@ -34,15 +33,15 @@ ScavTrap::~ScavTrap() {
 
 void	ScavTrap::attack(const std::string &target) {
 	if(this->_hitPoints < 1) {
-		std::cout << "ScavTrap " << this->_name << " MUERTO! no puede atacar, no tiene puntos de vida" << std::endl;
+		std::cout << "ScavTrap " << this->_name << " a MORIO! no puede atacar, no tiene puntos de vida" << std::endl;
 		return ;
 	}
 	else if (this->_energyPoints < 1) {
-	std::cout <<  "ScavTrap " << this->_name << " no puede atacar, no tiene puntos de energia" << std::endl;
+	std::cout <<  "ScavTrap " << this->_name << " ENERGIA a 0, no puede atacar, no tiene puntos de energia" << std::endl;
 		return ;
 	}
 	this->_energyPoints--;
-	std::cout << "ScavTrap " << this->_name << " ataca " << target << " causando " << this->_attackDamage << " puntos de daño al oponente" << std::endl;
+	std::cout << "ScavTrap " << this->_name << " guantazo a " << target << " causando " << this->_attackDamage << " puntos de daño al oponente" << std::endl;
 }
 
 void	ScavTrap::guardGate()

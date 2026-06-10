@@ -1,6 +1,4 @@
-#include "ClapTrap.hpp"
 #include "FragTrap.hpp"
-#include <string>
 
 FragTrap::FragTrap() : ClapTrap("defConsFrag")
 {
@@ -38,7 +36,8 @@ FragTrap::~FragTrap()
 
 void	FragTrap::highFivesGuys(void)
 {
-	if (this->_hitPoints < 1) {
+	if (this->_hitPoints < 1)
+	{
 		std::cout << "FragTrap " << this->_name << "esta MUERTO, a quien le va a chocar los 5 compae??" << std::endl;
 		return;
 	}

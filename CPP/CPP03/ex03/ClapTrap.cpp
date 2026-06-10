@@ -48,10 +48,10 @@ void	ClapTrap::attack(const std::string &target)
 
 void	ClapTrap::takeDamage(unsigned int healthP)
 {
-	this->_hitPoints -= healthP;
+	this->_hitPoints -= (int)healthP;
 	if(this->_hitPoints < 0)
 		this->_hitPoints = 0;
-	std::cout << "ClapTrap " << this->_name << " recive " << healthP << " puntos de daño" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " recibe " << healthP << " puntos de daño" << std::endl;
 }
 
 void	ClapTrap::beRepaired(unsigned int healthP)
@@ -69,3 +69,12 @@ void	ClapTrap::beRepaired(unsigned int healthP)
 	std::cout << "ClapTrap " << this->_name << " se ha curado " << healthP << " puntos de vida" << std::endl;
 }
 
+int ClapTrap::getHitPoints(void) const
+{
+	return this->_hitPoints;
+}
+
+int ClapTrap::getEnergyPoints(void) const
+{
+	return this->_energyPoints;
+}

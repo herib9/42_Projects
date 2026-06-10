@@ -1,16 +1,16 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(): _name("defConsTrap"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(): _name("defConsTrap"), _hitPoints(10), _energyPoints(10), _attackDamage(0), _silent(false)
 {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0), _silent(false)
 {
 	std::cout << "ClapTrap " << this->_name << " constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &player) : _name(player._name), _hitPoints(player._hitPoints), _energyPoints(player._energyPoints), _attackDamage(player._attackDamage)
+ClapTrap::ClapTrap(const ClapTrap &player) : _name(player._name), _hitPoints(player._hitPoints), _energyPoints(player._energyPoints), _attackDamage(player._attackDamage), _silent(player._silent)
 {
 	std::cout << "Copy constructor called" << std::endl;
 }
@@ -35,11 +35,13 @@ ClapTrap::~ClapTrap()
 
 void	ClapTrap::attack(const std::string &target)
 {
-	if(this->_hitPoints < 1) {
+	if(this->_hitPoints < 1)
+	{
 		std::cout << "ClapTrap " << this->_name << " MUERTO! no puede atacar, no tiene puntos de vida" << std::endl;
 		return;
 	}
-	else if (this->_energyPoints < 1) {
+	else if (this->_energyPoints < 1) 
+	{
 	std::cout <<  "ClapTrap " << this->_name << " no puede atacar, no tiene puntos de energia" << std::endl;
 		return;
 	}
@@ -49,25 +51,29 @@ void	ClapTrap::attack(const std::string &target)
 
 void	ClapTrap::takeDamage(unsigned int damageP)
 {
-	_hitPoints -= damageP;
+	this->_hitPoints -= (int)damageP;
 	if(this->_hitPoints < 0)
 		this->_hitPoints = 0;
-	std::cout << "ClapTrap " << this->_name << " recive " << damageP << " puntos de daño" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " recibe " << damageP << " puntos de daño" << std::endl;
 }
 
 void	ClapTrap::beRepaired(unsigned int healthP)
 {
-	if (this->_hitPoints < 1) {
+	if (this->_hitPoints < 1)
+	{
 		std::cout << "ClapTrap " << this->_name << " MUERTO! no se puede curar, no tiene puntos de vida" << std::endl;
 		return ;
 	}
-	else if (this->_energyPoints < 1)	{
-		std::cout << "ClapTrap " << this->_name << " no se puede curar, no tiene puntos de energia" << std::endl;
+	else if (this->_energyPoints < 1)
+	{
+		if(_silent == false)
+			std::cout << "ClapTrap " << this->_name << " no se puede curar, no tiene puntos de energia" << std::endl;
 		return ;
 	}
 	this->_energyPoints--;
 	this->_hitPoints += healthP;
-	std::cout << "ClapTrap " << this->_name << " se ha curado " << healthP << " puntos de vida" << std::endl;
+	if(_silent == false)
+		std::cout << "ClapTrap " << this->_name << " se ha curado " << healthP << " puntos de vida" << std::endl;
 }
 
 int ClapTrap::getHitPoints(void) const
