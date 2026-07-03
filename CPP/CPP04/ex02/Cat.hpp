@@ -2,18 +2,18 @@
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-class	Dog : public Animal
+class	Cat : public Animal
 {
 	private:
 		Brain *_brain;
 
 	public:
-		Dog();
-		Dog(std::string type);
-		Dog(const Dog &copy);
-		~Dog();
+		Cat();
+		Cat(std::string type);
+		Cat(const Cat &copy);
+		~Cat();
 
-		Dog &operator=(const Dog &copy);
+		Cat &operator=(const Cat &copy);
 
 		virtual void makeSound(void) const;
 		Brain *getBrain(void) const;

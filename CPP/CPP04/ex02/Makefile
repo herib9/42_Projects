@@ -6,7 +6,7 @@ RED		= \033[38;5;196m
 RESET	= \033[0m
 
 
-NAME	= brain
+NAME	= aAnimal
 CC		= c++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
 RM		= rm -f
@@ -14,7 +14,7 @@ RM		= rm -f
 OBJ_DIR = .obj/
 # Archivos
 SRCS =	main.cpp \
-		Animal.cpp \
+		aAnimal.cpp \
 		Dog.cpp \
 		Cat.cpp \
 		WrongAnimal.cpp \
