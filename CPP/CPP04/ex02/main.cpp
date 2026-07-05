@@ -1,80 +1,16 @@
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
 
 
 int main ()
 {
-	const Animal* d = new Dog();
-	const Animal* c = new Cat();
+	const AAnimal* d = new Dog();
+	const AAnimal* c = new Cat();
+	std::cout << "\nPara comprobar la clase abstracta modifica el main...\n" << std::endl;
+	//const AAnimal *f = new AAnimal();
 	delete d;
 	delete c;
 	std::cout << std::endl;
-	
-	std::cout << "CREACION DE ARRAYS DE ANIMALS" << std::endl;
-	const Animal *animals[10];
-	for (int i = 0; i < 5; i++)
-		animals[i] = new Dog;
-	for (int i = 5; i < 10; i++)
-		animals[i] = new Cat;
-	std::cout << std::endl;
-
-	std::cout << "DESTRUCCION DE ARRAYS DE ANIMALS" << std::endl;
-	for (int i = 0; i < 10; i++)
-		delete animals[i];
-	std::cout << std::endl;
-
-	std::cout << "DEEP COPY DOG" << std::endl;
-	Dog d1;
-	d1.getBrain()->setIdea(0, "FUCKING HIPPIES");
-	Dog d2 = d1;
-	d2.getBrain()->setIdea(0, "I LOVE YOUR MAGIC POISON");
-	std::cout << "*** BRAIN dog_1: " << d1.getBrain()->getIdea(0) << std::endl;
-	std::cout << "*** BRAIN dog_2: " << d2.getBrain()->getIdea(0) << std::endl;
-	std::cout << std::endl;
-
-	std::cout << "DEEP COPY CAT" << std::endl;
-	Cat c1;
-	c1.getBrain()->setIdea(0, "RONRRONEO ELEVADOR DE ALMAS");
-	Cat c2 = c1;
-	c2.getBrain()->setIdea(0, "MUSIC FOR THE PEOPLE");
-	std::cout << "+++ BRAIN cat_1: " << c1.getBrain()->getIdea(0) << std::endl;
-	std::cout << "+++ BRAIN cat_2: " << c2.getBrain()->getIdea(0) << std::endl;
-	std::cout << std::endl;
 	return 0;
 }
-
-
-/* int main(void)
-{
-	std::cout << "POLIMORFISMO ANIMAL" << std::endl;
-	std::cout << "-------------------" << std::endl;
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << meta->getType() << " " << std::endl;
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	std::cout << std::endl;
-	meta->makeSound();
-	j->makeSound();
-	std::cout << j->getType() << " " << std::endl;
-	i->makeSound();
-	std::cout << std::endl;
-	delete i;
-	delete j;
-	delete meta;
-	std::cout << std::endl;
-	const WrongAnimal* wrongMeta = new WrongAnimal();
-	const WrongAnimal* wrongCat = new WrongCat();
-	std::cout << wrongMeta->getType() << " " << std::endl;
-	std::cout << wrongCat->getType() << " " << std::endl;
-	wrongMeta->makeSound();
-	wrongCat->makeSound();
-	std::cout << std::endl;
-	delete wrongCat;
-	delete wrongMeta;
-	return 0;
-} */

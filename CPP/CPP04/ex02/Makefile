@@ -14,11 +14,9 @@ RM		= rm -f
 OBJ_DIR = .obj/
 # Archivos
 SRCS =	main.cpp \
-		aAnimal.cpp \
+		AAnimal.cpp \
 		Dog.cpp \
 		Cat.cpp \
-		WrongAnimal.cpp \
-		WrongCat.cpp \
 		Brain.cpp
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
