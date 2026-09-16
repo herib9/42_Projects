@@ -1,0 +1,4 @@
+services:
+  mi-web:
+    image: alpine:latest
+    command: echo "Hola desde Docker Compose"
