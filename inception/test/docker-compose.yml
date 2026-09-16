@@ -1,4 +1,5 @@
 services:
+# Servicio 1: La base de datos
   mariadb:
     image: mariadb:latest
     environment:
@@ -7,4 +8,15 @@ services:
 
   web:
     image: alpine:latest
+    # Este comando hace ping al servicio 'mariadb' para comprobar que lo ve
     command: sh -c "apk add --no-cache mariadb-client && mysql -h mariadb -u root -pmi_super_password -e 'SHOW DATABASES;'"
+
+
+# Usamos una imagen base oficial y ligera de Alpine Linux
+# FROM alpine:latest
+
+# Instalamos el paquete curl dentro del contenedor
+# RUN apk update && apk add curl
+
+# Comando que se ejecutará por defecto cuando el contenedor arrancar
+# CMD ["echo", "¡Hola desde mi contenedor de Docker!"]*
